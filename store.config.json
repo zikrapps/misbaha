@@ -1,0 +1,26 @@
+{
+  "configVersion": 0,
+  "apple": {
+    "copyright": "2026 Zikr Apps",
+    "categories": ["LIFESTYLE"],
+    "info": {
+      "en-US": {
+        "title": "Misbaha",
+        "subtitle": "By Zikr Apps",
+        "promoText": "Tasbeeh and adhkar counter from Zikr Apps.",
+        "description": "Misbaha is a tasbeeh and adhkar counter from Zikr Apps — calm, private, and built for daily dhikr.\n\n• Count duas with tap, double-tap, or long-press\n• Morning, night, and Quranic adhkar\n• Goals, insights, and themes\n• English and Urdu\n• All counts stay on your device\n\nPublished by Zikr Apps.\nContact: salam@zikrapps.com",
+        "keywords": ["tasbeeh", "dhikr", "adhkar", "zikr", "counter", "dua", "muslim", "zikr apps"],
+        "marketingUrl": "https://zikrapps.com",
+        "supportUrl": "https://zikrapps.com",
+        "privacyPolicyUrl": "https://zikrapps.com/privacy"
+      }
+    },
+    "review": {
+      "contact": {
+        "email": "salam@zikrapps.com",
+        "firstName": "Zikr",
+        "lastName": "Apps"
+      }
+    }
+  }
+}

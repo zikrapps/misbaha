@@ -1,0 +1,53 @@
+import { Tabs, router } from 'expo-router';
+
+import { Icon, IconName } from '@/src/components/Icon';
+import { useT } from '@/src/i18n/strings';
+import { useTheme } from '@/src/theme/theme';
+
+const tabIcon = (name: IconName) =>
+  function TabIcon({ color, focused }: { color: string; focused: boolean }) {
+    return <Icon name={name} color={color} size={focused ? 25 : 22} />;
+  };
+
+export default function TabsLayout() {
+  const theme = useTheme();
+  const colors = theme.colors;
+  const t = useT();
+
+  return (
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        lazy: true,
+        tabBarActiveTintColor: colors.white,
+        tabBarInactiveTintColor: colors.sand,
+        tabBarStyle: {
+          backgroundColor: colors.oliveDeep,
+          borderTopColor: colors.oliveDark,
+          height: 76,
+          paddingBottom: 14,
+          paddingTop: 10,
+          position: 'absolute',
+        },
+        tabBarLabelStyle: {
+          fontFamily: theme.fonts.body,
+          fontSize: theme.typo.caption,
+        },
+      }}
+    >
+      <Tabs.Screen name="index" options={{ title: t.tabs.today, tabBarIcon: tabIcon('sprout') }} />
+      <Tabs.Screen name="duas" options={{ title: t.tabs.tasbeeh, tabBarIcon: tabIcon('beads') }} />
+      <Tabs.Screen
+        name="goals"
+        options={{ title: t.tabs.goals, tabBarIcon: tabIcon('goal') }}
+        listeners={{
+          tabPress: () => {
+            router.replace('/goals');
+          },
+        }}
+      />
+      <Tabs.Screen name="insights" options={{ title: t.tabs.visualize, tabBarIcon: tabIcon('visualize') }} />
+      <Tabs.Screen name="settings" options={{ href: null }} />
+    </Tabs>
+  );
+}

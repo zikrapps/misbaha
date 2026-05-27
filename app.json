@@ -1,0 +1,66 @@
+{
+  "expo": {
+    "name": "Misbaha",
+    "slug": "misbaha",
+    "scheme": "misbaha",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f8e6bd"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.misbaha.app",
+      "infoPlist": {
+        "CFBundleDisplayName": "Misbaha",
+        "NSHumanReadableCopyright": "\u00a9 Zikr Apps"
+      }
+    },
+    "android": {
+      "package": "com.misbaha.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#f8e6bd"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#f8e6bd",
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "imageWidth": 288
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false,
+          "recordAudioAndroid": false
+        }
+      ],
+      "expo-asset",
+      "expo-system-ui"
+    ],
+    "extra": {
+      "router": {},
+      "legalEntity": "Zikr Apps",
+      "supportEmail": "salam@zikrapps.com",
+      "eas": {
+        "projectId": "0fabcd69-4005-4188-bed2-fb53d6f65b9d"
+      }
+    }
+  }
+}
