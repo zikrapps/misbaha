@@ -83,7 +83,7 @@ export function DuaCounterRow({
           </View>
         </Pressable>
 
-        <View pointerEvents={passThrough ? 'none' : 'auto'} style={styles.duaArea}>
+        <View pointerEvents={passThrough ? 'box-none' : 'auto'} style={styles.duaArea}>
           <Text style={[styles.title, proseLayout(language), { color: colors.muted, fontFamily: labelFont }]}>
             {duaTitle(dua, language)}
           </Text>

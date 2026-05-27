@@ -78,6 +78,12 @@ export type Strings = {
     collapse: string;
     onQuran: string;
     onSunnah: string;
+    tileEyebrows: {
+      quranic: string;
+      prayer: string;
+      morning: string;
+      night: string;
+    };
   };
   goals: {
     title: string;
@@ -282,6 +288,12 @@ const enStrings: Strings = {
     collapse: 'Collapse dua',
     onQuran: 'on Quran.com',
     onSunnah: 'on Sunnah.com',
+    tileEyebrows: {
+      quranic: 'From the Quran',
+      prayer: 'After every salah',
+      morning: 'Begin your day',
+      night: 'Before sleep',
+    },
   },
   goals: {
     title: 'Goals',
@@ -531,6 +543,12 @@ const urStrings: Strings = {
     collapse: 'دعا بند کریں',
     onQuran: 'Quran.com پر',
     onSunnah: 'Sunnah.com پر',
+    tileEyebrows: {
+      quranic: 'قرآن سے',
+      prayer: 'ہر نماز کے بعد',
+      morning: 'اپنے دن کا آغاز',
+      night: 'سونے سے پہلے',
+    },
   },
   goals: {
     title: 'مقاصد',

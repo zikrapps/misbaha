@@ -13,12 +13,16 @@ export type IconName =
   | 'haptic'
   | 'leaf'
   | 'link'
+  | 'moonStars'
   | 'open'
   | 'plus'
+  | 'prayerMat'
+  | 'quran'
   | 'reset'
   | 'shuffle'
   | 'sound'
   | 'sprout'
+  | 'sunrise'
   | 'visualize';
 
 type IconProps = {
@@ -144,6 +148,68 @@ export function Icon({ name, color, size = 24, strokeWidth = 2.15 }: IconProps) 
         <G {...strokeProps}>
           <Path d="M5 15.5C6 7.5 13 4.5 20 5c-.3 7.2-4.5 12.2-12.6 12.3" />
           <Path d="M5 19c3-5 7.4-8 13-10" />
+        </G>
+      ) : null}
+      {name === 'quran' ? (
+        <G {...strokeProps}>
+          <Path d="M4.8 20 9 16.2M19.2 20 15 16.2" strokeWidth={1.2} />
+          <Path d="M12 8.5v9.2" />
+          <Path d="M12 9.1c-2.5-1.5-5.4-1.7-7.8 0v8.5c2.4-1.5 5.3-1.3 7.8.3" />
+          <Path d="M12 9.1c2.5-1.5 5.4-1.7 7.8 0v8.5c-2.4-1.5-5.3-1.3-7.8.3" />
+          <Path d="M5.7 11.6h4.6M5.9 13.4h4.4M5.7 15.2h4.6" strokeWidth={0.95} />
+          <Path d="M13.7 11.6h4.6M13.7 13.4h4.4M13.7 15.2h4.6" strokeWidth={0.95} />
+          <Path d="M12 6.4V3.2M8.7 6.6 7.1 4.9M15.3 6.6 16.9 4.9" strokeWidth={1.25} />
+          <Path d="M10.4 5.4 9.6 3.6M13.6 5.4l.8-1.8" strokeWidth={1.05} />
+        </G>
+      ) : null}
+      {name === 'prayerMat' ? (
+        <G {...strokeProps}>
+          <Path d="M6.6 3.8h10.8v16.4H6.6z" />
+          <Path d="M8.3 5.5h7.4v13H8.3z" strokeWidth={0.95} />
+          <Path d="M9.5 13.2V9.6a2.5 2.5 0 0 1 5 0v3.6z" strokeWidth={1.2} />
+          <Path d="M12 7.7v1.3" strokeWidth={1.05} />
+          <Path d="M11.4 9.3 12 10l.6-.7" strokeWidth={1.05} />
+          <Circle cx={12} cy={11.1} r={0.55} fill={strokeColor} stroke="none" />
+          <Path d="M9.7 15.6h4.6M10.2 17h3.6" strokeWidth={0.9} />
+          <Path d="M7.6 3.8V2.7M9.4 3.8V2.5M11.2 3.8V2.7M12.8 3.8V2.5M14.6 3.8V2.7M16.4 3.8V2.5" strokeWidth={0.95} />
+          <Path d="M7.6 20.2v1.1M9.4 20.2v1.3M11.2 20.2v1.1M12.8 20.2v1.3M14.6 20.2v1.1M16.4 20.2v1.3" strokeWidth={0.95} />
+        </G>
+      ) : null}
+      {name === 'sunrise' ? (
+        <G {...strokeProps}>
+          <Path d="M2 19h20" />
+          <Path d="M3.5 19c1.4-2 2.9-2 4.4 0M8.5 19c1.5-2.6 3.4-2.6 5 0M14 19c1-1.5 2.4-1.5 3.4 0" strokeWidth={1.05} />
+          <Path d="M7 19a5 5 0 0 1 10 0" />
+          <Path d="M9.3 19a2.7 2.7 0 0 1 5.4 0" strokeWidth={1.15} />
+          <Path d="M12 9V5.6" strokeWidth={1.35} />
+          <Path d="M7.3 11 5.6 9.3M16.7 11l1.7-1.7" strokeWidth={1.35} />
+          <Path d="M3.8 14.4H1.8M22.2 14.4h-2" strokeWidth={1.35} />
+          <Path d="M4.6 11.9 3.2 11.2M19.4 11.9l1.4-.7" strokeWidth={1.15} />
+          <Path d="M9.4 9.8 8.7 8M14.6 9.8l.7-1.8" strokeWidth={1.15} />
+        </G>
+      ) : null}
+      {name === 'moonStars' ? (
+        <G {...strokeProps}>
+          <Path d="M17 4.2a7.8 7.8 0 1 0 0 15.6 6 6 0 0 1 0-15.6z" />
+          <Path d="M15.6 8.4a3.6 3.6 0 0 0 0 7.2" strokeWidth={1.0} />
+          <Path
+            d="m6.6 6.5.65 1.7 1.7.65-1.7.65-.65 1.7-.65-1.7L4.25 8.85l1.7-.65z"
+            fill={strokeColor}
+            stroke="none"
+          />
+          <Path
+            d="m4 14.2.45 1.15 1.15.45-1.15.45-.45 1.15-.45-1.15L2.4 15.8l1.15-.45z"
+            fill={strokeColor}
+            stroke="none"
+          />
+          <Path
+            d="m9.4 18.2.35.9.9.35-.9.35-.35.9-.35-.9-.9-.35.9-.35z"
+            fill={strokeColor}
+            stroke="none"
+          />
+          <Circle cx={9.5} cy={4.6} r={0.65} fill={strokeColor} stroke="none" />
+          <Circle cx={2.6} cy={10.5} r={0.55} fill={strokeColor} stroke="none" />
+          <Circle cx={11.2} cy={11.4} r={0.45} fill={strokeColor} stroke="none" />
         </G>
       ) : null}
     </Svg>
