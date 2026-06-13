@@ -1,10 +1,11 @@
 import { goalsLocaleUr } from '@/src/data/goalsLocale.ur';
+import { goalLibraryLocaleUr } from '@/src/data/goalLibraryLocale.ur';
 import { formatNumber } from '@/src/i18n/format';
 import { getStrings } from '@/src/i18n/strings';
 import { GoalPlan, Language } from '@/src/types/misbaha';
 
 function urduLocale(goal: GoalPlan) {
-  return goalsLocaleUr[goal.id];
+  return goalsLocaleUr[goal.id] ?? goalLibraryLocaleUr[goal.id];
 }
 
 export function goalTitle(goal: GoalPlan, language: Language): string {

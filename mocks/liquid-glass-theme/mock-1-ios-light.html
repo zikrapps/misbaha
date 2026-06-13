@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 1 — iOS Light Liquid Glass</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        align-items: center;
+        background: radial-gradient(circle at 50% 0%, #1c1c1e, #000);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin: 0;
+        min-height: 100vh;
+        padding: 28px 16px 40px;
+      }
+      .caption {
+        color: #98989d;
+        font: 14px/1.55 -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+        margin: 0;
+        max-width: 390px;
+        text-align: center;
+      }
+      .phone {
+        border: 3px solid #3a3a3c;
+        border-radius: 48px;
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.06),
+          0 32px 80px rgba(0, 0, 0, 0.65);
+        height: 844px;
+        overflow: hidden;
+        position: relative;
+        width: 390px;
+      }
+      .mesh {
+        background:
+          radial-gradient(ellipse 80% 60% at 15% 20%, rgba(120, 180, 255, 0.55) 0%, transparent 55%),
+          radial-gradient(ellipse 70% 55% at 85% 15%, rgba(200, 140, 255, 0.45) 0%, transparent 50%),
+          radial-gradient(ellipse 90% 70% at 50% 85%, rgba(255, 160, 200, 0.4) 0%, transparent 55%),
+          linear-gradient(160deg, #e8f0ff 0%, #f0e8ff 35%, #ffe8f4 70%, #e8f4ff 100%);
+        inset: 0;
+        position: absolute;
+      }
+      .mesh-blob {
+        animation: drift 12s ease-in-out infinite alternate;
+        background: radial-gradient(circle, rgba(0, 122, 255, 0.25) 0%, transparent 70%);
+        border-radius: 50%;
+        filter: blur(40px);
+        height: 280px;
+        left: -40px;
+        position: absolute;
+        top: 120px;
+        width: 280px;
+      }
+      .mesh-blob.b2 {
+        animation-delay: -4s;
+        background: radial-gradient(circle, rgba(191, 90, 242, 0.22) 0%, transparent 70%);
+        left: auto;
+        right: -60px;
+        top: 380px;
+      }
+      @keyframes drift {
+        from { transform: translate(0, 0) scale(1); }
+        to { transform: translate(20px, -15px) scale(1.08); }
+      }
+      .glass {
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        background: rgba(255, 255, 255, 0.28);
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.7) inset,
+          0 8px 32px rgba(0, 0, 0, 0.06),
+          0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+      .glass-strong {
+        backdrop-filter: blur(48px) saturate(200%);
+        -webkit-backdrop-filter: blur(48px) saturate(200%);
+        background: rgba(255, 255, 255, 0.38);
+        border: 1px solid rgba(255, 255, 255, 0.65);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.85) inset,
+          0 12px 40px rgba(0, 0, 0, 0.08);
+      }
+      .content {
+        color: #1d1d1f;
+        display: flex;
+        flex-direction: column;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+        gap: 14px;
+        height: 100%;
+        overflow: hidden;
+        padding: 58px 16px 100px;
+        position: relative;
+        z-index: 1;
+      }
+      .header h1 {
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: -0.6px;
+        margin: 0;
+      }
+      .header p { color: rgba(29, 29, 31, 0.55); font-size: 15px; margin: 2px 0 0; }
+      .stats { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+      .card {
+        border-radius: 20px;
+        padding: 16px;
+      }
+      .card .label {
+        color: rgba(29, 29, 31, 0.45);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+      }
+      .card .value {
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+        font-size: 30px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        margin-top: 4px;
+      }
+      .section {
+        color: rgba(29, 29, 31, 0.45);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin: 4px 0 0;
+        text-transform: uppercase;
+      }
+      .goal {
+        border-radius: 22px;
+        padding: 18px;
+      }
+      .goal .badge {
+        backdrop-filter: blur(20px);
+        background: rgba(0, 122, 255, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 999px;
+        box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+        color: #fff;
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 12px;
+      }
+      .goal h3 {
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+        margin: 10px 0 6px;
+      }
+      .goal p { color: rgba(29, 29, 31, 0.6); font-size: 13px; line-height: 1.5; margin: 0; }
+      .tabbar {
+        backdrop-filter: blur(48px) saturate(200%);
+        -webkit-backdrop-filter: blur(48px) saturate(200%);
+        background: rgba(255, 255, 255, 0.42);
+        border-top: 1px solid rgba(255, 255, 255, 0.6);
+        bottom: 0;
+        box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.5) inset;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        left: 0;
+        padding: 10px 8px 26px;
+        position: absolute;
+        right: 0;
+        z-index: 2;
+      }
+      .tab { color: rgba(29, 29, 31, 0.4); font-size: 10px; font-weight: 500; text-align: center; }
+      .tab.active { color: #007aff; font-weight: 600; }
+      .tab .dot {
+        background: currentColor;
+        border-radius: 50%;
+        height: 5px;
+        margin: 0 auto 5px;
+        width: 5px;
+      }
+      .tag {
+        backdrop-filter: blur(16px);
+        background: rgba(0, 122, 255, 0.15);
+        border: 1px solid rgba(0, 122, 255, 0.3);
+        border-radius: 999px;
+        color: #6ea8ff;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        padding: 6px 14px;
+        text-transform: uppercase;
+      }
+      .status-bar {
+        color: #1d1d1f;
+        display: flex;
+        font-size: 14px;
+        font-weight: 600;
+        justify-content: space-between;
+        left: 0;
+        padding: 14px 28px 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 3;
+      }
+      .dynamic-island {
+        background: #1d1d1f;
+        border-radius: 20px;
+        height: 34px;
+        left: 50%;
+        position: absolute;
+        top: 12px;
+        transform: translateX(-50%);
+        width: 120px;
+        z-index: 4;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="tag">Mock 1 — iOS Light</span>
+    <div class="phone">
+      <div class="mesh"></div>
+      <div class="mesh-blob"></div>
+      <div class="mesh-blob b2"></div>
+      <div class="dynamic-island"></div>
+      <div class="status-bar">
+        <span>9:41</span>
+        <span>●●●</span>
+      </div>
+      <div class="content">
+        <div class="header">
+          <h1>Today</h1>
+          <p>Sunday, 7 June · 847 taps</p>
+        </div>
+        <div class="stats">
+          <div class="card glass">
+            <div class="label">Today's taps</div>
+            <div class="value">847</div>
+          </div>
+          <div class="card glass">
+            <div class="label">Lifetime</div>
+            <div class="value">12,403</div>
+          </div>
+        </div>
+        <div class="section">Goal focus</div>
+        <div class="goal glass-strong">
+          <span class="badge">32%</span>
+          <h3>Morning adhkar</h3>
+          <p>Day 4 of 10 · SubhanAllah wa bihamdihi — 33 remaining today</p>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab active"><div class="dot"></div>Today</div>
+        <div class="tab"><div class="dot"></div>Tasbeeh</div>
+        <div class="tab"><div class="dot"></div>Goals</div>
+        <div class="tab"><div class="dot"></div>Visualize</div>
+      </div>
+    </div>
+    <p class="caption">SF Pro on pastel mesh. Milky glass panels with luminous rims — Apple's daylight liquid glass.</p>
+  </body>
+</html>

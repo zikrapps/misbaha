@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 4 — Grid tile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --ink: #372c24; --muted: #867b6b; --cream: #f7f0df; --parchment: #fbf6e8;
+        --sand: #e7d7b0; --card: #fffaf0; --olive: #6f8f4e; --olive-dark: #2d4a22;
+        --olive-deep: #213a18; --line: #ded1b2;
+      }
+      * { box-sizing: border-box; }
+      body {
+        align-items: center;
+        background: #12100e;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin: 0;
+        min-height: 100vh;
+        padding: 32px 16px 48px;
+      }
+      .back { align-self: flex-start; color: #8fa367; font-family: 'Instrument Sans', sans-serif; font-size: 14px; margin-left: max(0px, calc(50% - 195px)); text-decoration: none; }
+      .caption { color: #b8a88a; font-family: 'Source Serif 4', Georgia, serif; font-size: 15px; line-height: 1.55; margin: 0; max-width: 390px; text-align: center; }
+      .phone { background: var(--cream); border: 3px solid #3d342c; border-radius: 44px; box-shadow: 0 32px 80px rgba(0,0,0,0.55); height: 780px; overflow: hidden; position: relative; width: 390px; }
+      .scroll { display: flex; flex-direction: column; gap: 16px; height: 100%; overflow: hidden; padding: 54px 20px 90px; }
+      .header h1 { color: var(--ink); font-family: 'Source Serif 4', Georgia, serif; font-size: 32px; margin: 0; }
+      .header p { color: var(--muted); font-size: 15px; margin: 4px 0 8px; }
+      .section { color: var(--muted); font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; margin: 8px 0 0; text-transform: uppercase; }
+      .surprise { background: var(--olive-deep); border-radius: 16px; display: flex; gap: 14px; padding: 20px; }
+      .surprise h3 { color: var(--card); font-family: 'Instrument Sans', sans-serif; font-size: 18px; margin: 0; }
+      .grid { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+      .goal-tile { background: var(--parchment); border: 1px solid var(--line); border-radius: 14px; height: 118px; opacity: 0.55; }
+      /* ── mock 4: grid tile ── */
+      .new-tile {
+        align-items: center;
+        background: transparent;
+        border: 2px dashed var(--olive);
+        border-radius: 14px;
+        color: var(--olive-dark);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        height: 118px;
+        justify-content: center;
+        padding: 12px;
+      }
+      .new-tile .plus {
+        align-items: center;
+        border: 1.5px solid var(--olive);
+        border-radius: 50%;
+        color: var(--olive);
+        display: flex;
+        font-size: 22px;
+        font-weight: 700;
+        height: 40px;
+        justify-content: center;
+        width: 40px;
+      }
+      .new-tile span { font-family: 'Instrument Sans', sans-serif; font-size: 12px; font-weight: 600; line-height: 1.25; text-align: center; }
+      .highlight { outline: 3px solid #c4e088; outline-offset: 3px; }
+      .tabbar { background: rgba(251,246,232,0.95); border-top: 1px solid var(--line); bottom: 0; display: flex; height: 72px; justify-content: space-around; left: 0; padding-top: 10px; position: absolute; right: 0; }
+      .tab { background: var(--line); border-radius: 4px; height: 8px; width: 48px; }
+      .tab.on { background: var(--olive); }
+    </style>
+  </head>
+  <body>
+    <a class="back" href="index.html">← All mocks</a>
+    <p class="caption"><strong>Mock 4 — Grid tile.</strong> Same footprint as a goal card — dashed slot in the 2-column grid so “new plan” reads as another goal, not a footer bar.</p>
+    <div class="phone">
+      <div class="scroll">
+        <div class="header"><h1>Goals</h1><p>Plans to stay consistent with dhikr.</p></div>
+        <div class="surprise"><div><h3>Surprise new goal</h3></div></div>
+        <div class="section">Suggested</div>
+        <div class="grid">
+          <div class="goal-tile"></div>
+          <button type="button" class="new-tile highlight">
+            <span class="plus">+</span>
+            <span>Plan a new goal</span>
+          </button>
+        </div>
+      </div>
+      <div class="tabbar"><span class="tab"></span><span class="tab"></span><span class="tab on"></span><span class="tab"></span><span class="tab"></span></div>
+    </div>
+  </body>
+</html>

@@ -5,7 +5,16 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { dailyGoal } from '@/src/data/dailyGoal';
 import { presetGoals } from '@/src/data/presetGoals';
 import { normalizeThemeId } from '@/src/theme/palette';
-import { CountEvent, GoalPlan, GoalProgress, Language, normalizeLanguage, ThemeId } from '@/src/types/misbaha';
+import {
+  CountEvent,
+  GoalPlan,
+  GoalProgress,
+  Language,
+  normalizeLanguage,
+  normalizeVisualization,
+  ThemeId,
+  VisualizationMode,
+} from '@/src/types/misbaha';
 import { todayKey } from './date';
 
 type CountsByDua = Record<string, number>;
@@ -20,6 +29,7 @@ type MisbahaState = {
   tapWeight: number;
   themeId: ThemeId;
   language: Language;
+  visualization: VisualizationMode;
   clickSoundEnabled: boolean;
   hapticsEnabled: boolean;
   tutorialCompleted: boolean;
@@ -31,6 +41,7 @@ type MisbahaState = {
   setTapWeight: (tapWeight: number) => void;
   setThemeId: (themeId: ThemeId) => void;
   setLanguage: (language: Language) => void;
+  setVisualization: (visualization: VisualizationMode) => void;
   setClickSoundEnabled: (enabled: boolean) => void;
   setHapticsEnabled: (enabled: boolean) => void;
   openTutorial: () => void;
@@ -105,6 +116,7 @@ export function migratePersistedState(persisted: unknown) {
     ...raw,
     themeId: raw.themeId ? normalizeThemeId(String(raw.themeId)) : raw.themeId,
     language: normalizeLanguage(raw.language as Language | undefined),
+    visualization: normalizeVisualization(raw.visualization as string | undefined),
     counts: raw.counts !== undefined ? safeNumberRecord(raw.counts) : raw.counts,
     dailyCounts: raw.dailyCounts !== undefined ? safeDailyCounts(raw.dailyCounts) : raw.dailyCounts,
     goalProgress: raw.goalProgress !== undefined ? safeGoalProgress(raw.goalProgress) : raw.goalProgress,
@@ -128,6 +140,7 @@ export const useMisbahaStore = create<MisbahaState>()(
       tapWeight: 1,
       themeId: 'garden',
       language: 'en',
+      visualization: 'garden',
       clickSoundEnabled: true,
       hapticsEnabled: true,
       tutorialCompleted: false,
@@ -172,6 +185,7 @@ export const useMisbahaStore = create<MisbahaState>()(
       setTapWeight: (tapWeight) => set({ tapWeight: clampTapWeight(tapWeight) }),
       setThemeId: (themeId) => set({ themeId: normalizeThemeId(themeId) }),
       setLanguage: (language) => set({ language: normalizeLanguage(language) }),
+      setVisualization: (visualization) => set({ visualization: normalizeVisualization(visualization) }),
       setClickSoundEnabled: (clickSoundEnabled) => set({ clickSoundEnabled }),
       setHapticsEnabled: (hapticsEnabled) => set({ hapticsEnabled }),
       openTutorial: () =>
@@ -185,7 +199,8 @@ export const useMisbahaStore = create<MisbahaState>()(
           goals: [goal, ...state.goals.filter((existing) => existing.id !== goal.id)],
         })),
       startGoal: (goal, date = todayKey()) => {
-        const id = goal.id.startsWith('preset-') ? `${goal.id}-${Date.now()}` : goal.id;
+        const id =
+          goal.id.startsWith('preset-') || goal.id.startsWith('lib-') ? `${goal.id}-${Date.now()}` : goal.id;
         const startedGoal = { ...goal, id, createdAt: Date.now(), startedAt: date, preset: false };
         get().saveGoal(startedGoal);
         return id;
@@ -208,7 +223,7 @@ export const useMisbahaStore = create<MisbahaState>()(
     }),
     {
       name: 'misbaha-store',
-      version: 3,
+      version: 5,
       migrate: (persisted) => migratePersistedState(persisted),
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (state) => ({
@@ -220,6 +235,7 @@ export const useMisbahaStore = create<MisbahaState>()(
         tapWeight: state.tapWeight,
         themeId: state.themeId,
         language: state.language,
+        visualization: state.visualization,
         clickSoundEnabled: state.clickSoundEnabled,
         hapticsEnabled: state.hapticsEnabled,
         tutorialCompleted: state.tutorialCompleted,

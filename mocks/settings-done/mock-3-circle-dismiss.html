@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 3 — Circle dismiss</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --ink: #372c24; --muted: #867b6b; --cream: #f7f0df; --parchment: #fbf6e8;
+        --sand: #e7d7b0; --card: #fffaf0; --olive: #6f8f4e; --olive-dark: #2d4a22;
+        --olive-deep: #213a18; --line: #ded1b2;
+      }
+      * { box-sizing: border-box; }
+      body {
+        align-items: center;
+        background: #12100e;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin: 0;
+        min-height: 100vh;
+        padding: 32px 16px 48px;
+      }
+      .back {
+        align-self: flex-start;
+        color: #8fa367;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 14px;
+        margin-left: max(0px, calc(50% - 195px));
+        text-decoration: none;
+      }
+      .caption {
+        color: #b8a88a;
+        font-family: 'Source Serif 4', Georgia, serif;
+        font-size: 15px;
+        line-height: 1.55;
+        margin: 0;
+        max-width: 390px;
+        text-align: center;
+      }
+      .phone {
+        background: var(--cream);
+        border: 3px solid #3d342c;
+        border-radius: 44px;
+        box-shadow: 0 32px 80px rgba(0,0,0,0.55);
+        height: 780px;
+        overflow: hidden;
+        position: relative;
+        width: 390px;
+      }
+      .scroll {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        height: 100%;
+        overflow: hidden;
+        padding: 54px 20px 40px;
+      }
+      /* ── mock 3: circle dismiss ── */
+      .header-row {
+        align-items: flex-start;
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+      }
+      .header-row h1 {
+        color: var(--ink);
+        font-family: 'Source Serif 4', Georgia, serif;
+        font-size: 32px;
+        margin: 0;
+      }
+      .header-row .subtitle { color: var(--muted); font-size: 15px; margin: 4px 0 0; }
+      .circle-dismiss {
+        align-items: center;
+        background: var(--parchment);
+        border: 1.5px solid var(--line);
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(55,44,36,0.08);
+        color: var(--olive-dark);
+        display: flex;
+        flex-shrink: 0;
+        font-size: 18px;
+        font-weight: 700;
+        height: 44px;
+        justify-content: center;
+        width: 44px;
+      }
+      .highlight { outline: 3px solid #c4e088; outline-offset: 4px; }
+      .card {
+        background: var(--parchment);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 20px;
+      }
+      .card .section {
+        color: var(--muted);
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
+      .dial { background: var(--line); border-radius: 999px; height: 12px; margin: 16px auto; width: 70%; }
+      .ghost { background: var(--parchment); border: 1px solid var(--line); border-radius: 12px; height: 56px; opacity: 0.6; }
+      .a11y {
+        color: var(--muted);
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11px;
+        margin-top: -8px;
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="back" href="index.html">← All mocks</a>
+    <p class="caption"><strong>Mock 3 — Circle dismiss.</strong> 44×44 checkmark circle — icon-only with accessibility label “Done”. Maximum room for settings content.</p>
+    <div class="phone">
+      <div class="scroll">
+        <div class="header-row">
+          <div>
+            <h1>Settings</h1>
+            <p class="subtitle">Tap weight, theme, and language.</p>
+          </div>
+          <button type="button" class="circle-dismiss highlight" aria-label="Done">✓</button>
+        </div>
+        <p class="a11y">accessibilityLabel: Done</p>
+        <div class="card">
+          <div class="section">Count per tap</div>
+          <div class="dial"></div>
+        </div>
+        <div class="ghost"></div>
+        <div class="ghost"></div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,3 +1,4 @@
+import { BadgeFamilyId, BadgeMetric } from '@/src/data/badges';
 import { formatNumber } from '@/src/i18n/format';
 import { useMisbahaStore } from '@/src/store/useMisbahaStore';
 import { Language, normalizeLanguage, ThemeId } from '@/src/types/misbaha';
@@ -66,6 +67,12 @@ export type Strings = {
     morningAdhkar: string;
     nightAdhkar: string;
     quranicDuas: string;
+    salahDuas: string;
+    reliefDuas: string;
+    remembranceDuas: string;
+    heartDuas: string;
+    dailyDuas: string;
+    ramadanDuas: string;
     notFound: string;
     back: string;
     counterHint: string;
@@ -83,7 +90,26 @@ export type Strings = {
       prayer: string;
       morning: string;
       night: string;
+      salah: string;
+      relief: string;
+      remembrance: string;
+      heart: string;
+      daily: string;
+      ramadan: string;
     };
+    tileDescriptions: {
+      quranic: string;
+      prayer: string;
+      morning: string;
+      night: string;
+      salah: string;
+      relief: string;
+      remembrance: string;
+      heart: string;
+      daily: string;
+      ramadan: string;
+    };
+    tileDuaCount: (count: number) => string;
   };
   goals: {
     title: string;
@@ -93,11 +119,21 @@ export type Strings = {
     suggestedHint: string;
     empty: string;
     planNew: string;
+    planNewHint: string;
     surpriseNewGoal: string;
     surpriseNewGoalHint: string;
     todayLabel: string;
     dayProgress: (current: number, total: number, done: number) => string;
     durationDays: (days: number) => string;
+    goalLibrary: {
+      title: string;
+      hint: string;
+      oneDay: string;
+      weekly: string;
+      thirtyDay: string;
+      ayyamBeed: string;
+      newMoon: string;
+    };
   };
   goalDetail: {
     notFound: string;
@@ -160,6 +196,25 @@ export type Strings = {
     todayLabel: string;
     tasbeehByPrayer: string;
   };
+  badges: {
+    title: string;
+    progress: (earned: number, total: number) => string;
+    revealHint: string;
+    earnedCount: (count: number) => string;
+    empty: string;
+    viewEarned: string;
+    viewAll: string;
+    earnedTitle: string;
+    allTitle: string;
+    none: string;
+    lockedLabel: string;
+    earnedLabel: string;
+    setDivider: (n: number) => string;
+    unlockTitle: string;
+    unlockCta: string;
+    names: Record<BadgeFamilyId, { first: string; tiered: string }>;
+    descriptions: Record<BadgeMetric, (n: number) => string>;
+  };
   garden: {
     lifetime: string;
     barren: string;
@@ -169,6 +224,35 @@ export type Strings = {
     barrenRanges: string;
     mountainRanges: (count: number) => string;
     oneRange: string;
+    yourGarden: string;
+    todaysGrowth: string;
+    dhikrWord: string;
+    ofGoal: string;
+  };
+  journey: {
+    modeGarden: string;
+    modeEarth: string;
+    modeSpace: string;
+    yourEarth: string;
+    yourCosmos: string;
+    earthLabel: string;
+    spaceLabel: string;
+    walked: string;
+    risen: string;
+    fromMakkah: string;
+    begin: string;
+    reached: (label: string) => string;
+    remainingTo: (distance: string, label: string) => string;
+    inDhikr: (time: string) => string;
+    units: { m: string; km: string; million: string };
+    duration: {
+      days: (n: number) => string;
+      hours: (n: number) => string;
+      minutes: (n: number) => string;
+      seconds: (n: number) => string;
+    };
+    earthMilestones: Record<string, string>;
+    spaceMilestones: Record<string, string>;
   };
   settings: {
     title: string;
@@ -192,6 +276,9 @@ export type Strings = {
     resetConfirmAction: string;
     language: string;
     languageHint: string;
+    restartTitle: string;
+    restartBody: string;
+    restartAction: string;
     about: string;
     publishedBy: (entity: string) => string;
     contact: string;
@@ -276,6 +363,12 @@ const enStrings: Strings = {
     morningAdhkar: 'Adhkar Subha',
     nightAdhkar: 'Adhkar Layl',
     quranicDuas: 'Quranic Duas',
+    salahDuas: 'In Prayer',
+    reliefDuas: 'Hardship & Relief',
+    remembranceDuas: 'Praise & Dhikr',
+    heartDuas: 'Heart & Faith',
+    dailyDuas: 'Through the Day',
+    ramadanDuas: 'Fasting & Ramadan',
     notFound: 'Dua not found.',
     back: 'Back',
     counterHint: 'tap, double-tap, or hold the dua to count',
@@ -293,7 +386,26 @@ const enStrings: Strings = {
       prayer: 'After every salah',
       morning: 'Begin your day',
       night: 'Before sleep',
+      salah: 'Within your salah',
+      relief: 'In times of hardship',
+      remembrance: 'Glorify and remember',
+      heart: 'Love and steadfastness',
+      daily: 'Daily occasions',
+      ramadan: 'Sawm and Ramadan',
     },
+    tileDescriptions: {
+      quranic: 'Supplications taught in the Quran',
+      prayer: 'Recite after each obligatory prayer',
+      morning: 'Morning remembrance and protection',
+      night: 'Evening remembrance before rest',
+      salah: 'Said during the prayer itself',
+      relief: 'Turn to Allah in difficulty',
+      remembrance: 'Tasbih, tahmid, and takbir',
+      heart: 'Faith, gratitude, and a firm heart',
+      daily: 'Duas for everyday moments',
+      ramadan: 'Fasting and the blessed month',
+    },
+    tileDuaCount: (count) => `${formatNumber(count)} duas`,
   },
   goals: {
     title: 'Goals',
@@ -303,11 +415,21 @@ const enStrings: Strings = {
     suggestedHint: 'Plans you have not started yet.',
     empty: 'No active plans yet — start a suggested goal or create your own.',
     planNew: 'Plan a new goal',
+    planNewHint: 'Custom duration and daily dhikr',
     surpriseNewGoal: 'Surprise new goal',
     surpriseNewGoalHint: 'Random plan · 1–30 days',
     todayLabel: 'Today',
     dayProgress: (current, total, done) => `Day ${formatNumber(current)}/${formatNumber(total)} · ${formatNumber(done)} done`,
     durationDays: (days) => `${formatNumber(days)} days`,
+    goalLibrary: {
+      title: 'Goal library',
+      hint: 'Each plan shuffles duas and tasbeeh across its days.',
+      oneDay: 'One-day goals',
+      weekly: 'Weekly goals',
+      thirtyDay: '30-day goals',
+      ayyamBeed: 'Ayyam al-Beed',
+      newMoon: 'New moon goals',
+    },
   },
   goalDetail: {
     notFound: 'Goal not found',
@@ -370,6 +492,47 @@ const enStrings: Strings = {
     todayLabel: 'today',
     tasbeehByPrayer: 'All tasbeehs by prayer direction',
   },
+  badges: {
+    title: 'Badges',
+    progress: (earned, total) => `${formatNumber(earned)} of ${formatNumber(total)} badges earned`,
+    revealHint: 'Earn all ten badges to reveal the next ten.',
+    earnedCount: (count) => (count === 1 ? '1 badge earned' : `${formatNumber(count)} badges earned`),
+    empty: 'Count a tasbeeh or finish a goal to earn your first badge.',
+    viewEarned: 'Badges earned',
+    viewAll: 'All badges',
+    earnedTitle: 'Badges earned',
+    allTitle: 'All badges',
+    none: 'No badges earned yet — start counting to unlock your first.',
+    lockedLabel: 'Locked',
+    earnedLabel: 'Earned',
+    setDivider: (n) => `Set ${formatNumber(n)} of 20`,
+    unlockTitle: 'New badge earned!',
+    unlockCta: 'Continue',
+    names: {
+      bead: { first: 'First bead', tiered: 'Bead keeper' },
+      praise: { first: 'Hundred praises', tiered: 'Daily praise' },
+      rays: { first: 'Week of light', tiered: 'Days of light' },
+      moon: { first: 'Full moon', tiered: 'Moonlit streak' },
+      fruit: { first: 'First fruit', tiered: 'Harvest' },
+      plant: { first: 'Gardener', tiered: 'Gardener' },
+      dawn: { first: 'Dawn reciter', tiered: 'Dawn reciter' },
+      lantern: { first: 'Night lantern', tiered: 'Night lantern' },
+      burst: { first: 'Thousand lights', tiered: 'Sea of lights' },
+      compass: { first: 'Explorer', tiered: 'Explorer' },
+    },
+    descriptions: {
+      tasbeehs: (n) => (n === 1 ? 'Complete your first tasbeeh' : `Complete ${formatNumber(n)} tasbeehs`),
+      bestDay: (n) => `Count ${formatNumber(n)} dhikr in one day`,
+      activeDays: (n) => `Count dhikr on ${formatNumber(n)} days`,
+      bestStreak: (n) => `Keep a ${formatNumber(n)}-day streak`,
+      goalsCompleted: (n) => (n === 1 ? 'Complete your first goal' : `Complete ${formatNumber(n)} goals`),
+      goalDays: (n) => `Meet ${formatNumber(n)} goal-day targets`,
+      morningDays: (n) => `Morning adhkar on ${formatNumber(n)} days`,
+      eveningDays: (n) => `Evening adhkar on ${formatNumber(n)} nights`,
+      lifetime: (n) => `Reach ${formatNumber(n)} lifetime counts`,
+      distinctDuas: (n) => `Recite ${formatNumber(n)} different duas`,
+    },
+  },
   garden: {
     lifetime: 'Lifetime',
     barren: 'Barren slopes — reach 100 on a dua to plant a tree',
@@ -380,6 +543,51 @@ const enStrings: Strings = {
     barrenRanges: 'barren ranges — keep counting to plant across the vista',
     mountainRanges: (count) => `${formatNumber(count)} mountain ranges`,
     oneRange: '1 range',
+    yourGarden: 'Your garden',
+    todaysGrowth: "Today's Growth",
+    dhikrWord: 'dhikr',
+    ofGoal: 'Of goal',
+  },
+  journey: {
+    modeGarden: 'Garden',
+    modeEarth: 'Earth',
+    modeSpace: 'Cosmos',
+    yourEarth: 'Your earth',
+    yourCosmos: 'Your cosmos',
+    earthLabel: 'Walking from Makkah',
+    spaceLabel: 'Rising from Makkah',
+    walked: 'You have walked',
+    risen: 'You have risen',
+    fromMakkah: 'Setting out from Makkah',
+    begin: 'Begin your dhikr to set out from Makkah',
+    reached: (label) => `You have reached ${label}`,
+    remainingTo: (distance, label) => `${distance} to reach ${label}`,
+    inDhikr: (time) => `≈ ${time} in dhikr`,
+    units: { m: 'm', km: 'km', million: 'million km' },
+    duration: {
+      days: (n) => `${formatNumber(n)} ${n === 1 ? 'day' : 'days'}`,
+      hours: (n) => `${formatNumber(n)} ${n === 1 ? 'hour' : 'hours'}`,
+      minutes: (n) => `${formatNumber(n)} ${n === 1 ? 'minute' : 'minutes'}`,
+      seconds: (n) => `${formatNumber(n)} ${n === 1 ? 'second' : 'seconds'}`,
+    },
+    earthMilestones: {
+      madinah: 'Madinah',
+      quds: 'Al-Quds',
+      istanbul: 'Istanbul',
+      delhi: 'Delhi',
+      cordoba: 'Córdoba',
+      jakarta: 'Jakarta',
+      newYork: 'New York',
+      aroundEarth: 'Once around the Earth',
+    },
+    spaceMilestones: {
+      atmosphere: 'Edge of the sky',
+      lowOrbit: 'Low orbit',
+      geoOrbit: 'Geostationary orbit',
+      moon: 'The Moon',
+      mars: 'Mars',
+      sun: 'The Sun',
+    },
   },
   settings: {
     title: 'Settings',
@@ -403,6 +611,10 @@ const enStrings: Strings = {
     resetConfirmAction: 'Reset counters',
     language: 'Language',
     languageHint: 'Choose the language for app labels and text.',
+    restartTitle: 'Restart required',
+    restartBody:
+      'Fully close the app and open it again once to finish resetting the layout engine. After that, Urdu text should align from the right.',
+    restartAction: 'Reload now',
     about: 'About',
     publishedBy: (entity) => `Published by ${entity}`,
     contact: 'Contact',
@@ -428,6 +640,10 @@ const enStrings: Strings = {
       name: 'Parchment',
       description: 'Warm grey parchment — ink on paper, entirely greyscale.',
     },
+    fadedGold: {
+      name: 'Faded Gold',
+      description: 'Sun-bleached champagne — dusty wheat tones and quiet ceremonial warmth.',
+    },
   },
   tutorial: {
     skip: 'Skip',
@@ -437,7 +653,7 @@ const enStrings: Strings = {
     steps: {
       welcome: {
         title: 'Welcome to Misbaha',
-        body: 'A calm counter for tasbeeh, daily goals, and a growing garden of dhikr. This quick tour shows how to count and navigate.',
+        body: 'A calm counter for tasbeeh, daily goals, and visual journeys through dhikr. This quick tour shows how to count and navigate.',
       },
       expand: {
         title: 'Expand a dua',
@@ -449,7 +665,7 @@ const enStrings: Strings = {
       },
       duaDetail: {
         title: 'Full dua screen',
-        body: 'Open a dua for the full view. Tap once to count, double-tap for two, or press and hold for a steady count.',
+        body: 'Open a dua for the full view. Tap, double-tap, or press and hold anywhere to count — each adds your count-per-tap setting.',
       },
       goals: {
         title: 'Goals & plans',
@@ -464,12 +680,12 @@ const enStrings: Strings = {
         body: 'The Today tab shows your taps for the day, lifetime total, goal focus tiles, and an hourly activity chart.',
       },
       visualize: {
-        title: 'Visualize your garden',
-        body: 'Visualize turns lifetime counts into trees and mountain ranges — every 100 on a dua plants another tree.',
+        title: 'Three ways to visualize',
+        body: 'On Visualize, switch between Garden, Earth, and Cosmos. Lifetime dhikr grows trees, walks the world from Makkah, or lifts you into space.',
       },
       settings: {
         title: 'Tune your counter',
-        body: 'In Settings, set count per tap, theme, language, click sound, and haptics. Replay this tutorial anytime.',
+        body: 'In Settings, drag the count-per-tap dial or tap a preset, then pick theme, language, click sound, and haptics. Replay this tutorial anytime.',
       },
     },
   },
@@ -531,6 +747,12 @@ const urStrings: Strings = {
     morningAdhkar: 'اذکارِ صبح',
     nightAdhkar: 'اذکارِ شب',
     quranicDuas: 'قرآنی دعائیں',
+    salahDuas: 'نماز میں',
+    reliefDuas: 'مصیبت اور راحت',
+    remembranceDuas: 'حمد و ذکر',
+    heartDuas: 'دل اور ایمان',
+    dailyDuas: 'روزمرہ کی دعائیں',
+    ramadanDuas: 'روزہ اور رمضان',
     notFound: 'دعا نہیں ملی۔',
     back: 'واپس',
     counterHint: 'شمار کے لیے دعا پر ٹیپ، دو بار ٹیپ، یا دبائیں',
@@ -548,7 +770,26 @@ const urStrings: Strings = {
       prayer: 'ہر نماز کے بعد',
       morning: 'اپنے دن کا آغاز',
       night: 'سونے سے پہلے',
+      salah: 'اپنی نماز میں',
+      relief: 'مشکل کے وقت',
+      remembrance: 'اللہ کی حمد و ذکر',
+      heart: 'محبت اور ثابت قدمی',
+      daily: 'روزمرہ کے مواقع',
+      ramadan: 'روزہ اور رمضان',
     },
+    tileDescriptions: {
+      quranic: 'قرآن میں سکھائی گئی دعائیں',
+      prayer: 'ہر فرض نماز کے بعد پڑھیں',
+      morning: 'صبح کا ذکر اور حفاظت',
+      night: 'آرام سے پہلے شام کا ذکر',
+      salah: 'نماز کے دوران پڑھی جانے والی',
+      relief: 'مشکل میں اللہ کی طرف رجوع',
+      remembrance: 'تسبیح، تحمید اور تکبیر',
+      heart: 'ایمان، شکر اور مضبوط دل',
+      daily: 'روزمرہ کے لمحات کی دعائیں',
+      ramadan: 'روزہ اور بابرکت مہینہ',
+    },
+    tileDuaCount: (count) => `${formatNumber(count)} دعائیں`,
   },
   goals: {
     title: 'مقاصد',
@@ -558,12 +799,22 @@ const urStrings: Strings = {
     suggestedHint: 'وہ منصوبے جو آپ نے ابھی تک شروع نہیں کیے۔',
     empty: 'ابھی کوئی فعال منصوبہ نہیں — کوئی تجویز شدہ مقصد شروع کریں یا اپنا بنائیں۔',
     planNew: 'نیا مقصد بنائیں',
+    planNewHint: 'اپنی مدت اور روزانہ ذکر',
     surpriseNewGoal: 'حیرت انگیز نیا مقصد',
     surpriseNewGoalHint: 'بے ترتیب منصوبہ · 1–30 دن',
     todayLabel: 'آج',
     dayProgress: (current, total, done) =>
       `دن ${formatNumber(current)}/${formatNumber(total)} · ${formatNumber(done)} مکمل`,
     durationDays: (days) => `${formatNumber(days)} دن`,
+    goalLibrary: {
+      title: 'مقاصد کی فہرست',
+      hint: 'ہر منصوبے میں دنوں کے لیے دعائیں اور تسبیح بے ترتیب ترتیب دی جاتی ہیں۔',
+      oneDay: 'ایک دن کے مقاصد',
+      weekly: 'ہفتہ وار مقاصد',
+      thirtyDay: '30 دن کے مقاصد',
+      ayyamBeed: 'ایامِ بیض',
+      newMoon: 'چاندِ نو کے مقاصد',
+    },
   },
   goalDetail: {
     notFound: 'مقصد نہیں ملا',
@@ -626,6 +877,47 @@ const urStrings: Strings = {
     todayLabel: 'آج',
     tasbeehByPrayer: 'نماز کے لحاظ سے تمام تسبیح',
   },
+  badges: {
+    title: 'تمغے',
+    progress: (earned, total) => `${formatNumber(total)} میں سے ${formatNumber(earned)} تمغے حاصل`,
+    revealHint: 'اگلے دس تمغے دیکھنے کے لیے موجودہ دس تمغے حاصل کریں۔',
+    earnedCount: (count) => `${formatNumber(count)} تمغے حاصل`,
+    empty: 'پہلا تمغہ حاصل کرنے کے لیے تسبیح مکمل کریں یا کوئی ہدف پورا کریں۔',
+    viewEarned: 'حاصل شدہ تمغے',
+    viewAll: 'تمام تمغے',
+    earnedTitle: 'حاصل شدہ تمغے',
+    allTitle: 'تمام تمغے',
+    none: 'ابھی کوئی تمغہ نہیں — اپنا پہلا تمغہ کھولنے کے لیے شمار شروع کریں۔',
+    lockedLabel: 'بند',
+    earnedLabel: 'حاصل',
+    setDivider: (n) => `${formatNumber(n)} / 20 سیٹ`,
+    unlockTitle: 'نیا تمغہ حاصل ہوا!',
+    unlockCta: 'جاری رکھیں',
+    names: {
+      bead: { first: 'پہلا دانہ', tiered: 'دانوں کا امین' },
+      praise: { first: 'سو تسبیحات', tiered: 'روزانہ حمد' },
+      rays: { first: 'نور کا ہفتہ', tiered: 'نور کے دن' },
+      moon: { first: 'پورا چاند', tiered: 'چاندنی تسلسل' },
+      fruit: { first: 'پہلا پھل', tiered: 'فصل' },
+      plant: { first: 'باغبان', tiered: 'باغبان' },
+      dawn: { first: 'سحر کا ذاکر', tiered: 'سحر کا ذاکر' },
+      lantern: { first: 'شب کی قندیل', tiered: 'شب کی قندیل' },
+      burst: { first: 'ہزار چراغ', tiered: 'چراغوں کا سمندر' },
+      compass: { first: 'مسافر', tiered: 'مسافر' },
+    },
+    descriptions: {
+      tasbeehs: (n) => (n === 1 ? 'اپنی پہلی تسبیح مکمل کریں' : `${formatNumber(n)} تسبیحات مکمل کریں`),
+      bestDay: (n) => `ایک دن میں ${formatNumber(n)} ذکر شمار کریں`,
+      activeDays: (n) => `${formatNumber(n)} دنوں میں ذکر کریں`,
+      bestStreak: (n) => `${formatNumber(n)} دن کا تسلسل برقرار رکھیں`,
+      goalsCompleted: (n) => (n === 1 ? 'اپنا پہلا ہدف مکمل کریں' : `${formatNumber(n)} اہداف مکمل کریں`),
+      goalDays: (n) => `${formatNumber(n)} ہدف دنوں کے نشانے پورے کریں`,
+      morningDays: (n) => `${formatNumber(n)} دن صبح کے اذکار`,
+      eveningDays: (n) => `${formatNumber(n)} راتیں شام کے اذکار`,
+      lifetime: (n) => `کل ${formatNumber(n)} شمار تک پہنچیں`,
+      distinctDuas: (n) => `${formatNumber(n)} مختلف دعائیں پڑھیں`,
+    },
+  },
   garden: {
     lifetime: 'کُل',
     barren: 'خالی پہاڑیاں — درخت لگانے کے لیے کسی دعا پر 100 تک پہنچیں',
@@ -635,6 +927,51 @@ const urStrings: Strings = {
     barrenRanges: 'خالی سلسلہ کوہ — منظر بھرنے کے لیے شمار جاری رکھیں',
     mountainRanges: (count) => `${formatNumber(count)} سلسلہ کوہ`,
     oneRange: '1 سلسلہ کوہ',
+    yourGarden: 'آپ کا باغ',
+    todaysGrowth: 'آج کی نشوونما',
+    dhikrWord: 'ذکر',
+    ofGoal: 'ہدف کا',
+  },
+  journey: {
+    modeGarden: 'باغ',
+    modeEarth: 'زمین',
+    modeSpace: 'کائنات',
+    yourEarth: 'آپ کی زمین',
+    yourCosmos: 'آپ کی کائنات',
+    earthLabel: 'مکہ سے پیدل سفر',
+    spaceLabel: 'مکہ سے بلندی کی طرف',
+    walked: 'آپ چل چکے ہیں',
+    risen: 'آپ بلند ہو چکے ہیں',
+    fromMakkah: 'مکہ سے روانگی',
+    begin: 'مکہ سے روانہ ہونے کے لیے ذکر شروع کریں',
+    reached: (label) => `آپ ${label} پہنچ گئے`,
+    remainingTo: (distance, label) => `${label} تک ${distance} باقی`,
+    inDhikr: (time) => `≈ ذکر میں ${time}`,
+    units: { m: 'میٹر', km: 'کلومیٹر', million: 'ملین کلومیٹر' },
+    duration: {
+      days: (n) => `${formatNumber(n)} دن`,
+      hours: (n) => `${formatNumber(n)} گھنٹے`,
+      minutes: (n) => `${formatNumber(n)} منٹ`,
+      seconds: (n) => `${formatNumber(n)} سیکنڈ`,
+    },
+    earthMilestones: {
+      madinah: 'مدینہ',
+      quds: 'القدس',
+      istanbul: 'استنبول',
+      delhi: 'دہلی',
+      cordoba: 'قرطبہ',
+      jakarta: 'جکارتہ',
+      newYork: 'نیویارک',
+      aroundEarth: 'پوری زمین کا چکر',
+    },
+    spaceMilestones: {
+      atmosphere: 'فضا کا کنارہ',
+      lowOrbit: 'نچلا مدار',
+      geoOrbit: 'جیو سٹیشنری مدار',
+      moon: 'چاند',
+      mars: 'مریخ',
+      sun: 'سورج',
+    },
   },
   settings: {
     title: 'ترتیبات',
@@ -658,6 +995,10 @@ const urStrings: Strings = {
     resetConfirmAction: 'شمار کنندے دوبارہ ترتیب دیں',
     language: 'زبان',
     languageHint: 'ایپ کے لیبلز اور متن کی زبان منتخب کریں۔',
+    restartTitle: 'دوبارہ شروع کرنا ضروری ہے',
+    restartBody:
+      'ترتیب کی پرانی سمت صاف کرنے کے لیے ایپ کو ایک بار مکمل بند کر کے دوبارہ کھولیں۔ اس کے بعد اردو متن دائیں سے شروع ہونا چاہیے۔',
+    restartAction: 'ابھی دوبارہ لوڈ کریں',
     about: 'تعارف',
     publishedBy: (entity) => `${entity} کی جانب سے`,
     contact: 'رابطہ',
@@ -683,6 +1024,10 @@ const urStrings: Strings = {
       name: 'پرچمنٹ',
       description: 'گرم سرمئی پرچمنٹ — سیاہی اور کاغذ، مکمل طور پر سیاہ و سفید۔',
     },
+    fadedGold: {
+      name: 'مدھم سونا',
+      description: 'دھوپ میں پھیکا شیمپین — گندم جیسے نرم رنگ اور پرسکون روحانی گرمجوشی۔',
+    },
   },
   tutorial: {
     skip: 'چھوڑیں',
@@ -692,7 +1037,7 @@ const urStrings: Strings = {
     steps: {
       welcome: {
         title: 'مسبحة میں خوش آمدید',
-        body: 'تسبیح، روزانہ مقاصد، اور بڑھتے ذکر کے باغ کے لیے ایک پرسکون شمار کنندہ۔ یہ مختصر تعارف شمار اور نیویگیشن سکھاتا ہے۔',
+        body: 'تسبیح، روزانہ مقاصد، اور ذکر کے بصری سفر کے لیے ایک پرسکون شمار کنندہ۔ یہ مختصر تعارف شمار اور نیویگیشن سکھاتا ہے۔',
       },
       expand: {
         title: 'دعا کھولیں',
@@ -704,7 +1049,7 @@ const urStrings: Strings = {
       },
       duaDetail: {
         title: 'مکمل دعا اسکرین',
-        body: 'مکمل منظر کے لیے دعا کھولیں۔ ایک بار ٹیپ سے شمار، دو بار ٹیپ سے دو، یا دبا کر رکھیں تو مسلسل شمار۔',
+        body: 'مکمل منظر کے لیے دعا کھولیں۔ کہیں بھی ٹیپ، دو بار ٹیپ، یا دبا کر رکھیں — ہر اشارہ آپ کی فی ٹیپ ترتیب شامل کرتا ہے۔',
       },
       goals: {
         title: 'مقاصد اور منصوبے',
@@ -719,12 +1064,12 @@ const urStrings: Strings = {
         body: 'آج کا ٹیب دن کے ٹیپ، کُل شمار، مقصد کی ٹائلیں، اور گھنٹہ وار سرگرمی دکھاتا ہے۔',
       },
       visualize: {
-        title: 'اپنا باغ دیکھیں',
-        body: 'تصور کُل شمار کو درختوں اور پہاڑی سلسلوں میں بدلتا ہے — ہر 100 شمار پر ایک درخت لگتا ہے۔',
+        title: 'تین طریقے تصور کے',
+        body: 'تصور میں باغ، زمین، اور کائنات کے درمیان بدلیں۔ کُل ذکر درخت اگاتا ہے، مکہ سے دنیا میں چلتا ہے، یا خلاء میں بلند کرتا ہے۔',
       },
       settings: {
         title: 'شمار کنندہ کی ترتیب',
-        body: 'ترتیبات میں فی ٹیپ شمار، تھیم، زبان، آواز، اور لرزش بدلیں۔ یہ تعارف کبھی بھی دوبارہ چلائیں۔',
+        body: 'ترتیبات میں فی ٹیپ ڈائل گھمائیں یا پیش سیٹ پر ٹیپ کریں، پھر تھیم، زبان، آواز، اور لرزش منتخب کریں۔ یہ تعارف کبھی بھی دوبارہ چلائیں۔',
       },
     },
   },

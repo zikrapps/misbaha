@@ -22,7 +22,8 @@ describe('useDuaCountBump', () => {
     const { result } = renderHook(() => useDuaCountBump({ hapticsEnabled: true, onIncrement }));
 
     act(() => result.current.bumpAt(1, 2, 3));
-    expect(onIncrement).toHaveBeenCalledTimes(3);
+    expect(onIncrement).toHaveBeenCalledTimes(1);
+    expect(onIncrement).toHaveBeenCalledWith(3);
     expect(Haptics.impactAsync).toHaveBeenCalledWith(Haptics.ImpactFeedbackStyle.Medium);
   });
 

@@ -3,7 +3,8 @@ import { useCallback, useState } from 'react';
 
 type UseDuaCountBumpOptions = {
   hapticsEnabled: boolean;
-  onIncrement: () => void;
+  /** Called once per gesture with how many tap-units to apply (double-tap passes 2). */
+  onIncrement: (times?: number) => void;
 };
 
 export function useDuaCountBump({ hapticsEnabled, onIncrement }: UseDuaCountBumpOptions) {
@@ -13,9 +14,7 @@ export function useDuaCountBump({ hapticsEnabled, onIncrement }: UseDuaCountBump
   const bumpAt = useCallback(
     (x: number, y: number, times = 1) => {
       const count = Math.max(1, times);
-      for (let i = 0; i < count; i += 1) {
-        onIncrement();
-      }
+      onIncrement(count);
       setFeedback({ key: Date.now(), x, y });
       setShowFeedback(true);
       if (hapticsEnabled) {

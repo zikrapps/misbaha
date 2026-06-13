@@ -128,6 +128,23 @@ describe('resilience helpers', () => {
     );
     expect(screen.getByText(new RegExp(dua.quranReference!))).toBeTruthy();
 
+    const quranDua = duas.find((item) => item.quranUrl)!;
+    rerender(
+      <DuaContentBody
+        dua={quranDua}
+        language="en"
+        labelFont="Georgia"
+        colors={colors}
+        linkMode="split"
+        textStyles={{
+          arabic: {},
+          translation: {},
+          link: {},
+        }}
+      />,
+    );
+    fireEvent.press(screen.getByText(new RegExp(quranDua.quranReference!)));
+
     const hadithDua = duas.find((item) => item.hadithUrl && !item.quranUrl)!;
     jest.spyOn(Linking, 'canOpenURL').mockResolvedValue(true);
     jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined);

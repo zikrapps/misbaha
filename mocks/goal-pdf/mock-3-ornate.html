@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 3 — Ornate Mihrab</title>
+    <style>
+      @page portrait-sheet { size: A4 portrait; margin: 10mm; }
+      @page landscape-sheet { size: A4 landscape; margin: 8mm; }
+
+      * { box-sizing: border-box; }
+      body { background: #555; margin: 0; padding: 24px; }
+
+      .label {
+        color: #fff;
+        font: 600 13px/1.4 Georgia, serif;
+        letter-spacing: 1px;
+        margin: 0 0 10px;
+        text-transform: uppercase;
+      }
+      .label + .sheet { margin-bottom: 36px; }
+
+      .sheet {
+        background: #f4ead5;
+        color: #2a2418;
+        display: flex;
+        flex-direction: column;
+        font-family: Georgia, 'Times New Roman', serif;
+        margin: 0 auto 12px;
+        overflow: hidden;
+        page-break-after: always;
+      }
+      .sheet.portrait {
+        aspect-ratio: 210 / 297;
+        max-width: 680px;
+        page: portrait-sheet;
+        width: 100%;
+      }
+      .sheet.landscape {
+        aspect-ratio: 297 / 210;
+        max-width: 960px;
+        page: landscape-sheet;
+        width: 100%;
+      }
+
+      .mihrab {
+        background:
+          radial-gradient(circle at 50% 0%, rgba(201, 168, 82, 0.35), transparent 58%),
+          linear-gradient(180deg, #3d5a34 0%, #2f4629 100%);
+        clip-path: ellipse(72% 100% at 50% 0%);
+        color: #faf6ea;
+        margin: 0 auto;
+        padding: 22px 20px 28px;
+        text-align: center;
+        width: 78%;
+      }
+      .sheet.landscape .mihrab {
+        clip-path: none;
+        margin: 0;
+        padding: 10px 16px;
+        width: 100%;
+      }
+      .mihrab-row {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .sheet.landscape .mihrab-row {
+        flex-direction: row;
+        gap: 12px;
+        justify-content: center;
+      }
+      .icon {
+        background: #f8e6bd;
+        border: 2px solid #c9a852;
+        border-radius: 14px;
+        height: 46px;
+        width: 46px;
+      }
+      .sheet.landscape .icon { height: 38px; width: 38px; }
+      .mihrab h1 { font-size: 21px; margin: 0; }
+      .sheet.landscape .mihrab h1 { font-size: 17px; }
+      .mihrab .subtitle { font-size: 10px; margin: 4px 0 0; opacity: 0.9; }
+
+      .tile-frame {
+        background:
+          repeating-linear-gradient(90deg, #8b6914 0 8px, transparent 8px 16px),
+          repeating-linear-gradient(0deg, #8b6914 0 8px, transparent 8px 16px),
+          #fff9ee;
+        background-size: 16px 16px, 16px 16px, auto;
+        border: 3px double #8b6914;
+        flex: 1;
+        margin: 10px 12px 0;
+        padding: 10px;
+      }
+      .tile-inner {
+        background: rgba(255, 249, 238, 0.94);
+        border: 1px solid #c4a852;
+        display: grid;
+        gap: 0 14px;
+        grid-template-columns: 1fr 1fr;
+        min-height: 100%;
+        padding: 10px 8px;
+      }
+
+      .col { min-width: 0; }
+      .row {
+        display: grid;
+        gap: 6px;
+        grid-template-columns: 28px 1fr auto auto;
+        margin-bottom: 7px;
+      }
+      .day {
+        background: #3d5a34;
+        border-radius: 50%;
+        color: #faf6ea;
+        font-size: 10px;
+        font-weight: 700;
+        height: 22px;
+        line-height: 22px;
+        text-align: center;
+        white-space: nowrap;
+        width: 22px;
+      }
+      .arabic {
+        direction: rtl;
+        font-family: 'Geeza Pro', 'Arabic Typesetting', serif;
+        font-size: 12px;
+        line-height: 1.38;
+        margin: 0;
+        text-align: right;
+      }
+      .target { color: #3d5a34; font-size: 10px; font-weight: 700; padding-top: 2px; }
+      .box {
+        border: 1.5px solid #8b6914;
+        height: 12px;
+        margin-top: 3px;
+        width: 12px;
+      }
+
+      .footer {
+        align-items: center;
+        color: #6b5d45;
+        display: flex;
+        font-size: 10px;
+        gap: 6px;
+        justify-content: center;
+        padding: 10px 16px 14px;
+      }
+      .mark {
+        background: linear-gradient(135deg, #3d5a34, #6f8f4e);
+        border-radius: 50%;
+        height: 14px;
+        width: 14px;
+      }
+
+      @media print {
+        body { background: #fff; padding: 0; }
+        .label { display: none; }
+        .sheet { aspect-ratio: auto; max-width: none; width: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="label">Mock 3 · Portrait · Ornate Mihrab</p>
+    <article class="sheet portrait">
+      <header class="mihrab">
+        <div class="mihrab-row">
+          <div class="icon" aria-hidden="true"></div>
+          <div>
+            <h1>Path of Repentance</h1>
+            <p class="subtitle">Ten days centered on istighfar, tahlil, and Quranic duas • 10 days</p>
+          </div>
+        </div>
+      </header>
+      <section class="tile-frame">
+        <div class="tile-inner">
+          <div class="col">
+            <div class="row"><span class="day">1</span><p class="arabic">سُبْحَانَ اللَّهِ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">2</span><p class="arabic">الْحَمْدُ لِلَّهِ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">3</span><p class="arabic">اللَّهُ أَكْبَرُ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">4</span><p class="arabic">لَا إِلَٰهَ إِلَّا اللَّهُ</p><span class="target">×100</span><span class="box"></span></div>
+            <div class="row"><span class="day">5</span><p class="arabic">أَسْتَغْفِرُ اللَّهَ</p><span class="target">×100</span><span class="box"></span></div>
+          </div>
+          <div class="col">
+            <div class="row"><span class="day">6</span><p class="arabic">اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">7</span><p class="arabic">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">8</span><p class="arabic">رَبِّ زِدْنِي عِلْمًا</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">9</span><p class="arabic">حَسْبِيَ اللَّهُ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">10</span><p class="arabic">بِسْمِكَ اللَّهُمَّ</p><span class="target">×33</span><span class="box"></span></div>
+          </div>
+        </div>
+      </section>
+      <footer class="footer"><span class="mark"></span>Powered by Zikr Apps</footer>
+    </article>
+
+    <p class="label">Mock 3 · Landscape · Ornate Mihrab</p>
+    <article class="sheet landscape">
+      <header class="mihrab">
+        <div class="mihrab-row">
+          <div class="icon" aria-hidden="true"></div>
+          <div>
+            <h1>Path of Repentance</h1>
+            <p class="subtitle">Ten days centered on istighfar, tahlil, and Quranic duas • 10 days</p>
+          </div>
+        </div>
+      </header>
+      <section class="tile-frame">
+        <div class="tile-inner">
+          <div class="col">
+            <div class="row"><span class="day">1</span><p class="arabic">سُبْحَانَ اللَّهِ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">2</span><p class="arabic">الْحَمْدُ لِلَّهِ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">3</span><p class="arabic">اللَّهُ أَكْبَرُ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">4</span><p class="arabic">لَا إِلَٰهَ إِلَّا اللَّهُ</p><span class="target">×100</span><span class="box"></span></div>
+            <div class="row"><span class="day">5</span><p class="arabic">أَسْتَغْفِرُ اللَّهَ</p><span class="target">×100</span><span class="box"></span></div>
+          </div>
+          <div class="col">
+            <div class="row"><span class="day">6</span><p class="arabic">اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">7</span><p class="arabic">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">8</span><p class="arabic">رَبِّ زِدْنِي عِلْمًا</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">9</span><p class="arabic">حَسْبِيَ اللَّهُ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">10</span><p class="arabic">بِسْمِكَ اللَّهُمَّ</p><span class="target">×33</span><span class="box"></span></div>
+          </div>
+        </div>
+      </section>
+      <footer class="footer"><span class="mark"></span>Powered by Zikr Apps</footer>
+    </article>
+  </body>
+</html>

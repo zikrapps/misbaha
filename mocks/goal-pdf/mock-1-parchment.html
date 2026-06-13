@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 1 — Parchment Frame</title>
+    <style>
+      @page portrait-sheet { size: A4 portrait; margin: 10mm; }
+      @page landscape-sheet { size: A4 landscape; margin: 8mm; }
+
+      * { box-sizing: border-box; }
+      body { background: #555; margin: 0; padding: 24px; }
+
+      .label {
+        color: #fff;
+        font: 600 13px/1.4 Georgia, serif;
+        letter-spacing: 1px;
+        margin: 0 0 10px;
+        text-transform: uppercase;
+      }
+      .label + .sheet { margin-bottom: 36px; }
+
+      .sheet {
+        background: #f7f0df;
+        color: #372c24;
+        display: flex;
+        flex-direction: column;
+        font-family: Georgia, 'Times New Roman', serif;
+        margin: 0 auto 12px;
+        overflow: hidden;
+        page-break-after: always;
+      }
+      .sheet.portrait {
+        aspect-ratio: 210 / 297;
+        max-width: 680px;
+        page: portrait-sheet;
+        width: 100%;
+      }
+      .sheet.landscape {
+        aspect-ratio: 297 / 210;
+        max-width: 960px;
+        page: landscape-sheet;
+        width: 100%;
+      }
+
+      .header {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 18px 16px 10px;
+        text-align: center;
+      }
+      .sheet.landscape .header {
+        flex-direction: row;
+        gap: 12px;
+        justify-content: center;
+        padding: 12px 16px 8px;
+      }
+      .icon {
+        background: linear-gradient(145deg, #f8e6bd, #e8c97a);
+        border-radius: 18%;
+        box-shadow: inset 0 0 0 2px #8b6914;
+        height: 52px;
+        width: 52px;
+      }
+      .sheet.landscape .icon { height: 42px; width: 42px; }
+      h1 { font-size: 22px; margin: 0; }
+      .sheet.landscape h1 { font-size: 18px; }
+      .subtitle { color: #867b6b; font-size: 11px; margin: 0; }
+
+      .frame-outer {
+        border: 2px solid #8b6914;
+        flex: 1;
+        margin: 0 14px;
+        padding: 8px;
+        position: relative;
+      }
+      .frame-outer::before {
+        border: 1px solid #c4a852;
+        content: '';
+        inset: 5px;
+        pointer-events: none;
+        position: absolute;
+      }
+      .frame-inner {
+        background: #fffef8;
+        border: 1px solid #ded1b2;
+        display: grid;
+        gap: 0 12px;
+        grid-template-columns: 1fr 1fr;
+        min-height: 100%;
+        padding: 10px;
+        position: relative;
+      }
+      .sheet.portrait.cols-1 .frame-inner { grid-template-columns: 1fr; }
+      .corner {
+        color: #6f8f4e;
+        font-size: 13px;
+        line-height: 1;
+        position: absolute;
+      }
+      .corner.tl { left: 2px; top: 0; }
+      .corner.tr { right: 2px; top: 0; }
+      .corner.bl { bottom: 0; left: 2px; }
+      .corner.br { bottom: 0; right: 2px; }
+
+      .col { min-width: 0; }
+      .row {
+        display: grid;
+        gap: 6px;
+        grid-template-columns: 28px 1fr auto auto;
+        margin-bottom: 8px;
+      }
+      .day {
+        color: #6f8f4e;
+        font-size: 11px;
+        font-weight: 700;
+        padding-top: 3px;
+        text-align: center;
+        white-space: nowrap;
+      }
+      .arabic {
+        direction: rtl;
+        font-family: 'Geeza Pro', 'Arabic Typesetting', serif;
+        font-size: 12px;
+        line-height: 1.35;
+        margin: 0;
+        text-align: right;
+      }
+      .target { color: #6f8f4e; font-size: 10px; font-weight: 700; padding-top: 3px; }
+      .box {
+        border: 1.5px solid #6f8f4e;
+        height: 13px;
+        margin-top: 2px;
+        width: 13px;
+      }
+
+      .footer {
+        align-items: center;
+        color: #867b6b;
+        display: flex;
+        font-size: 10px;
+        gap: 6px;
+        justify-content: center;
+        padding: 10px 16px 14px;
+      }
+      .mark {
+        background: #6f8f4e;
+        border-radius: 50%;
+        height: 14px;
+        width: 14px;
+      }
+
+      @media print {
+        body { background: #fff; padding: 0; }
+        .label { display: none; }
+        .sheet { aspect-ratio: auto; max-width: none; width: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="label">Mock 1 · Portrait · Parchment Frame</p>
+    <article class="sheet portrait cols-1">
+      <header class="header">
+        <div class="icon" aria-hidden="true"></div>
+        <div>
+          <h1>Path of Repentance</h1>
+          <p class="subtitle">Ten days centered on istighfar, tahlil, and Quranic duas. • 10 days</p>
+        </div>
+      </header>
+      <section class="frame-outer">
+        <div class="frame-inner">
+          <span class="corner tl">✦</span><span class="corner tr">✦</span>
+          <span class="corner bl">✦</span><span class="corner br">✦</span>
+          <div class="col">
+            <div class="row"><span class="day">1</span><p class="arabic">سُبْحَانَ اللَّهِ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">2</span><p class="arabic">الْحَمْدُ لِلَّهِ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">3</span><p class="arabic">اللَّهُ أَكْبَرُ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">4</span><p class="arabic">لَا إِلَٰهَ إِلَّا اللَّهُ</p><span class="target">×100</span><span class="box"></span></div>
+            <div class="row"><span class="day">5</span><p class="arabic">أَسْتَغْفِرُ اللَّهَ</p><span class="target">×100</span><span class="box"></span></div>
+          </div>
+          <div class="col">
+            <div class="row"><span class="day">6</span><p class="arabic">اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">7</span><p class="arabic">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">8</span><p class="arabic">رَبِّ زِدْنِي عِلْمًا</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">9</span><p class="arabic">حَسْبِيَ اللَّهُ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">10</span><p class="arabic">بِسْمِكَ اللَّهُمَّ</p><span class="target">×33</span><span class="box"></span></div>
+          </div>
+        </div>
+      </section>
+      <footer class="footer"><span class="mark"></span>Powered by Zikr Apps</footer>
+    </article>
+
+    <p class="label">Mock 1 · Landscape · Parchment Frame</p>
+    <article class="sheet landscape">
+      <header class="header">
+        <div class="icon" aria-hidden="true"></div>
+        <div>
+          <h1>Path of Repentance</h1>
+          <p class="subtitle">Ten days centered on istighfar, tahlil, and Quranic duas. • 10 days</p>
+        </div>
+      </header>
+      <section class="frame-outer">
+        <div class="frame-inner">
+          <span class="corner tl">✦</span><span class="corner tr">✦</span>
+          <span class="corner bl">✦</span><span class="corner br">✦</span>
+          <div class="col">
+            <div class="row"><span class="day">1</span><p class="arabic">سُبْحَانَ اللَّهِ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">2</span><p class="arabic">الْحَمْدُ لِلَّهِ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">3</span><p class="arabic">اللَّهُ أَكْبَرُ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">4</span><p class="arabic">لَا إِلَٰهَ إِلَّا اللَّهُ</p><span class="target">×100</span><span class="box"></span></div>
+            <div class="row"><span class="day">5</span><p class="arabic">أَسْتَغْفِرُ اللَّهَ</p><span class="target">×100</span><span class="box"></span></div>
+          </div>
+          <div class="col">
+            <div class="row"><span class="day">6</span><p class="arabic">اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">7</span><p class="arabic">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">8</span><p class="arabic">رَبِّ زِدْنِي عِلْمًا</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">9</span><p class="arabic">حَسْبِيَ اللَّهُ</p><span class="target">×33</span><span class="box"></span></div>
+            <div class="row"><span class="day">10</span><p class="arabic">بِسْمِكَ اللَّهُمَّ</p><span class="target">×33</span><span class="box"></span></div>
+          </div>
+        </div>
+      </section>
+      <footer class="footer"><span class="mark"></span>Powered by Zikr Apps</footer>
+    </article>
+  </body>
+</html>

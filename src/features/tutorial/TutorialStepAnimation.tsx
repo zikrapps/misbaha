@@ -1,6 +1,8 @@
 import { ReactNode, useEffect, useRef } from 'react';
-import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
+import { Animated, Easing, Image, StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle, Path, Rect } from 'react-native-svg';
+
+import { MODE_ICON_ASSETS } from '@/src/features/insights/visualizationAssets';
 
 import { Icon } from '@/src/components/Icon';
 import { radii, spacing, ThemeColors, useTheme } from '@/src/theme/theme';
@@ -398,37 +400,97 @@ function TodayAnimation({ colors }: { colors: ThemeColors }) {
   );
 }
 
+const VISUALIZE_MODES = ['garden', 'earth', 'space'] as const;
+
 function VisualizeAnimation({ colors }: { colors: ThemeColors }) {
   const progress = useLoop(
     (value) =>
       Animated.loop(
         Animated.sequence([
-          Animated.timing(value, { toValue: 1, duration: 1600, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
-          Animated.delay(600),
+          Animated.timing(value, { toValue: 1, duration: 3600, easing: Easing.linear, useNativeDriver: true }),
+          Animated.delay(400),
         ]),
       ),
   );
 
-  const treeScale = progress.interpolate({ inputRange: [0, 0.7, 1], outputRange: [0.4, 1.05, 1] });
-  const treeOpacity = progress.interpolate({ inputRange: [0, 0.15, 1], outputRange: [0, 1, 1] });
-  const rangeOpacity = progress.interpolate({ inputRange: [0, 0.45, 1], outputRange: [0, 0, 1] });
+  const gardenOpacity = progress.interpolate({
+    inputRange: [0, 0.04, 0.28, 0.34],
+    outputRange: [1, 1, 1, 0],
+    extrapolate: 'clamp',
+  });
+  const earthOpacity = progress.interpolate({
+    inputRange: [0.3, 0.36, 0.62, 0.68],
+    outputRange: [0, 1, 1, 0],
+    extrapolate: 'clamp',
+  });
+  const spaceOpacity = progress.interpolate({
+    inputRange: [0.64, 0.7, 0.96, 1],
+    outputRange: [0, 1, 1, 0],
+    extrapolate: 'clamp',
+  });
+  const gardenScale = progress.interpolate({ inputRange: [0, 0.2, 0.34], outputRange: [0.5, 1.05, 1], extrapolate: 'clamp' });
+  const earthShift = progress.interpolate({ inputRange: [0.34, 0.62], outputRange: [0, 42], extrapolate: 'clamp' });
+  const spaceRise = progress.interpolate({ inputRange: [0.68, 0.96], outputRange: [18, -10], extrapolate: 'clamp' });
+
+  const modeHighlight = (index: number) =>
+    progress.interpolate({
+      inputRange: [index / 3, (index + 0.08) / 3, (index + 0.92) / 3, (index + 1) / 3],
+      outputRange: [0, 1, 1, 0],
+      extrapolate: 'clamp',
+    });
 
   return (
     <DemoStage colors={colors}>
-      <Svg width={220} height={88} viewBox="0 0 220 88">
-        <Rect x={0} y={62} width={220} height={26} fill={colors.sand} opacity={0.55} rx={8} />
-      </Svg>
-      <Animated.View style={[styles.rangeOverlay, { opacity: rangeOpacity }]}>
-        <Svg width={220} height={40} viewBox="0 0 220 40">
-          <Path d="M0 34 L60 10 L120 20 L180 0 L220 14 L220 34 Z" fill={colors.line} opacity={0.55} />
-        </Svg>
-      </Animated.View>
-      <Animated.View style={[styles.treeWrap, { opacity: treeOpacity, transform: [{ scale: treeScale }] }]}>
-        <Svg width={36} height={48} viewBox="0 0 36 48">
-          <Circle cx={18} cy={16} r={14} fill={colors.olive} />
-          <Rect x={15} y={26} width={6} height={16} rx={2} fill={colors.oliveDeep} />
-        </Svg>
-      </Animated.View>
+      <View style={[styles.modeTrack, { backgroundColor: colors.cream, borderColor: colors.oliveDark }]}>
+        {VISUALIZE_MODES.map((mode, index) => (
+          <View
+            key={mode}
+            style={[
+              styles.modeSegment,
+              index > 0 && [styles.modeSegmentDivider, { borderLeftColor: colors.oliveDark }],
+            ]}
+          >
+            <Animated.View
+              style={[
+                StyleSheet.absoluteFillObject,
+                { backgroundColor: colors.oliveDeep, opacity: modeHighlight(index) },
+              ]}
+            />
+            <Image
+              accessibilityIgnoresInvertColors
+              resizeMode="contain"
+              source={MODE_ICON_ASSETS[mode].inactive}
+              style={styles.modeIcon}
+            />
+          </View>
+        ))}
+      </View>
+
+      <View style={styles.visualScene}>
+        <Animated.View style={[styles.visualLayer, { opacity: gardenOpacity, transform: [{ scale: gardenScale }] }]}>
+          <Svg width={36} height={48} viewBox="0 0 36 48">
+            <Circle cx={18} cy={16} r={14} fill={colors.olive} />
+            <Rect x={15} y={26} width={6} height={16} rx={2} fill={colors.oliveDeep} />
+          </Svg>
+        </Animated.View>
+
+        <Animated.View style={[styles.visualLayer, { opacity: earthOpacity, transform: [{ translateX: earthShift }] }]}>
+          <Svg width={120} height={36} viewBox="0 0 120 36">
+            <Path d="M0 28 L28 18 L56 24 L84 12 L120 20 L120 28 Z" fill={colors.line} opacity={0.55} />
+            <Circle cx={18} cy={22} r={5} fill={colors.oliveDeep} />
+          </Svg>
+        </Animated.View>
+
+        <Animated.View style={[styles.visualLayer, { opacity: spaceOpacity, transform: [{ translateY: spaceRise }] }]}>
+          <Svg width={90} height={54} viewBox="0 0 90 54">
+            <Circle cx={18} cy={14} r={2} fill={colors.sand} />
+            <Circle cx={42} cy={8} r={1.5} fill={colors.sand} />
+            <Circle cx={68} cy={18} r={2} fill={colors.sand} />
+            <Circle cx={45} cy={34} r={10} fill={colors.olive} opacity={0.85} />
+            <Path d="M45 18 L52 30 L38 30 Z" fill={colors.oliveDeep} />
+          </Svg>
+        </Animated.View>
+      </View>
     </DemoStage>
   );
 }
@@ -632,11 +694,37 @@ const styles = StyleSheet.create({
     borderRadius: radii.pill,
     flex: 1,
   },
-  rangeOverlay: {
-    marginTop: -48,
+  modeTrack: {
+    borderRadius: radii.pill,
+    borderWidth: 1.5,
+    flexDirection: 'row',
+    marginBottom: spacing.md,
+    overflow: 'hidden',
+    width: '88%',
   },
-  treeWrap: {
-    marginTop: -72,
+  modeSegment: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    paddingVertical: spacing.xs,
+  },
+  modeSegmentDivider: {
+    borderLeftWidth: 1,
+  },
+  modeIcon: {
+    height: 22,
+    width: 22,
+  },
+  visualScene: {
+    alignItems: 'center',
+    height: 64,
+    justifyContent: 'center',
+    width: '100%',
+  },
+  visualLayer: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   dialWrap: {
     alignItems: 'center',

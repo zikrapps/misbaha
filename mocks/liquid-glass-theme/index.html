@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Liquid Glass theme — 3 varied mocks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        background: #0a0a0c;
+        color: #f5f5f7;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+        margin: 0;
+        padding: 32px;
+      }
+      h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.4px; margin: 0 0 8px; }
+      .lead { color: #98989d; line-height: 1.6; max-width: 54rem; }
+      .grid {
+        display: grid;
+        gap: 22px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        margin-top: 30px;
+      }
+      a.card {
+        backdrop-filter: blur(24px) saturate(160%);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.08) inset,
+          0 20px 50px rgba(0, 0, 0, 0.35);
+        color: inherit;
+        display: block;
+        padding: 18px;
+        text-decoration: none;
+        transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+      }
+      a.card:hover {
+        border-color: rgba(255, 255, 255, 0.28);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.12) inset,
+          0 24px 60px rgba(0, 0, 0, 0.45);
+        transform: translateY(-2px);
+      }
+      a.card h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; margin: 0 0 10px; }
+      a.card span {
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
+      a.card p { color: #98989d; font-size: 14px; line-height: 1.55; margin: 0 0 12px; }
+      .meta {
+        color: #6e6e73;
+        display: grid;
+        font-size: 11px;
+        gap: 4px;
+        line-height: 1.45;
+      }
+      .meta strong { color: #c7c7cc; font-weight: 600; }
+      .swatch-row { display: flex; gap: 6px; margin-bottom: 14px; }
+      .swatch {
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 999px;
+        height: 14px;
+        width: 14px;
+      }
+      .preview {
+        border-radius: 12px;
+        height: 128px;
+        margin-bottom: 14px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+      }
+      .preview::after {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        content: '';
+        inset: 0;
+        pointer-events: none;
+        position: absolute;
+      }
+      .p1 { background: linear-gradient(135deg, #e8f0ff 0%, #f5e6ff 40%, #ffe8f0 100%); }
+      .p2 { background: radial-gradient(circle at 30% 20%, #3b1f6e, #0d1117 55%, #050508); }
+      .p3 { background: linear-gradient(160deg, #c8ddb8 0%, #8fb87a 35%, #4a6b3a 100%); }
+      .p4 { background: linear-gradient(135deg, #3a3a3e 0%, #8e8e93 50%, #2c2c30 100%); }
+      .p5 { background: linear-gradient(160deg, #3d2612 0%, #c9a227 45%, #1a1008 100%); }
+      .p6 { background: linear-gradient(180deg, #fafafa 0%, #e8e8ed 100%); }
+      .p7 { background: linear-gradient(180deg, #0d4a5e 0%, #041820 100%); }
+      .p8 { background: linear-gradient(165deg, #ececf0 0%, #d8d8de 100%); }
+      .p9 { background: linear-gradient(170deg, #f5efe0 0%, #ddd4c0 100%); }
+      .p10 { background: url('textures/stone.svg') center / cover; }
+      .p11 { background: url('textures/sand.svg') center / cover; }
+      .glass-chip.silver { background: rgba(200,200,210,0.35); border-color: rgba(255,255,255,0.55); }
+      .glass-chip.gold { background: rgba(255,245,210,0.35); border-color: rgba(255,230,160,0.5); }
+      .glass-chip.clear { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
+      .glass-chip.water { background: rgba(79,195,247,0.2); border-color: rgba(255,255,255,0.35); }
+      .glass-chip.faded { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.4); opacity: 0.85; }
+      .glass-chip.stone { background: rgba(200,196,188,0.25); border-color: rgba(255,255,255,0.3); }
+      .glass-chip.sand { background: rgba(255,250,235,0.35); border-color: rgba(255,255,255,0.45); }
+      .glass-chip {
+        backdrop-filter: blur(16px) saturate(180%);
+        background: rgba(255, 255, 255, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        height: 36px;
+        left: 14px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 72px;
+      }
+      .glass-chip.dark {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.18);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+      .glass-chip.warm {
+        background: rgba(255, 252, 245, 0.42);
+        border-color: rgba(255, 255, 255, 0.55);
+      }
+      .section-title {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        color: #6e6e73;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.4px;
+        margin: 36px 0 18px;
+        padding-top: 28px;
+        text-transform: uppercase;
+      }
+      a.card.full { border-color: rgba(255, 255, 255, 0.18); }
+      a.card.full:hover { border-color: rgba(255, 255, 255, 0.35); }
+      .triple-preview {
+        display: grid;
+        gap: 6px;
+        grid-template-columns: repeat(3, 1fr);
+        margin-bottom: 14px;
+      }
+      .mini-phone {
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        height: 72px;
+        overflow: hidden;
+        position: relative;
+      }
+      .mini-phone .bg { inset: 0; position: absolute; }
+      .mini-phone .glass-strip {
+        backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        height: 28px;
+        left: 6px;
+        position: absolute;
+        right: 6px;
+        top: 22px;
+      }
+      .mini-label {
+        bottom: 4px;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 8px;
+        font-weight: 600;
+        left: 0;
+        letter-spacing: 0.5px;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Liquid Glass — theme direction mocks</h1>
+    <p class="lead">
+      Apple-style translucent materials: frosted blur, specular edge highlights, and layered depth over
+      vivid backgrounds. Color moods, material finishes, and devotional variants — each with its own
+      palette, glass treatment, and type stack.
+    </p>
+    <div class="grid">
+      <a class="card" href="mock-1-ios-light.html" style="border-color: rgba(120, 160, 255, 0.25);">
+        <div class="preview p1">
+          <div class="glass-chip"></div>
+        </div>
+        <span style="color: #6ea8ff;">Mock 1</span>
+        <h2 style="color: #f5f5f7;">iOS Light</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#f5f5f7"></div>
+          <div class="swatch" style="background:#007aff"></div>
+          <div class="swatch" style="background:#e8f0ff"></div>
+          <div class="swatch" style="background:#1d1d1f"></div>
+        </div>
+        <p>Soft pastel mesh behind milky glass panels — clean SF Pro, blue accent, daylight clarity.</p>
+        <div class="meta">
+          <div><strong>Display:</strong> SF Pro Display / -apple-system</div>
+          <div><strong>Glass:</strong> blur(40px) saturate(180%), white 28% fill</div>
+          <div><strong>Edges:</strong> 1px luminous rim + inner specular</div>
+        </div>
+      </a>
+      <a class="card" href="mock-2-aurora-dark.html" style="border-color: rgba(160, 100, 255, 0.3);">
+        <div class="preview p2">
+          <div class="glass-chip dark"></div>
+        </div>
+        <span style="color: #bf5af2;">Mock 2</span>
+        <h2 style="color: #f5f5f7;">Aurora Dark</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#0d1117"></div>
+          <div class="swatch" style="background:#5e5ce6"></div>
+          <div class="swatch" style="background:#bf5af2"></div>
+          <div class="swatch" style="background:#f5f5f7"></div>
+        </div>
+        <p>Deep space base with violet-magenta aurora blooms — smoky glass, neon edge glow, night mode.</p>
+        <div class="meta">
+          <div><strong>Display:</strong> SF Pro Rounded / Inter</div>
+          <div><strong>Glass:</strong> blur(48px), white 8% fill, chromatic rim</div>
+          <div><strong>Background:</strong> animated aurora mesh + star field</div>
+        </div>
+      </a>
+      <a class="card" href="mock-3-garden-glass.html" style="border-color: rgba(120, 180, 90, 0.3);">
+        <div class="preview p3">
+          <div class="glass-chip warm"></div>
+        </div>
+        <span style="color: #8fd46a;">Mock 3</span>
+        <h2 style="color: #f5f5f7;">Garden Glass</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#f7f0df"></div>
+          <div class="swatch" style="background:#6f8f4e"></div>
+          <div class="swatch" style="background:#c8ddb8"></div>
+          <div class="swatch" style="background:#2d4a22"></div>
+        </div>
+        <p>Misbaha garden palette through warm glass — olive ink, cream refraction, devotional softness.</p>
+        <div class="meta">
+          <div><strong>Display:</strong> New York / Georgia serif pairing</div>
+          <div><strong>Glass:</strong> warm tint blur, parchment refraction</div>
+          <div><strong>Accent:</strong> olive + moss from Garden theme</div>
+        </div>
+      </a>
+    </div>
+
+    <p class="section-title">All screens — Today · Tasbeeh · Visualize</p>
+    <div class="grid">
+      <a class="card full" href="mock-1-ios-light-full.html">
+        <div class="triple-preview">
+          <div class="mini-phone"><div class="bg p1"></div><div class="glass-strip"></div><span class="mini-label">Today</span></div>
+          <div class="mini-phone"><div class="bg p1"></div><div class="glass-strip"></div><span class="mini-label">Tasbeeh</span></div>
+          <div class="mini-phone"><div class="bg p1"></div><div class="glass-strip"></div><span class="mini-label">Visualize</span></div>
+        </div>
+        <span style="color: #6ea8ff;">Full mock 1</span>
+        <h2 style="color: #f5f5f7;">iOS Light — 3 screens</h2>
+        <p>Category tile grid with expanded dua counter, garden visualization toggle, activity bars.</p>
+      </a>
+      <a class="card full" href="mock-2-aurora-dark-full.html">
+        <div class="triple-preview">
+          <div class="mini-phone"><div class="bg p2"></div><div class="glass-strip" style="background:rgba(255,255,255,0.08);"></div><span class="mini-label">Today</span></div>
+          <div class="mini-phone"><div class="bg p2"></div><div class="glass-strip" style="background:rgba(255,255,255,0.08);"></div><span class="mini-label">Tasbeeh</span></div>
+          <div class="mini-phone"><div class="bg p2"></div><div class="glass-strip" style="background:rgba(255,255,255,0.08);"></div><span class="mini-label">Space</span></div>
+        </div>
+        <span style="color: #bf5af2;">Full mock 2</span>
+        <h2 style="color: #f5f5f7;">Aurora Dark — 3 screens</h2>
+        <p>Neon glass tiles, counting row, cosmos journey scene with violet aurora behind panels.</p>
+      </a>
+      <a class="card full" href="mock-3-garden-glass-full.html">
+        <div class="triple-preview">
+          <div class="mini-phone"><div class="bg p3"></div><div class="glass-strip" style="background:rgba(255,252,245,0.35);"></div><span class="mini-label">Today</span></div>
+          <div class="mini-phone"><div class="bg p3"></div><div class="glass-strip" style="background:rgba(255,252,245,0.35);"></div><span class="mini-label">Tasbeeh</span></div>
+          <div class="mini-phone"><div class="bg p3"></div><div class="glass-strip" style="background:rgba(255,252,245,0.35);"></div><span class="mini-label">Earth</span></div>
+        </div>
+        <span style="color: #8fd46a;">Full mock 3</span>
+        <h2 style="color: #f5f5f7;">Garden Glass — 3 screens</h2>
+        <p>Warm serif glass over olive mesh — dua grid, Arabic counter, earth journey visualization.</p>
+      </a>
+    </div>
+
+    <p class="section-title">Material finishes — Silver · Gold · Clear · Water</p>
+    <div class="grid">
+      <a class="card full" href="mock-4-silver-full.html" style="border-color: rgba(174,174,178,0.3);">
+        <div class="triple-preview">
+          <div class="mini-phone"><div class="bg p4"></div><div class="glass-strip silver"></div><span class="mini-label">Today</span></div>
+          <div class="mini-phone"><div class="bg p4"></div><div class="glass-strip silver"></div><span class="mini-label">Tasbeeh</span></div>
+          <div class="mini-phone"><div class="bg p4"></div><div class="glass-strip silver"></div><span class="mini-label">Visualize</span></div>
+        </div>
+        <span style="color: #d1d1d6;">Mock 4</span>
+        <h2 style="color: #f5f5f7;">Silver</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#e5e5ea"></div>
+          <div class="swatch" style="background:#8e8e93"></div>
+          <div class="swatch" style="background:#636366"></div>
+          <div class="swatch" style="background:#2c2c30"></div>
+        </div>
+        <p>Brushed chrome mesh, mirror-bright rims, animated specular sweep — cool monochrome elegance.</p>
+      </a>
+      <a class="card full" href="mock-5-gold-full.html" style="border-color: rgba(212,175,55,0.35);">
+        <div class="triple-preview">
+          <div class="mini-phone"><div class="bg p5"></div><div class="glass-strip gold"></div><span class="mini-label">Today</span></div>
+          <div class="mini-phone"><div class="bg p5"></div><div class="glass-strip gold"></div><span class="mini-label">Tasbeeh</span></div>
+          <div class="mini-phone"><div class="bg p5"></div><div class="glass-strip gold"></div><span class="mini-label">Visualize</span></div>
+        </div>
+        <span style="color: #e8c878;">Mock 5</span>
+        <h2 style="color: #f5f5f7;">Gold</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#f5e6c8"></div>
+          <div class="swatch" style="background:#d4af37"></div>
+          <div class="swatch" style="background:#8b6914"></div>
+          <div class="swatch" style="background:#3d2612"></div>
+        </div>
+        <p>Champagne glass over deep umber — gold leaf shimmer, Cormorant serif, ceremonial warmth.</p>
+      </a>
+      <a class="card full" href="mock-6-clear-glass-full.html" style="border-color: rgba(0,0,0,0.08);">
+        <div class="triple-preview">
+          <div class="mini-phone"><div class="bg p6"></div><div class="glass-strip clear"></div><span class="mini-label">Today</span></div>
+          <div class="mini-phone"><div class="bg p6"></div><div class="glass-strip clear"></div><span class="mini-label">Tasbeeh</span></div>
+          <div class="mini-phone"><div class="bg p6"></div><div class="glass-strip clear"></div><span class="mini-label">Visualize</span></div>
+        </div>
+        <span style="color: #6e6e73;">Mock 6</span>
+        <h2 style="color: #f5f5f7;">Clear Glass</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#ffffff"></div>
+          <div class="swatch" style="background:#f5f5f7"></div>
+          <div class="swatch" style="background:#e8e8ed"></div>
+          <div class="swatch" style="background:#1d1d1f"></div>
+        </div>
+        <p>Near-invisible panes — minimal blur, no tint, background bleeds through like a window pane.</p>
+      </a>
+      <a class="card full" href="mock-7-water-full.html" style="border-color: rgba(79,195,247,0.3);">
+        <div class="triple-preview">
+          <div class="mini-phone"><div class="bg p7"></div><div class="glass-strip water"></div><span class="mini-label">Today</span></div>
+          <div class="mini-phone"><div class="bg p7"></div><div class="glass-strip water"></div><span class="mini-label">Tasbeeh</span></div>
+          <div class="mini-phone"><div class="bg p7"></div><div class="glass-strip water"></div><span class="mini-label">Visualize</span></div>
+        </div>
+        <span style="color: #4fc3f7;">Mock 7</span>
+        <h2 style="color: #f5f5f7;">Water</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#e0f7fa"></div>
+          <div class="swatch" style="background:#4fc3f7"></div>
+          <div class="swatch" style="background:#00838f"></div>
+          <div class="swatch" style="background:#041820"></div>
+        </div>
+        <p>Aquatic liquid glass — teal caustics, rising bubbles, fluid waves behind refractive panels.</p>
+      </a>
+    </div>
+
+    <p class="section-title">Faded metallics — Silver · Gold</p>
+    <div class="grid">
+      <a class="card full" href="mock-8-silver-faded-full.html" style="border-color: rgba(174,174,178,0.25);">
+        <div class="triple-preview">
+          <div class="mini-phone"><div class="bg p8"></div><div class="glass-strip faded"></div><span class="mini-label">Today</span></div>
+          <div class="mini-phone"><div class="bg p8"></div><div class="glass-strip faded"></div><span class="mini-label">Tasbeeh</span></div>
+          <div class="mini-phone"><div class="bg p8"></div><div class="glass-strip faded"></div><span class="mini-label">Visualize</span></div>
+        </div>
+        <span style="color: #aeaeb2;">Mock 8</span>
+        <h2 style="color: #f5f5f7;">Faded Silver</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#ececf0"></div>
+          <div class="swatch" style="background:#d8d8de"></div>
+          <div class="swatch" style="background:#aeaeb2"></div>
+          <div class="swatch" style="background:#636366"></div>
+        </div>
+        <p>Washed-out chrome — misty grey glass, low saturation, sun-bleached metallic calm.</p>
+      </a>
+      <a class="card full" href="mock-9-gold-faded-full.html" style="border-color: rgba(196,184,150,0.35);">
+        <div class="triple-preview">
+          <div class="mini-phone"><div class="bg p9"></div><div class="glass-strip sand"></div><span class="mini-label">Today</span></div>
+          <div class="mini-phone"><div class="bg p9"></div><div class="glass-strip sand"></div><span class="mini-label">Tasbeeh</span></div>
+          <div class="mini-phone"><div class="bg p9"></div><div class="glass-strip sand"></div><span class="mini-label">Visualize</span></div>
+        </div>
+        <span style="color: #c4b896;">Mock 9</span>
+        <h2 style="color: #f5f5f7;">Faded Gold</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#f5efe0"></div>
+          <div class="swatch" style="background:#e4d4af"></div>
+          <div class="swatch" style="background:#c4b896"></div>
+          <div class="swatch" style="background:#8b7355"></div>
+        </div>
+        <p>Sun-bleached champagne — dusty wheat glass, muted gilding, quiet ceremonial warmth.</p>
+      </a>
+    </div>
+
+    <p class="section-title">Natural textures — Stone · Sand</p>
+    <div class="grid">
+      <a class="card full" href="mock-10-stone-full.html" style="border-color: rgba(168,164,156,0.3);">
+        <div class="triple-preview">
+          <div class="mini-phone"><div class="bg p10"></div><div class="glass-strip stone"></div><span class="mini-label">Today</span></div>
+          <div class="mini-phone"><div class="bg p10"></div><div class="glass-strip stone"></div><span class="mini-label">Tasbeeh</span></div>
+          <div class="mini-phone"><div class="bg p10"></div><div class="glass-strip stone"></div><span class="mini-label">Visualize</span></div>
+        </div>
+        <span style="color: #c8c4bc;">Mock 10</span>
+        <h2 style="color: #f5f5f7;">Stone</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#b8b4ac"></div>
+          <div class="swatch" style="background:#8a8680"></div>
+          <div class="swatch" style="background:#6c6a64"></div>
+          <div class="swatch" style="background:#3a3834"></div>
+        </div>
+        <p>Granite grain texture behind cool grey glass — veined stone, architectural solidity.</p>
+      </a>
+      <a class="card full" href="mock-11-sand-full.html" style="border-color: rgba(201,168,106,0.35);">
+        <div class="triple-preview">
+          <div class="mini-phone"><div class="bg p11"></div><div class="glass-strip sand"></div><span class="mini-label">Today</span></div>
+          <div class="mini-phone"><div class="bg p11"></div><div class="glass-strip sand"></div><span class="mini-label">Tasbeeh</span></div>
+          <div class="mini-phone"><div class="bg p11"></div><div class="glass-strip sand"></div><span class="mini-label">Visualize</span></div>
+        </div>
+        <span style="color: #f0d49a;">Mock 11</span>
+        <h2 style="color: #f5f5f7;">Sand</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#f0d49a"></div>
+          <div class="swatch" style="background:#e8d4a8"></div>
+          <div class="swatch" style="background:#c9a86a"></div>
+          <div class="swatch" style="background:#8b6914"></div>
+        </div>
+        <p>Fine desert grain behind warm honey glass — dune texture, sunlit Misbaha sand palette.</p>
+      </a>
+    </div>
+  </body>
+</html>

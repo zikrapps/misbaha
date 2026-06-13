@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 3 — Naskh Manuscript</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet" />
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        align-items: center;
+        background: radial-gradient(circle at 50% 0%, #241810, #080604);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin: 0;
+        min-height: 100vh;
+        padding: 28px 16px 40px;
+      }
+      .caption {
+        color: #c4875a;
+        font: 14px/1.55 'Literata', Georgia, serif;
+        margin: 0;
+        max-width: 390px;
+        text-align: center;
+      }
+      .phone {
+        border: 3px solid #4a3020;
+        border-radius: 42px;
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.65);
+        height: 844px;
+        overflow: hidden;
+        position: relative;
+        width: 390px;
+      }
+      .texture-a {
+        background: url('textures/parchment-crumple.png') 35% 45% / 175% auto no-repeat;
+        filter: sepia(0.62) contrast(1.12) brightness(0.82) hue-rotate(-8deg);
+        inset: 0;
+        position: absolute;
+      }
+      .texture-b {
+        background: url('textures/parchment-crumple.png') 70% 20% / 120% auto no-repeat;
+        filter: sepia(0.4) contrast(1.05);
+        inset: 0;
+        mix-blend-mode: overlay;
+        opacity: 0.4;
+        position: absolute;
+        transform: scaleX(-1);
+      }
+      .vignette {
+        background:
+          radial-gradient(circle at 82% 18%, rgba(140, 80, 40, 0.28) 0%, transparent 32%),
+          radial-gradient(circle at 8% 88%, rgba(20, 12, 8, 0.55) 0%, transparent 42%),
+          radial-gradient(circle at 92% 92%, rgba(20, 12, 8, 0.5) 0%, transparent 38%),
+          linear-gradient(180deg, rgba(20, 12, 8, 0.35) 0%, transparent 28%, rgba(20, 12, 8, 0.28) 100%);
+        inset: 0;
+        position: absolute;
+      }
+      .content {
+        color: #140e0a;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Literata', Georgia, serif;
+        gap: 16px;
+        height: 100%;
+        overflow: hidden;
+        padding: 54px 18px 92px;
+        position: relative;
+        z-index: 1;
+      }
+      .header h1 {
+        font-family: 'Noto Naskh Arabic', 'Literata', serif;
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0;
+      }
+      .header .en {
+        color: #4a3020;
+        font-family: 'Literata', Georgia, serif;
+        font-size: 14px;
+        font-weight: 500;
+        margin: 2px 0 0;
+      }
+      .header .ur {
+        color: #9a6538;
+        direction: rtl;
+        font-family: 'Noto Naskh Arabic', serif;
+        font-size: 15px;
+        font-weight: 500;
+        margin: 4px 0 0;
+        text-align: left;
+      }
+      .stats { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+      .card {
+        background: rgba(220, 201, 168, 0.72);
+        border: 1px solid rgba(154, 101, 56, 0.55);
+        border-radius: 14px;
+        box-shadow: inset 0 1px 0 rgba(255, 240, 220, 0.35), 0 6px 18px rgba(20, 12, 8, 0.15);
+        padding: 16px;
+      }
+      .card .label {
+        color: #9a6538;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+      }
+      .card .value {
+        font-family: 'Noto Naskh Arabic', 'Literata', serif;
+        font-size: 30px;
+        font-weight: 700;
+        margin-top: 4px;
+      }
+      .section {
+        color: #7c4a2a;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .goal {
+        background: rgba(220, 201, 168, 0.76);
+        border: 1px solid rgba(154, 101, 56, 0.6);
+        border-radius: 14px;
+        padding: 18px;
+      }
+      .goal .badge {
+        background: #4a3020;
+        border-radius: 999px;
+        color: #e8cdb0;
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 10px;
+      }
+      .goal h3 {
+        font-family: 'Noto Naskh Arabic', 'Literata', serif;
+        font-size: 22px;
+        font-weight: 700;
+        margin: 10px 0 4px;
+      }
+      .goal .latin {
+        color: #4a3020;
+        font-family: 'Literata', Georgia, serif;
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0 0 6px;
+      }
+      .goal p {
+        color: #6b4a30;
+        direction: rtl;
+        font-family: 'Noto Naskh Arabic', serif;
+        font-size: 14px;
+        line-height: 1.65;
+        margin: 0;
+        text-align: left;
+      }
+      .tabbar {
+        background: linear-gradient(180deg, #2a1a10, #140e0a);
+        bottom: 0;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        left: 0;
+        padding: 12px 8px 22px;
+        position: absolute;
+        right: 0;
+        z-index: 2;
+      }
+      .tab {
+        color: #9a6538;
+        font-family: 'Noto Naskh Arabic', serif;
+        font-size: 11px;
+        text-align: center;
+      }
+      .tab.active { color: #f0dcc0; font-weight: 700; }
+      .tab .dot {
+        background: currentColor;
+        border-radius: 50%;
+        height: 6px;
+        margin: 0 auto 6px;
+        width: 6px;
+      }
+      .tag {
+        background: #7c4a2a;
+        border-radius: 999px;
+        color: #f0dcc0;
+        font-family: 'Literata', Georgia, serif;
+        font-size: 11px;
+        letter-spacing: 0.8px;
+        padding: 6px 14px;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="tag">Mock 3 — Naskh Manuscript</span>
+    <div class="phone">
+      <div class="texture-a"></div>
+      <div class="texture-b"></div>
+      <div class="vignette"></div>
+      <div class="content">
+        <div class="header">
+          <h1>آج</h1>
+          <p class="en">Today · Sunday, 7 June</p>
+          <p class="ur">۸۴۷ آج · ۱۲,۴۰۳ کل</p>
+        </div>
+        <div class="stats">
+          <div class="card">
+            <div class="label">Today's taps</div>
+            <div class="value">۸۴۷</div>
+          </div>
+          <div class="card">
+            <div class="label">Lifetime</div>
+            <div class="value">۱۲,۴۰۳</div>
+          </div>
+        </div>
+        <div class="section">Goal focus · مقصد</div>
+        <div class="goal">
+          <span class="badge">32%</span>
+          <h3>صبح کے اذکار</h3>
+          <p class="latin">Morning adhkar · Day 4 of 10</p>
+          <p>سُبْحَانَ اللّٰهِ وَبِحَمْدِهِ — آج ۳۳ باقی</p>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab active"><div class="dot"></div>آج</div>
+        <div class="tab"><div class="dot"></div>تسبیح</div>
+        <div class="tab"><div class="dot"></div>مقاصد</div>
+        <div class="tab"><div class="dot"></div>بصارت</div>
+      </div>
+    </div>
+    <p class="caption">Noto Naskh Arabic + Literata on deep sepia crumple. Bilingual manuscript with copper foxing.</p>
+  </body>
+</html>

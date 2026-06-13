@@ -4,6 +4,8 @@ import { getGestureCallback, resetGestureCallbacks } from '@/__tests__/helpers/g
 import {
   DUA_COUNT_DOUBLE_TAP_DELAY_MS,
   DUA_COUNT_GHOST_PRESS_GUARD_MS,
+  DUA_COUNT_GHOST_REFIRE_MS,
+  DUA_COUNT_MIN_DOUBLE_TAP_MS,
   useDuaCountGestures,
 } from '@/src/features/duas/useDuaCountGestures';
 
@@ -26,18 +28,32 @@ describe('useDuaCountGestures', () => {
       expect(onBump).toHaveBeenCalledWith(1, 2, 1);
     });
 
-    it('handles double tap within the delay window', () => {
+    it('handles intentional double tap without multiplying the increment', () => {
       jest.useFakeTimers();
       const onBump = jest.fn();
       renderHook(() => useDuaCountGestures({ onBump }));
 
       act(() => getGestureCallback('tap-1', 'onEnd')?.({ x: 1, y: 2 }));
+      act(() => jest.advanceTimersByTime(DUA_COUNT_MIN_DOUBLE_TAP_MS));
       act(() => getGestureCallback('tap-1', 'onEnd')?.({ x: 3, y: 4 }));
-      expect(onBump).toHaveBeenCalledWith(3, 4, 2);
+      expect(onBump).toHaveBeenCalledWith(3, 4, 1);
       expect(onBump).toHaveBeenCalledTimes(1);
 
       act(() => jest.advanceTimersByTime(DUA_COUNT_DOUBLE_TAP_DELAY_MS));
       expect(onBump).toHaveBeenCalledTimes(1);
+    });
+
+    it('ignores ghost re-fires near the same spot', () => {
+      jest.useFakeTimers();
+      const onBump = jest.fn();
+      renderHook(() => useDuaCountGestures({ onBump }));
+
+      act(() => getGestureCallback('tap-1', 'onEnd')?.({ x: 10, y: 20 }));
+      act(() => jest.advanceTimersByTime(DUA_COUNT_GHOST_REFIRE_MS - 10));
+      act(() => getGestureCallback('tap-1', 'onEnd')?.({ x: 12, y: 22 }));
+      act(() => jest.advanceTimersByTime(DUA_COUNT_DOUBLE_TAP_DELAY_MS));
+      expect(onBump).toHaveBeenCalledTimes(1);
+      expect(onBump).toHaveBeenCalledWith(10, 20, 1);
     });
 
     it('handles long press bumps', () => {
@@ -81,9 +97,22 @@ describe('useDuaCountGestures', () => {
       renderHook(() => useDuaCountGestures({ onBump, doubleTapOnly: true }));
 
       act(() => getGestureCallback('tap-1', 'onEnd')?.({ x: 1, y: 2 }));
+      act(() => jest.advanceTimersByTime(DUA_COUNT_MIN_DOUBLE_TAP_MS));
       act(() => getGestureCallback('tap-1', 'onEnd')?.({ x: 3, y: 4 }));
       expect(onBump).toHaveBeenCalledWith(3, 4, 1);
       expect(onBump).toHaveBeenCalledTimes(1);
+    });
+
+    it('drops a stale single-tap timeout when another tap arrives', () => {
+      jest.useFakeTimers();
+      const onBump = jest.fn();
+      renderHook(() => useDuaCountGestures({ onBump, doubleTapOnly: true }));
+
+      act(() => getGestureCallback('tap-1', 'onEnd')?.({ x: 1, y: 2 }));
+      act(() => jest.advanceTimersByTime(DUA_COUNT_MIN_DOUBLE_TAP_MS));
+      act(() => getGestureCallback('tap-1', 'onEnd')?.({ x: 50, y: 60 }));
+      act(() => jest.advanceTimersByTime(DUA_COUNT_DOUBLE_TAP_DELAY_MS));
+      expect(onBump).not.toHaveBeenCalled();
     });
   });
 
@@ -101,6 +130,17 @@ describe('useDuaCountGestures', () => {
     const onBump = jest.fn();
     renderHook(() => useDuaCountGestures({ onBump, enabled: false }));
     act(() => getGestureCallback('tap-1', 'onEnd')?.({ x: 0, y: 0 }));
+    act(() => jest.advanceTimersByTime(DUA_COUNT_DOUBLE_TAP_DELAY_MS));
+    expect(onBump).not.toHaveBeenCalled();
+  });
+
+  it('clears the pending tap window', () => {
+    jest.useFakeTimers();
+    const onBump = jest.fn();
+    const { result } = renderHook(() => useDuaCountGestures({ onBump }));
+
+    act(() => getGestureCallback('tap-1', 'onEnd')?.({ x: 1, y: 2 }));
+    act(() => result.current.resetTapWindow());
     act(() => jest.advanceTimersByTime(DUA_COUNT_DOUBLE_TAP_DELAY_MS));
     expect(onBump).not.toHaveBeenCalled();
   });

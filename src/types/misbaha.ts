@@ -1,16 +1,33 @@
 export type PrayerDirection = 'fajr' | 'dhuhr' | 'asr' | 'maghrib' | 'isha';
 
-export type DuaCategory = 'prayer' | 'morning' | 'night' | 'quranic';
+export type DuaCategory =
+  | 'prayer'
+  | 'morning'
+  | 'night'
+  | 'quranic'
+  | 'salah'
+  | 'relief'
+  | 'remembrance'
+  | 'heart'
+  | 'daily'
+  | 'ramadan';
 
 export type GoalDuration = 7 | 10 | 30;
 
-export type ThemeId = 'garden' | 'chromatic' | 'rose' | 'parchment';
+export type ThemeId = 'garden' | 'chromatic' | 'rose' | 'parchment' | 'fadedGold';
 
 export type Language = 'en' | 'ur';
+
+export type VisualizationMode = 'garden' | 'earth' | 'space';
 
 export function normalizeLanguage(value: string | undefined): Language {
   if (value === 'ur') return 'ur';
   return 'en';
+}
+
+export function normalizeVisualization(value: string | undefined): VisualizationMode {
+  if (value === 'earth' || value === 'space') return value;
+  return 'garden';
 }
 
 export type DuaRecord = {
@@ -43,6 +60,8 @@ export type GoalDay = {
   target: number;
 };
 
+export type GoalLibraryCategoryId = 'oneDay' | 'weekly' | 'thirtyDay' | 'ayyamBeed' | 'newMoon';
+
 export type GoalPlan = {
   id: string;
   title: string;
@@ -52,6 +71,9 @@ export type GoalPlan = {
   createdAt: number;
   startedAt?: string;
   preset?: boolean;
+  /** Small badge icon shown on library / suggested cards. */
+  icon?: string;
+  libraryCategory?: GoalLibraryCategoryId;
 };
 
 export type GoalProgress = Record<string, Record<number, number>>;

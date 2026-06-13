@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 1 — Saffron Ledger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet" />
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        align-items: center;
+        background: radial-gradient(circle at 50% 0%, #2a2018, #0e0c0a);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin: 0;
+        min-height: 100vh;
+        padding: 28px 16px 40px;
+      }
+      .caption {
+        color: #c9a86a;
+        font: 14px/1.55 'Source Serif 4', Georgia, serif;
+        margin: 0;
+        max-width: 390px;
+        text-align: center;
+      }
+      .phone {
+        border: 3px solid #5c3d1e;
+        border-radius: 42px;
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.6);
+        height: 844px;
+        overflow: hidden;
+        position: relative;
+        width: 390px;
+      }
+      .texture-a {
+        background: url('textures/parchment-crumple.png') 42% 38% / 165% auto no-repeat;
+        filter: sepia(0.35) saturate(1.35) brightness(1.04);
+        inset: 0;
+        position: absolute;
+        transform: scale(1.02) rotate(-1.5deg);
+      }
+      .texture-b {
+        background: url('textures/parchment-crumple.png') 60% 55% / 140% auto no-repeat;
+        filter: sepia(0.2) saturate(1.1);
+        inset: 0;
+        mix-blend-mode: multiply;
+        opacity: 0.35;
+        position: absolute;
+      }
+      .glow {
+        background: radial-gradient(circle at 50% 18%, rgba(255, 232, 170, 0.45) 0%, transparent 52%);
+        inset: 0;
+        position: absolute;
+      }
+      .content {
+        color: #3d2612;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Source Serif 4', Georgia, serif;
+        gap: 16px;
+        height: 100%;
+        overflow: hidden;
+        padding: 54px 18px 92px;
+        position: relative;
+        z-index: 1;
+      }
+      .header h1 {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-size: 40px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        margin: 0;
+      }
+      .header p { color: #8b6914; font-size: 15px; margin: 2px 0 0; }
+      .stats { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+      .card {
+        background: linear-gradient(145deg, rgba(255, 244, 215, 0.88), rgba(245, 221, 176, 0.78));
+        border: 1px solid rgba(184, 134, 43, 0.55);
+        border-radius: 18px;
+        box-shadow: 0 8px 22px rgba(92, 61, 30, 0.12);
+        padding: 16px;
+      }
+      .card .label {
+        color: #b8862b;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      .card .value {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 4px;
+      }
+      .section {
+        color: #8b6914;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin: 4px 0 0;
+        text-transform: uppercase;
+      }
+      .goal {
+        background: linear-gradient(160deg, rgba(255, 247, 228, 0.9), rgba(240, 212, 154, 0.75));
+        border: 1px solid rgba(184, 134, 43, 0.6);
+        border-radius: 18px;
+        padding: 18px;
+      }
+      .goal .badge {
+        background: #5c3d1e;
+        border-radius: 999px;
+        color: #f5ddb0;
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 11px;
+      }
+      .goal h3 {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-size: 22px;
+        font-weight: 700;
+        margin: 10px 0 6px;
+      }
+      .goal p { color: #6b4a22; font-size: 13px; line-height: 1.5; margin: 0; }
+      .tabbar {
+        background: linear-gradient(180deg, #5c3d1e, #3d2612);
+        bottom: 0;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        left: 0;
+        padding: 12px 8px 22px;
+        position: absolute;
+        right: 0;
+        z-index: 2;
+      }
+      .tab { color: #d4a24c; font-size: 10px; text-align: center; }
+      .tab.active { color: #fff4dc; font-weight: 600; }
+      .tab .dot {
+        background: currentColor;
+        border-radius: 50%;
+        height: 6px;
+        margin: 0 auto 6px;
+        width: 6px;
+      }
+      .tag {
+        background: #b8862b;
+        border-radius: 999px;
+        color: #fff8ea;
+        font-family: 'Source Serif 4', Georgia, serif;
+        font-size: 11px;
+        letter-spacing: 1px;
+        padding: 6px 14px;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="tag">Mock 1 — Saffron Ledger</span>
+    <div class="phone">
+      <div class="texture-a"></div>
+      <div class="texture-b"></div>
+      <div class="glow"></div>
+      <div class="content">
+        <div class="header">
+          <h1>Today</h1>
+          <p>Sunday, 7 June · 847 taps</p>
+        </div>
+        <div class="stats">
+          <div class="card">
+            <div class="label">Today's taps</div>
+            <div class="value">847</div>
+          </div>
+          <div class="card">
+            <div class="label">Lifetime</div>
+            <div class="value">12,403</div>
+          </div>
+        </div>
+        <div class="section">Goal focus</div>
+        <div class="goal">
+          <span class="badge">32%</span>
+          <h3>Morning adhkar</h3>
+          <p>Day 4 of 10 · SubhanAllah wa bihamdihi — 33 remaining today</p>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab active"><div class="dot"></div>Today</div>
+        <div class="tab"><div class="dot"></div>Tasbeeh</div>
+        <div class="tab"><div class="dot"></div>Goals</div>
+        <div class="tab"><div class="dot"></div>Visualize</div>
+      </div>
+    </div>
+    <p class="caption">Cormorant Garamond + Source Serif 4 on honey-gold crumple. Warm, sunlit ledger feel.</p>
+  </body>
+</html>

@@ -2,6 +2,7 @@ import { Tabs, router } from 'expo-router';
 
 import { Icon, IconName } from '@/src/components/Icon';
 import { useT } from '@/src/i18n/strings';
+import { TAB_BAR_HEIGHT_EN, TAB_BAR_HEIGHT_UR } from '@/src/theme/tabBar';
 import { useTheme } from '@/src/theme/theme';
 
 const tabIcon = (name: IconName) =>
@@ -13,6 +14,7 @@ export default function TabsLayout() {
   const theme = useTheme();
   const colors = theme.colors;
   const t = useT();
+  const isUrdu = theme.language === 'ur';
 
   return (
     <Tabs
@@ -24,15 +26,21 @@ export default function TabsLayout() {
         tabBarStyle: {
           backgroundColor: colors.oliveDeep,
           borderTopColor: colors.oliveDark,
-          height: 76,
-          paddingBottom: 14,
+          // Naskh labels sit taller than Latin; give the bar more room in Urdu
+          // so descenders and the larger type aren't clipped.
+          height: isUrdu ? TAB_BAR_HEIGHT_UR : TAB_BAR_HEIGHT_EN,
+          paddingBottom: isUrdu ? 16 : 14,
           paddingTop: 10,
           position: 'absolute',
+          ...(isUrdu ? { flexDirection: 'row-reverse' as const } : {}),
         },
         tabBarLabelStyle: {
-          fontFamily: theme.fonts.body,
-          fontSize: theme.typo.caption,
+          fontFamily: theme.labelFont,
+          fontSize: isUrdu ? theme.typo.micro + 2 : theme.typo.caption,
+          lineHeight: isUrdu ? theme.labelLineHeight(theme.typo.micro + 2, 1.4) : undefined,
+          ...theme.proseCenterLayout,
         },
+        tabBarIconStyle: isUrdu ? { marginBottom: 2 } : undefined,
       }}
     >
       <Tabs.Screen name="index" options={{ title: t.tabs.today, tabBarIcon: tabIcon('sprout') }} />

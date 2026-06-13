@@ -1,3 +1,4 @@
+import { duasArabicUr } from '@/src/data/duasArabic.ur';
 import { duasLocaleUr } from '@/src/data/duasLocale.ur';
 import { prayerLabels } from '@/src/data/duas';
 import { DuaRecord, Language, PrayerDirection } from '@/src/types/misbaha';
@@ -20,6 +21,11 @@ function urduLocale(dua: DuaRecord): DuaLocaleFields | undefined {
   return duasLocaleUr[dua.id];
 }
 
+export function duaArabic(dua: DuaRecord, language: Language): string {
+  if (language === 'ur') return duasArabicUr[dua.id] ?? dua.arabic;
+  return dua.arabic;
+}
+
 export function duaTitle(dua: DuaRecord, language: Language): string {
   if (language === 'ur') return urduLocale(dua)?.title ?? dua.title;
   return dua.title;
@@ -38,6 +44,12 @@ export function duaSpeaker(dua: DuaRecord, language: Language): string | undefin
 /** Collapsed row subtitle: transliteration in English, translation in Urdu. */
 export function duaPreview(dua: DuaRecord, language: Language): string {
   if (language === 'ur') return duaTranslation(dua, language);
+  return dua.transliteration;
+}
+
+/** Compact label for goal plan rows: transliteration (en) or localized title (ur). */
+export function duaPlanLabel(dua: DuaRecord, language: Language): string {
+  if (language === 'ur') return duaTitle(dua, language);
   return dua.transliteration;
 }
 

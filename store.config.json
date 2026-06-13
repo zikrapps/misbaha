@@ -1,14 +1,15 @@
 {
   "configVersion": 0,
   "apple": {
+    "version": "1.1",
     "copyright": "2026 Zikr Apps",
     "categories": ["LIFESTYLE"],
     "info": {
       "en-US": {
-        "title": "Misbaha",
+        "title": "Misbaha مِسْبَحَة",
         "subtitle": "By Zikr Apps",
-        "promoText": "Tasbeeh and adhkar counter from Zikr Apps.",
-        "description": "Misbaha is a tasbeeh and adhkar counter from Zikr Apps — calm, private, and built for daily dhikr.\n\n• Count duas with tap, double-tap, or long-press\n• Morning, night, and Quranic adhkar\n• Goals, insights, and themes\n• English and Urdu\n• All counts stay on your device\n\nPublished by Zikr Apps.\nContact: salam@zikrapps.com",
+        "promoText": "Badges, insights, goal library, and Urdu — your daily dhikr companion from Zikr Apps.",
+        "description": "Misbaha is a tasbeeh and adhkar counter from Zikr Apps — calm, private, and built for daily dhikr.\n\n• Count duas with tap, double-tap, or long-press\n• Morning, night, and Quranic adhkar\n• Goals, badges, and a goal library to plan dhikr\n• Insights with garden, earth, and space visualizations\n• Themes, English and Urdu with RTL support\n• All counts stay on your device\n\nPublished by Zikr Apps.\nContact: salam@zikrapps.com",
         "keywords": ["tasbeeh", "dhikr", "adhkar", "zikr", "counter", "dua", "muslim", "zikr apps"],
         "marketingUrl": "https://zikrapps.com",
         "supportUrl": "https://zikrapps.com",
@@ -16,11 +17,12 @@
       }
     },
     "review": {
-      "contact": {
-        "email": "salam@zikrapps.com",
-        "firstName": "Zikr",
-        "lastName": "Apps"
-      }
+      "firstName": "Ahmed",
+      "lastName": "Siddiqui",
+      "email": "salam@zikrapps.com",
+      "phone": "+16467701786",
+      "demoRequired": false,
+      "notes": "Misbaha is an offline dhikr counter. No login is required. All user data stays on device."
     }
   }
 }

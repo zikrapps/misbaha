@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sand theme — 3 varied mocks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600&family=Literata:opsz,wght@7..72,500;7..72,700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        background: #1a1612;
+        color: #f5efe0;
+        font-family: 'Source Serif 4', Georgia, serif;
+        margin: 0;
+        padding: 32px;
+      }
+      h1 { font-size: 30px; margin: 0 0 8px; }
+      .lead { color: #b8a88a; line-height: 1.6; max-width: 54rem; }
+      .grid {
+        display: grid;
+        gap: 22px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        margin-top: 30px;
+      }
+      a.card {
+        background: #241e18;
+        border: 1px solid #4a4034;
+        border-radius: 14px;
+        color: inherit;
+        display: block;
+        padding: 18px;
+        text-decoration: none;
+        transition: transform 0.15s, border-color 0.15s;
+      }
+      a.card:hover { border-color: #c9a86a; transform: translateY(-2px); }
+      a.card h2 { font-size: 22px; margin: 0 0 10px; }
+      a.card span {
+        display: block;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
+      a.card p { color: #b8a88a; font-size: 14px; line-height: 1.55; margin: 0 0 12px; }
+      .meta {
+        color: #8a7a66;
+        display: grid;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11px;
+        gap: 4px;
+        line-height: 1.45;
+      }
+      .meta strong { color: #dcc898; font-weight: 600; }
+      .swatch-row { display: flex; gap: 6px; margin-bottom: 14px; }
+      .swatch { border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; height: 14px; width: 14px; }
+      .preview {
+        background: url('textures/sand-grain.svg') center / cover no-repeat;
+        border-radius: 10px;
+        height: 128px;
+        margin-bottom: 14px;
+        position: relative;
+        width: 100%;
+      }
+      .preview::after {
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 10px;
+        content: '';
+        inset: 0;
+        position: absolute;
+      }
+      .p1 { filter: sepia(0.12) saturate(1.15) brightness(1.04); }
+      .p2 { filter: grayscale(0.35) brightness(1.12) contrast(0.96); }
+      .p3 { filter: sepia(0.35) saturate(1.25) brightness(0.92) hue-rotate(-6deg); }
+      .full-link {
+        color: #c9a86a;
+        display: inline-block;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 20px;
+        text-decoration: none;
+      }
+      .full-link:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <h1>Sand — 3 varied direction mocks</h1>
+    <p class="lead">
+      Fine granular sand texture behind warm devotional cards — three distinct palettes:
+      sunlit desert dawn, cool coastal mist, and deep dusk dune. Each pairs a unique color story,
+      grain treatment, and font stack. Cards sit directly on the sand (no glass blur).
+    </p>
+    <div class="grid">
+      <a class="card" href="mock-1-desert-dawn.html" style="border-color: #c9a86a;">
+        <div class="preview p1"></div>
+        <span style="color: #e8c078;">Mock 1 · Recommended</span>
+        <h2 style="color: #f5ddb0; font-family: 'Literata', serif;">Desert Dawn</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#f5efe0"></div>
+          <div class="swatch" style="background:#c9a86a"></div>
+          <div class="swatch" style="background:#8b6914"></div>
+          <div class="swatch" style="background:#5c3d1e"></div>
+        </div>
+        <p>Warm honey sand, golden accents, sunlit grain — closest to Misbaha's devotional warmth.</p>
+        <div class="meta">
+          <div><strong>Display:</strong> Literata</div>
+          <div><strong>UI labels:</strong> Source Serif 4</div>
+          <div><strong>Texture:</strong> fine grain + warm sepia wash</div>
+        </div>
+      </a>
+      <a class="card" href="mock-2-coastal-mist.html" style="border-color: #9ca3af;">
+        <div class="preview p2"></div>
+        <span style="color: #b8b0a4;">Mock 2</span>
+        <h2 style="color: #ece8e0; font-family: 'Source Serif 4', serif;">Coastal Mist</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#f0ece4"></div>
+          <div class="swatch" style="background:#c8c0b4"></div>
+          <div class="swatch" style="background:#6b7a6a"></div>
+          <div class="swatch" style="background:#3a3834"></div>
+        </div>
+        <p>Pale wind-swept sand, sage-green accents, desaturated grain — calm and airy.</p>
+        <div class="meta">
+          <div><strong>Display:</strong> Source Serif 4</div>
+          <div><strong>UI labels:</strong> Instrument Sans</div>
+          <div><strong>Texture:</strong> cool grey wash + soft mist overlay</div>
+        </div>
+      </a>
+      <a class="card" href="mock-3-dusk-dune.html" style="border-color: #a65c32;">
+        <div class="preview p3"></div>
+        <span style="color: #c4875a;">Mock 3</span>
+        <h2 style="color: #e8cdb0; font-family: 'Literata', serif;">Dusk Dune</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#e8d4b0"></div>
+          <div class="swatch" style="background:#b87840"></div>
+          <div class="swatch" style="background:#7a4a28"></div>
+          <div class="swatch" style="background:#2e1e12"></div>
+        </div>
+        <p>Deep sienna sand, copper accents, rich grain contrast — evening prayer mood.</p>
+        <div class="meta">
+          <div><strong>Display:</strong> Literata</div>
+          <div><strong>UI labels:</strong> Source Serif 4</div>
+          <div><strong>Texture:</strong> heavy sepia + warm vignette</div>
+        </div>
+      </a>
+    </div>
+    <a class="full-link" href="mock-1-desert-dawn-full.html">→ Desert Dawn — all three screens (Today · Tasbeeh · Visualize)</a>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Plan a new goal — 3 button mocks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #372c24;
+        --muted: #867b6b;
+        --cream: #f7f0df;
+        --parchment: #fbf6e8;
+        --sand: #e7d7b0;
+        --card: #fffaf0;
+        --olive: #6f8f4e;
+        --olive-dark: #2d4a22;
+        --olive-deep: #213a18;
+        --line: #ded1b2;
+        --bg: #12100e;
+      }
+      * { box-sizing: border-box; }
+      body {
+        background: var(--bg);
+        color: var(--cream);
+        font-family: 'Source Serif 4', Georgia, serif;
+        margin: 0;
+        padding: 40px;
+      }
+      h1 { font-size: 32px; margin: 0 0 8px; }
+      .lead { color: #b8a88a; line-height: 1.65; max-width: 56rem; margin: 0 0 36px; }
+      .grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      }
+      a.card {
+        background: #1e1a16;
+        border: 1px solid #3d342c;
+        border-radius: 16px;
+        color: inherit;
+        display: block;
+        padding: 24px;
+        text-decoration: none;
+        transition: border-color 0.15s, transform 0.15s;
+      }
+      a.card:hover { border-color: var(--olive); transform: translateY(-2px); }
+      a.card span {
+        color: var(--olive);
+        display: block;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+      a.card h2 { font-size: 22px; margin: 0 0 10px; }
+      a.card p { color: #9a8f7e; font-size: 14px; line-height: 1.55; margin: 0; }
+      .current {
+        background: #2a241e;
+        border: 1px dashed #5a5045;
+        border-radius: 12px;
+        color: #8a7a66;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13px;
+        margin-top: 36px;
+        padding: 16px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Plan a new goal — 3 button mocks</h1>
+    <p class="lead">
+      The current button is a flat olive bar with a plus icon — easy to miss below the larger
+      “Surprise new goal” card. Each mock opens a phone preview with the Goals screen context.
+    </p>
+    <div class="grid">
+      <a class="card" href="mock-1-plan-card.html">
+        <span>Mock 1</span>
+        <h2>Plan card</h2>
+        <p>Secondary card matching the surprise card layout — title, hint line, and trailing arrow. Same visual weight hierarchy, lighter moss fill.</p>
+      </a>
+      <a class="card" href="mock-2-outline-row.html">
+        <span>Mock 2</span>
+        <h2>Outline row</h2>
+        <p>Dashed olive border on parchment — clearly a secondary action. Plus in a circle, full-width tap target without competing with the shuffle card.</p>
+      </a>
+      <a class="card" href="mock-3-section-link.html">
+        <span>Mock 3</span>
+        <h2>Section link</h2>
+        <p>Thin divider + “Create your own” label above a text row with chevron. Minimal, editorial — reads as a footer action rather than another CTA block.</p>
+      </a>
+    </div>
+
+    <h2 style="font-size: 13px; margin: 48px 0 20px; color: #dcc898; font-family: 'Instrument Sans', sans-serif; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase;">Round 2 — new directions</h2>
+    <div class="grid">
+      <a class="card" href="mock-4-grid-tile.html">
+        <span>Mock 4</span>
+        <h2>Grid tile</h2>
+        <p>Dashed empty slot in the 2-column goal grid — same size as suggested cards. “New plan” reads as another goal tile, not a separate footer bar.</p>
+      </a>
+      <a class="card" href="mock-5-sticky-footer.html">
+        <span>Mock 5</span>
+        <h2>Sticky footer</h2>
+        <p>Thin parchment band pinned above the tab bar with centered olive text link. Always reachable without scrolling to the bottom.</p>
+      </a>
+      <a class="card" href="mock-6-list-row.html">
+        <span>Mock 6</span>
+        <h2>List row</h2>
+        <p>Parchment card with icon, title + hint, and a small solid “Start” pill on the right — same language as Settings rows and tutorial cards.</p>
+      </a>
+    </div>
+
+    <h2 style="font-size: 13px; margin: 48px 0 20px; color: #dcc898; font-family: 'Instrument Sans', sans-serif; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase;">Round 3 — list row refinements (from Mock 6)</h2>
+    <p style="color: #8a7a66; font-family: 'Instrument Sans', sans-serif; font-size: 13px; line-height: 1.55; margin: -8px 0 20px; max-width: 56rem;">
+      Mock 6 direction kept; these fix the emoji icon, “Start” pill clash with suggested cards, and weak section context.
+    </p>
+    <div class="grid">
+      <a class="card" href="mock-7-chevron-row.html">
+        <span>Mock 7</span>
+        <h2>Chevron row</h2>
+        <p>Same card row, no Start pill — whole row tappable with trailing chevron. Sprout-style icon instead of emoji.</p>
+      </a>
+      <a class="card" href="mock-8-section-card.html">
+        <span>Mock 8</span>
+        <h2>Section card</h2>
+        <p>“Build your own” label inside the card, nested cream row beneath. Gives context without floating at the page bottom.</p>
+      </a>
+      <a class="card" href="mock-9-accent-stripe.html">
+        <span>Mock 9</span>
+        <h2>Accent stripe</h2>
+        <p>Left olive bar + moss-tinted icon circle. Distinctive silhouette, still lightweight.</p>
+      </a>
+      <a class="card" href="mock-10-or-divider.html">
+        <span>Mock 10</span>
+        <h2>Or divider</h2>
+        <p>Lives inside Suggested after the grid with an “or plan your own” rule — alternative to presets, not a footer.</p>
+      </a>
+      <a class="card" href="mock-11-olive-wash.html">
+        <span>Mock 11</span>
+        <h2>Olive wash</h2>
+        <p>Warm moss gradient, solid olive icon disc, circular chevron — most inviting; no competing Start button.</p>
+      </a>
+    </div>
+    <p class="current">
+      <strong>Current:</strong> solid <code>#6f8f4e</code> pill, centered plus + label, no subtitle — sits at the bottom after suggested goals.
+    </p>
+  </body>
+</html>

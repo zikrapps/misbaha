@@ -1,39 +1,73 @@
 import { router } from 'expo-router';
-import { useCallback, useMemo, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useCallback, useMemo, useRef, useState } from 'react';
+import { Image, type ImageSourcePropType, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Gesture, GestureDetector, ScrollView } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Defs, LinearGradient as SvgLinearGradient, Rect, Stop } from 'react-native-svg';
 
-import { Icon, type IconName } from '@/src/components/Icon';
 import { IconButton } from '@/src/components/IconButton';
 import { duas, prayerOrder } from '@/src/data/duas';
 import { DuaCounterRow } from '@/src/features/duas/DuaCounterRow';
 import { DuaTapFeedback } from '@/src/features/duas/DuaTapFeedback';
 import { useDuaCountBump } from '@/src/features/duas/useDuaCountBump';
-import { TAB_BAR_HEIGHT, useDuaCountGestures } from '@/src/features/duas/useDuaCountGestures';
+import { useDuaCountGestures } from '@/src/features/duas/useDuaCountGestures';
 import { prayerLabel } from '@/src/i18n/duaText';
 import { formatNumber } from '@/src/i18n/format';
 import { useLanguage, useT } from '@/src/i18n/strings';
-import { proseLayout } from '@/src/i18n/textLayout';
 import { useMisbahaStore } from '@/src/store/useMisbahaStore';
+import { scrollPastTabBar, tabBarHeight } from '@/src/theme/tabBar';
 import { radii, shadow, spacing, useTheme } from '@/src/theme/theme';
 import type { ThemeColors } from '@/src/theme/palette';
 import { DuaRecord } from '@/src/types/misbaha';
 import { sumRecordValues } from '@/src/utils/sumRecord';
 
-type CategoryId = 'quranic' | 'prayer' | 'morning' | 'night';
+type CategoryId =
+  | 'quranic'
+  | 'prayer'
+  | 'morning'
+  | 'night'
+  | 'salah'
+  | 'relief'
+  | 'remembrance'
+  | 'heart'
+  | 'daily'
+  | 'ramadan';
 
 // Quranic Duas pinned to the top-left of the grid per product spec.
-const CATEGORY_ORDER: CategoryId[] = ['quranic', 'prayer', 'morning', 'night'];
+const CATEGORY_ORDER: CategoryId[] = [
+  'quranic',
+  'prayer',
+  'morning',
+  'night',
+  'salah',
+  'relief',
+  'remembrance',
+  'heart',
+  'daily',
+  'ramadan',
+];
+
+// Solid-glyph motif per category. Rendered as a silhouette and tinted to the
+// tile's foreground colour so the same artwork stays legible on every tile.
+const MOTIFS: Record<CategoryId, ImageSourcePropType> = {
+  quranic: require('@/assets/motifs/glyph-quran.png'),
+  prayer: require('@/assets/motifs/glyph-prayer-mat.png'),
+  morning: require('@/assets/motifs/glyph-sunrise.png'),
+  night: require('@/assets/motifs/glyph-moon-stars.png'),
+  salah: require('@/assets/motifs/glyph-prayer-mat.png'),
+  relief: require('@/assets/motifs/glyph-sajdah.png'),
+  remembrance: require('@/assets/motifs/glyph-dua.png'),
+  heart: require('@/assets/motifs/glyph-sunrise.png'),
+  daily: require('@/assets/motifs/glyph-tasbih.png'),
+  ramadan: require('@/assets/motifs/glyph-lantern.png'),
+};
 
 type TilePalette = {
   gradFrom: string;
   gradTo: string;
   fg: string;
   meta: string;
-  motif: string;
-  iconName: IconName;
+  chipBorder: string;
 };
 
 /** Lighten or darken a hex color by a small percentage (positive = lighter). */
@@ -53,39 +87,83 @@ function tilePalette(id: CategoryId, colors: ThemeColors): TilePalette {
   switch (id) {
     case 'quranic':
       return {
-        gradFrom: colors.olive,
-        gradTo: shade(colors.olive, 8),
+        gradFrom: shade(colors.olive, 10),
+        gradTo: shade(colors.olive, -14),
         fg: colors.white,
         meta: colors.cream,
-        motif: colors.white,
-        iconName: 'quran',
+        chipBorder: 'rgba(255,255,255,0.35)',
       };
     case 'prayer':
       return {
-        gradFrom: colors.blush,
-        gradTo: shade(colors.blush, 8),
+        gradFrom: shade(colors.blush, 10),
+        gradTo: shade(colors.blush, -14),
         fg: colors.white,
         meta: colors.cream,
-        motif: colors.white,
-        iconName: 'prayerMat',
+        chipBorder: 'rgba(255,255,255,0.35)',
       };
     case 'morning':
       return {
-        gradFrom: shade(colors.sand, 6),
-        gradTo: colors.sand,
+        gradFrom: shade(colors.sand, 8),
+        gradTo: shade(colors.sand, -10),
         fg: colors.ink,
         meta: colors.oliveDark,
-        motif: colors.oliveDark,
-        iconName: 'sunrise',
+        chipBorder: 'rgba(55,44,36,0.22)',
       };
     case 'night':
       return {
-        gradFrom: shade(colors.oliveDeep, 14),
-        gradTo: colors.oliveDeep,
+        gradFrom: shade(colors.oliveDeep, 12),
+        gradTo: shade(colors.oliveDeep, -10),
         fg: colors.cream,
         meta: colors.sand,
-        motif: colors.sand,
-        iconName: 'moonStars',
+        chipBorder: 'rgba(247,240,223,0.35)',
+      };
+    case 'salah':
+      return {
+        gradFrom: shade(colors.moss, 12),
+        gradTo: shade(colors.moss, -16),
+        fg: colors.white,
+        meta: colors.cream,
+        chipBorder: 'rgba(255,255,255,0.35)',
+      };
+    case 'relief':
+      return {
+        gradFrom: shade(colors.oliveDark, 14),
+        gradTo: shade(colors.oliveDark, -10),
+        fg: colors.cream,
+        meta: colors.sand,
+        chipBorder: 'rgba(247,240,223,0.35)',
+      };
+    case 'remembrance':
+      return {
+        gradFrom: shade(colors.olive, -6),
+        gradTo: shade(colors.olive, -28),
+        fg: colors.white,
+        meta: colors.cream,
+        chipBorder: 'rgba(255,255,255,0.35)',
+      };
+    case 'heart':
+      return {
+        gradFrom: shade(colors.blush, -4),
+        gradTo: shade(colors.blush, -26),
+        fg: colors.white,
+        meta: colors.cream,
+        chipBorder: 'rgba(255,255,255,0.35)',
+      };
+    case 'daily':
+      return {
+        gradFrom: shade(colors.sand, -4),
+        gradTo: shade(colors.sand, -22),
+        fg: colors.ink,
+        meta: colors.oliveDark,
+        chipBorder: 'rgba(55,44,36,0.22)',
+      };
+    case 'ramadan':
+      return {
+        gradFrom: shade(colors.oliveDeep, 22),
+        gradTo: shade(colors.oliveDeep, 2),
+        fg: colors.cream,
+        meta: colors.sand,
+        chipBorder: 'rgba(247,240,223,0.35)',
       };
   }
 }
@@ -95,7 +173,9 @@ export default function DuasScreen() {
   const colors = theme.colors;
   const t = useT();
   const language = useLanguage();
-  const { typo, labelFont } = theme;
+  const { typo, labelFont, proseLayout, proseInlineLayout, proseContainerLayout, mirrorRow, alignStart } = theme;
+  const insets = useSafeAreaInsets();
+  const isUrdu = language === 'ur';
   const counts = useMisbahaStore((state) => state.counts);
   const tapWeight = useMisbahaStore((state) => state.tapWeight);
   const hapticsEnabled = useMisbahaStore((state) => state.hapticsEnabled);
@@ -106,6 +186,7 @@ export default function DuasScreen() {
   const [expandedCategory, setExpandedCategory] = useState<CategoryId | null>(null);
   const [expandedDuaId, setExpandedDuaId] = useState<string | null>(null);
   const countingActive = expandedDuaId != null;
+  const scrollRef = useRef<ScrollView>(null);
 
   const categoryLabels: Record<CategoryId, string> = useMemo(
     () => ({
@@ -113,24 +194,35 @@ export default function DuasScreen() {
       prayer: t.duas.fivePrayers,
       morning: t.duas.morningAdhkar,
       night: t.duas.nightAdhkar,
+      salah: t.duas.salahDuas,
+      relief: t.duas.reliefDuas,
+      remembrance: t.duas.remembranceDuas,
+      heart: t.duas.heartDuas,
+      daily: t.duas.dailyDuas,
+      ramadan: t.duas.ramadanDuas,
     }),
     [t],
   );
 
   const categoryDuas: Record<CategoryId, DuaRecord[]> = useMemo(
-    () => ({
-      quranic: duas.filter((d) => d.category === 'quranic'),
-      prayer: duas.filter((d) => d.category === 'prayer'),
-      morning: duas.filter((d) => d.category === 'morning'),
-      night: duas.filter((d) => d.category === 'night'),
-    }),
+    () =>
+      CATEGORY_ORDER.reduce(
+        (acc, id) => {
+          acc[id] = duas.filter((d) => d.category === id);
+          return acc;
+        },
+        {} as Record<CategoryId, DuaRecord[]>,
+      ),
     [],
   );
 
-  const onIncrement = useCallback(() => {
-    if (!expandedDuaId) return;
-    incrementDua(expandedDuaId, tapWeight);
-  }, [expandedDuaId, incrementDua, tapWeight]);
+  const onIncrement = useCallback(
+    (times = 1) => {
+      if (!expandedDuaId) return;
+      incrementDua(expandedDuaId, tapWeight * times);
+    },
+    [expandedDuaId, incrementDua, tapWeight],
+  );
 
   const { feedback, showFeedback, bumpAt, onFeedbackFinish } = useDuaCountBump({
     hapticsEnabled,
@@ -149,7 +241,15 @@ export default function DuasScreen() {
   );
 
   const toggleCategory = useCallback((id: CategoryId) => {
-    setExpandedCategory((current) => (current === id ? null : id));
+    setExpandedCategory((current) => {
+      const next = current === id ? null : id;
+      // When opening a category, surface its dua list right away instead of
+      // leaving the user scrolled down at a lower tile.
+      if (next) {
+        requestAnimationFrame(() => scrollRef.current?.scrollTo({ y: 0, animated: true }));
+      }
+      return next;
+    });
     // Switching/closing categories always exits per-dua counting mode.
     setExpandedDuaId(null);
   }, []);
@@ -191,19 +291,25 @@ export default function DuasScreen() {
         },
         content: {
           padding: spacing.lg,
-          paddingBottom: 120,
+          paddingBottom: scrollPastTabBar(language, insets.bottom),
           gap: spacing.lg,
+          ...proseContainerLayout,
         },
         header: {
           alignItems: 'flex-start',
-          flexDirection: 'row',
           justifyContent: 'space-between',
           paddingTop: spacing.lg,
+          ...mirrorRow,
+        },
+        headerCopy: {
+          flex: 1,
+          minWidth: 0,
         },
         title: {
           color: colors.ink,
-          fontFamily: theme.fonts.display,
+          fontFamily: labelFont,
           fontSize: typo.title,
+          ...proseLayout,
         },
         subtitle: {
           color: colors.muted,
@@ -211,26 +317,30 @@ export default function DuasScreen() {
           fontSize: typo.subtitle,
           fontStyle: theme.proseFontStyle,
           marginTop: -2,
+          ...proseLayout,
         },
         totalRow: {
           alignItems: 'center',
           borderBottomWidth: StyleSheet.hairlineWidth,
           borderBottomColor: colors.line,
-          flexDirection: 'row',
           gap: spacing.sm,
           paddingBottom: spacing.md,
+          ...mirrorRow,
         },
         totalLabel: {
           color: colors.muted,
+          flex: 1,
           fontSize: typo.caption,
           fontWeight: '700',
-          letterSpacing: 3,
-          textTransform: 'uppercase',
+          letterSpacing: language === 'ur' ? 0 : 3,
+          textTransform: language === 'ur' ? 'none' : 'uppercase',
+          ...proseLayout,
         },
         totalValue: {
           color: colors.ink,
           fontFamily: labelFont,
           fontSize: typo.subtitle,
+          ...proseInlineLayout,
         },
         grid: {
           gap: spacing.md,
@@ -240,9 +350,9 @@ export default function DuasScreen() {
           gap: spacing.md,
         },
         tile: {
-          aspectRatio: 0.82,
           borderRadius: radii.lg,
           flex: 1,
+          minHeight: isUrdu ? 196 : 158,
           overflow: 'hidden',
           ...shadow,
         },
@@ -251,31 +361,59 @@ export default function DuasScreen() {
           shadowRadius: 20,
         },
         tileGraphic: {
-          bottom: -14,
-          opacity: 0.34,
+          bottom: spacing.sm,
+          height: 84,
+          opacity: 0.16,
           position: 'absolute',
-          right: -14,
+          right: spacing.sm,
+          width: 84,
         },
         tileInner: {
           flex: 1,
+          gap: spacing.sm,
           justifyContent: 'space-between',
-          padding: spacing.lg,
+          padding: spacing.md,
+        },
+        tileTopGroup: {
+          gap: spacing.xs,
+        },
+        tileChip: {
+          borderRadius: radii.pill,
+          borderWidth: StyleSheet.hairlineWidth,
+          paddingHorizontal: spacing.sm,
+          paddingVertical: 3,
+          ...alignStart,
+        },
+        tileChipText: {
+          fontFamily: labelFont,
+          fontSize: typo.micro,
+          fontWeight: '600',
+          ...proseLayout,
         },
         tileEyebrow: {
           fontFamily: labelFont,
           fontSize: typo.micro,
           fontWeight: '700',
-          letterSpacing: 1.6,
-          textTransform: 'uppercase',
+          letterSpacing: language === 'ur' ? 0 : 1.4,
+          marginTop: spacing.xs,
+          textTransform: language === 'ur' ? 'none' : 'uppercase',
+          ...proseLayout,
         },
         tileTitle: {
-          fontFamily: theme.fonts.display,
-          fontSize: typo.title - 4,
-          fontWeight: '700',
-          lineHeight: Math.round((typo.title - 4) * 1.05),
+          fontFamily: labelFont,
+          fontSize: typo.title - 6,
+          fontWeight: '400',
+          lineHeight: Math.round((typo.title - 6) * (language === 'ur' ? 1.4 : 1.12)),
+          ...proseLayout,
         },
-        tileChevron: {
-          alignSelf: 'flex-end',
+        tileDesc: {
+          fontFamily: labelFont,
+          fontSize: typo.caption,
+          lineHeight: Math.round(typo.caption * (isUrdu ? 1.45 : 1.32)),
+          opacity: 0.9,
+          paddingBottom: isUrdu ? spacing.xs : 0,
+          paddingRight: 64,
+          ...proseLayout,
         },
         listSection: {
           gap: spacing.md,
@@ -283,8 +421,8 @@ export default function DuasScreen() {
         },
         listHeader: {
           alignItems: 'center',
-          flexDirection: 'row',
           gap: spacing.sm,
+          ...mirrorRow,
         },
         listHeaderAccent: {
           borderRadius: radii.pill,
@@ -293,9 +431,10 @@ export default function DuasScreen() {
         },
         listHeaderTitle: {
           color: colors.ink,
-          fontFamily: theme.fonts.display,
+          fontFamily: labelFont,
           fontSize: typo.subtitle + 2,
           fontWeight: '700',
+          ...proseLayout,
         },
         subGroup: {
           gap: spacing.sm,
@@ -304,39 +443,44 @@ export default function DuasScreen() {
           color: colors.oliveDark,
           fontFamily: labelFont,
           fontSize: typo.subtitle,
+          ...proseLayout,
         },
         feedback: {
           ...StyleSheet.absoluteFillObject,
-          bottom: TAB_BAR_HEIGHT,
+          bottom: tabBarHeight(language),
         },
       }),
-    [colors, labelFont, theme.fonts.display, theme.proseFontStyle, typo],
+    [colors, alignStart, insets.bottom, isUrdu, labelFont, language, mirrorRow, proseContainerLayout, proseInlineLayout, proseLayout, theme.proseFontStyle, typo],
   );
 
   const renderTile = (id: CategoryId) => {
     const palette = tilePalette(id, colors);
     const expanded = expandedCategory === id;
-    // While counting, tiles step out of the touch path so the screen-wide
-    // double-tap counter receives gestures anywhere on screen. User exits
-    // counting from the dua row's chevron in the list below.
+    const gradientId = `tile-grad-${id}`;
+    const duaCount = categoryDuas[id].length;
+    // While counting, non-expanded tiles step out of the touch path so the
+    // screen-wide double-tap counter receives gestures anywhere on screen.
+    // The open tile stays tappable so it can be collapsed in one tap even
+    // while a dua inside it is expanded/counting.
+    const tileDisabled = countingActive && !expanded;
     return (
       <Pressable
         accessibilityLabel={categoryLabels[id]}
         accessibilityRole="button"
-        accessibilityState={{ expanded, disabled: countingActive }}
-        disabled={countingActive}
+        accessibilityState={{ expanded, disabled: tileDisabled }}
+        disabled={tileDisabled}
         key={id}
         onPress={() => toggleCategory(id)}
         style={({ pressed }) => [
           styles.tile,
           expanded && styles.tileActive,
           pressed ? { opacity: 0.92 } : null,
-          countingActive ? { pointerEvents: 'none' } : null,
+          tileDisabled ? { pointerEvents: 'none' } : null,
         ]}
       >
-        <Svg height="100%" style={StyleSheet.absoluteFill} width="100%">
+        <Svg height="100%" pointerEvents="none" style={StyleSheet.absoluteFill} width="100%">
           <Defs>
-            <SvgLinearGradient id={gradientId} x1="0" x2="0" y1="0" y2="1">
+            <SvgLinearGradient id={gradientId} x1="0" x2="1" y1="0" y2="1">
               <Stop offset="0" stopColor={palette.gradFrom} />
               <Stop offset="1" stopColor={palette.gradTo} />
             </SvgLinearGradient>
@@ -344,19 +488,34 @@ export default function DuasScreen() {
           <Rect fill={`url(#${gradientId})`} height="100%" width="100%" />
         </Svg>
 
-        <View pointerEvents="none" style={styles.tileGraphic}>
-          <Icon color={palette.motif} name={palette.iconName} size={132} strokeWidth={1.2} />
-        </View>
+        <Image
+          pointerEvents="none"
+          resizeMode="contain"
+          source={MOTIFS[id]}
+          style={styles.tileGraphic}
+          tintColor={palette.fg}
+        />
 
         <View style={styles.tileInner}>
-          <Text numberOfLines={1} style={[styles.tileEyebrow, { color: palette.meta }]}>
-            {t.duas.tileEyebrows[id]}
-          </Text>
-          <Text numberOfLines={2} style={[styles.tileTitle, { color: palette.fg }]}>
-            {categoryLabels[id]}
-          </Text>
-          <View style={[styles.tileChevron, { transform: [{ rotate: expanded ? '180deg' : '0deg' }] }]}>
-            <Icon color={palette.fg} name="chevronDown" size={20} strokeWidth={2.4} />
+          <View style={styles.tileTopGroup}>
+            <View style={[styles.tileChip, { borderColor: palette.chipBorder }]}>
+              <Text style={[styles.tileChipText, { color: palette.fg }]}>
+                {t.duas.tileDuaCount(duaCount)}
+              </Text>
+            </View>
+            <View>
+              <Text numberOfLines={1} style={[styles.tileEyebrow, { color: palette.meta }]}>
+                {t.duas.tileEyebrows[id]}
+              </Text>
+              <Text numberOfLines={isUrdu ? 3 : 2} style={[styles.tileTitle, { color: palette.fg }]}>
+                {categoryLabels[id]}
+              </Text>
+            </View>
+          </View>
+          <View>
+            <Text numberOfLines={2} style={[styles.tileDesc, { color: palette.meta }]}>
+              {t.duas.tileDescriptions[id]}
+            </Text>
           </View>
         </View>
       </Pressable>
@@ -400,6 +559,7 @@ export default function DuasScreen() {
 
   const listContent = (
     <ScrollView
+      ref={scrollRef}
       contentContainerStyle={styles.content}
       keyboardShouldPersistTaps="handled"
       onScrollBeginDrag={countingActive ? resetTapWindow : undefined}
@@ -407,9 +567,9 @@ export default function DuasScreen() {
       style={styles.scroll}
     >
       <View pointerEvents={passContainer} style={styles.header}>
-        <View pointerEvents={passThrough}>
+        <View pointerEvents={passThrough} style={styles.headerCopy}>
           <Text style={styles.title}>{t.duas.title}</Text>
-          <Text style={[styles.subtitle, proseLayout(language)]}>{t.duas.subtitle}</Text>
+          <Text style={styles.subtitle}>{t.duas.subtitle}</Text>
         </View>
         <IconButton name="gear" onPress={() => router.push('/settings')} />
       </View>
@@ -420,14 +580,25 @@ export default function DuasScreen() {
       </View>
 
       <View pointerEvents={passContainer} style={styles.grid}>
-        <View pointerEvents={passContainer} style={styles.gridRow}>
-          {renderTile(CATEGORY_ORDER[0])}
-          {renderTile(CATEGORY_ORDER[1])}
-        </View>
-        <View pointerEvents={passContainer} style={styles.gridRow}>
-          {renderTile(CATEGORY_ORDER[2])}
-          {renderTile(CATEGORY_ORDER[3])}
-        </View>
+        {expandedCategory ? (
+          // Collapse the grid to just the open tile so its duas sit directly
+          // below it and the remaining tiles step out of the way.
+          <View pointerEvents={passContainer} style={styles.gridRow}>
+            {renderTile(expandedCategory)}
+            <View style={{ flex: 1 }} />
+          </View>
+        ) : (
+          Array.from({ length: Math.ceil(CATEGORY_ORDER.length / 2) }, (_, rowIndex) => {
+            const left = CATEGORY_ORDER[rowIndex * 2];
+            const right = CATEGORY_ORDER[rowIndex * 2 + 1];
+            return (
+              <View key={left} pointerEvents={passContainer} style={styles.gridRow}>
+                {renderTile(left)}
+                {right ? renderTile(right) : <View style={{ flex: 1 }} />}
+              </View>
+            );
+          })
+        )}
       </View>
 
       {expandedCategory ? (
@@ -448,7 +619,7 @@ export default function DuasScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView edges={['top', 'left', 'right']} style={styles.safe}>
       <View style={styles.root}>
         {countingActive ? (
           <GestureDetector gesture={listGesture}>{listContent}</GestureDetector>

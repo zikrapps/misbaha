@@ -1,5 +1,5 @@
 import { duas } from '@/src/data/duas';
-import { duaPreview, duaSpeaker, duaTitle, duaTranslation, prayerLabel } from '@/src/i18n/duaText';
+import { duaArabic, duaPlanLabel, duaPreview, duaSpeaker, duaTitle, duaTranslation, prayerLabel } from '@/src/i18n/duaText';
 
 const fajr = duas.find((d) => d.id === 'fajr-subhanallah')!;
 
@@ -14,7 +14,15 @@ describe('duaText', () => {
   it('uses Urdu locale when available', () => {
     expect(duaTitle(fajr, 'ur')).not.toBe(fajr.title);
     expect(duaPreview(fajr, 'ur')).toBe(duaTranslation(fajr, 'ur'));
+    expect(duaPlanLabel(fajr, 'ur')).toBe(duaTitle(fajr, 'ur'));
+    expect(duaPlanLabel(fajr, 'en')).toBe(fajr.transliteration);
     expect(prayerLabel('maghrib', 'ur')).toBe('مغرب');
+  });
+
+  it('uses Indo-Pak Arabic when Urdu is selected', () => {
+    expect(duaArabic(fajr, 'en')).toBe(fajr.arabic);
+    expect(duaArabic(fajr, 'ur')).not.toBe(fajr.arabic);
+    expect(duaArabic(fajr, 'ur')).toContain('الل');
   });
 
   it('returns speaker in both languages when present', () => {
@@ -26,5 +34,11 @@ describe('duaText', () => {
   it('returns undefined when no speaker is set', () => {
     const withoutSpeaker = duas.find((d) => !d.speaker)!;
     expect(duaSpeaker(withoutSpeaker, 'en')).toBeUndefined();
+  });
+
+  it('falls back to English fields when Urdu locale is missing', () => {
+    const fallback = { ...fajr, id: 'missing-urdu-locale' };
+    expect(duaArabic(fallback, 'ur')).toBe(fajr.arabic);
+    expect(duaTranslation(fallback, 'ur')).toBe(fajr.translation);
   });
 });

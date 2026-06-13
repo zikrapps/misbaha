@@ -7,26 +7,30 @@ import { Icon } from '@/src/components/Icon';
 import { Screen, SectionTitle } from '@/src/components/Screen';
 import { duas } from '@/src/data/duas';
 import { buildGoalDays, presetGoals, suggestGoal } from '@/src/data/presetGoals';
-import { duaPreview } from '@/src/i18n/duaText';
+import { duaPlanLabel, duaTranslation } from '@/src/i18n/duaText';
 import { formatNumber } from '@/src/i18n/format';
 import { goalDescription, goalTitle } from '@/src/i18n/goalText';
 import { useLanguage, useT } from '@/src/i18n/strings';
+import { mirrorRow, proseInlineLayout } from '@/src/i18n/textLayout';
 import { useMisbahaStore } from '@/src/store/useMisbahaStore';
 import { radii, spacing, useTheme } from '@/src/theme/theme';
-import { GoalDuration, GoalPlan } from '@/src/types/misbaha';
+import { GoalDuration, GoalPlan, Language } from '@/src/types/misbaha';
 
 const durations: GoalDuration[] = [7, 10, 30];
 
 export default function CreateGoalScreen() {
   const theme = useTheme();
   const colors = theme.colors;
-  const styles = useMemo(() => createStyles(colors, theme.fonts.display), [colors, theme.fonts.display]);
+  const language = useLanguage();
+  const t = useT();
+  const styles = useMemo(
+    () => createStyles(colors, theme.fonts.display, theme.labelFont, language, theme.mirrorRow),
+    [colors, language, theme.fonts.display, theme.labelFont, theme.mirrorRow],
+  );
   const [duration, setDuration] = useState<GoalDuration>(7);
   const [mode, setMode] = useState<'surprise' | 'custom'>('surprise');
   const [offset, setOffset] = useState(0);
   const startGoal = useMisbahaStore((state) => state.startGoal);
-  const language = useLanguage();
-  const t = useT();
 
   const previewDays = useMemo(
     () => (mode === 'surprise' ? suggestGoal(duration).days : buildGoalDays(duration, offset)),
@@ -112,17 +116,21 @@ export default function CreateGoalScreen() {
       ))}
 
       <Card style={styles.preview}>
-        {previewDays.slice(0, 7).map((day) => {
+        {previewDays.map((day) => {
           const dua = duas.find((item) => item.id === day.duaId);
           return (
             <View key={day.day} style={styles.dayPreview}>
               <Text style={styles.dayBadge}>{formatNumber(day.day)}</Text>
-              <Text style={styles.dayText}>{dua ? duaPreview(dua, language) : ''}</Text>
+              <View style={styles.dayCopy}>
+                <Text style={styles.dayText}>{dua ? duaPlanLabel(dua, language) : ''}</Text>
+                {language === 'ur' ? (
+                  <Text style={styles.dayTranslation}>{dua ? duaTranslation(dua, language) : ''}</Text>
+                ) : null}
+              </View>
               <Text style={styles.dayTarget}>×{formatNumber(day.target)}</Text>
             </View>
           );
         })}
-        {previewDays.length > 7 ? <Text style={styles.more}>{t.goalCreate.moreDays(previewDays.length - 7)}</Text> : null}
       </Card>
 
       <Pressable style={styles.begin} onPress={begin}>
@@ -133,7 +141,15 @@ export default function CreateGoalScreen() {
   );
 }
 
-function createStyles(colors: ReturnType<typeof useTheme>['colors'], displayFont: string) {
+function createStyles(
+  colors: ReturnType<typeof useTheme>['colors'],
+  displayFont: string,
+  labelFont: string,
+  language: Language,
+  mirrorRowStyle: ReturnType<typeof useTheme>['mirrorRow'],
+) {
+  const isUrdu = language === 'ur';
+  const inline = proseInlineLayout(language);
   return StyleSheet.create({
     done: {
       alignSelf: 'flex-start',
@@ -253,9 +269,9 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors'], displayFont
       gap: spacing.sm,
     },
     dayPreview: {
-      alignItems: 'center',
-      flexDirection: 'row',
+      alignItems: 'flex-start',
       gap: spacing.md,
+      ...mirrorRowStyle,
     },
     dayBadge: {
       backgroundColor: colors.olive,
@@ -265,18 +281,29 @@ function createStyles(colors: ReturnType<typeof useTheme>['colors'], displayFont
       paddingHorizontal: spacing.sm,
       paddingVertical: spacing.xs,
     },
+    dayCopy: {
+      flex: 1,
+      gap: 2,
+      minWidth: 0,
+    },
     dayText: {
       color: colors.ink,
-      flex: 1,
-      fontFamily: displayFont,
+      fontFamily: labelFont,
+      fontSize: isUrdu ? 14 : 15,
+      fontWeight: isUrdu ? '700' : undefined,
+      ...inline,
+    },
+    dayTranslation: {
+      color: colors.muted,
+      fontFamily: labelFont,
+      fontSize: 12,
+      ...inline,
     },
     dayTarget: {
       color: colors.muted,
-    },
-    more: {
-      color: colors.muted,
-      fontStyle: 'italic',
-      textAlign: 'center',
+      flexShrink: 0,
+      fontWeight: '800',
+      ...inline,
     },
     begin: {
       alignItems: 'center',

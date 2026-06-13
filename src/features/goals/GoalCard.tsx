@@ -3,11 +3,10 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Card } from '@/src/components/Card';
 import { Icon } from '@/src/components/Icon';
 import { getGoalTodayState } from '@/src/features/goals/goalProgress';
-import { duaPreview } from '@/src/i18n/duaText';
+import { duaArabic, duaPreview } from '@/src/i18n/duaText';
 import { formatNumber } from '@/src/i18n/format';
 import { goalTitle } from '@/src/i18n/goalText';
 import { useLanguage, useT } from '@/src/i18n/strings';
-import { proseLayout } from '@/src/i18n/textLayout';
 import { radii, spacing, useTheme } from '@/src/theme/theme';
 import { GoalPlan } from '@/src/types/misbaha';
 
@@ -24,28 +23,30 @@ export function GoalCard({ goal, progress, onPress, variant = 'full' }: GoalCard
   const { typo } = theme;
   const language = useLanguage();
   const t = useT();
-  const { labelFont } = theme;
+  const { labelFont, arabicFont, proseLayout, arabicLayout, labelDecoration, labelLineHeight, mirrorRow } = theme;
+  const isUrdu = language === 'ur';
   const isTile = variant === 'tile';
   const { completed, today, todayDua } = getGoalTodayState(goal, progress);
   if (!today) return null;
 
   return (
     <Pressable onPress={onPress} style={isTile ? styles.tilePressable : undefined}>
-      <Card style={isTile ? styles.cardTile : styles.card}>
-        <View style={[styles.header, isTile && styles.headerTile]}>
+      <Card style={isTile ? [styles.cardTile, isUrdu && styles.cardTileUrdu] : styles.card}>
+        <View style={[styles.header, isTile && styles.headerTile, mirrorRow]}>
           <View style={styles.headerCopy}>
             <Text
               style={[
                 styles.title,
                 isTile && styles.titleTile,
-                { color: colors.ink, fontFamily: labelFont },
+                proseLayout,
+                { color: colors.ink, fontFamily: labelFont, lineHeight: labelLineHeight(isTile ? 15 : typo.subtitle, 1.25) },
                 !isTile && { fontSize: typo.subtitle },
               ]}
               numberOfLines={2}
             >
               {goalTitle(goal, language)}
             </Text>
-            <Text style={[styles.meta, { color: colors.muted, fontSize: typo.caption }]} numberOfLines={1}>
+            <Text style={[styles.meta, proseLayout, { color: colors.muted, fontSize: typo.caption }]} numberOfLines={1}>
               {t.goals.dayProgress(Math.min(completed + 1, goal.duration), goal.duration, completed)}
             </Text>
           </View>
@@ -53,20 +54,32 @@ export function GoalCard({ goal, progress, onPress, variant = 'full' }: GoalCard
         </View>
 
         <View style={[styles.today, isTile && styles.todayTile, { backgroundColor: colors.cream }]}>
-          <Text style={[styles.todayLabel, { color: colors.muted, fontSize: typo.micro }]}>{t.goals.todayLabel}</Text>
+          <Text style={[styles.todayLabel, proseLayout, labelDecoration, { color: colors.muted, fontSize: typo.micro }]}>
+            {t.goals.todayLabel}
+          </Text>
           <Text
             style={[
               styles.duaName,
-              proseLayout(language),
+              proseLayout,
               isTile && styles.duaNameTile,
-              { color: colors.muted, fontFamily: labelFont, fontSize: typo.caption },
+              {
+                color: colors.muted,
+                fontFamily: labelFont,
+                fontSize: typo.caption,
+                fontStyle: theme.proseFontStyle,
+                lineHeight: labelLineHeight(typo.caption, 1.2),
+              },
             ]}
             numberOfLines={isTile ? 2 : undefined}
           >
             {todayDua ? duaPreview(todayDua, language) : ''}
           </Text>
-          {!isTile ? <Text style={[styles.arabic, { color: colors.ink }]}>{todayDua?.arabic}</Text> : null}
-          <Text style={[styles.count, { color: colors.oliveDark }]}>
+          {!isTile ? (
+            <Text style={[styles.arabic, arabicLayout, { color: colors.ink, fontFamily: arabicFont }]}>
+              {todayDua ? duaArabic(todayDua, language) : ''}
+            </Text>
+          ) : null}
+          <Text style={[styles.count, proseLayout, { color: colors.oliveDark }]}>
             {formatNumber(progress[today.day] ?? 0)}/{formatNumber(today.target)}
           </Text>
         </View>
@@ -100,11 +113,13 @@ const styles = StyleSheet.create({
   cardTile: {
     flex: 1,
     gap: spacing.sm,
-    height: 196,
+    minHeight: 196,
+  },
+  cardTileUrdu: {
+    minHeight: 208,
   },
   header: {
     alignItems: 'flex-start',
-    flexDirection: 'row',
     justifyContent: 'space-between',
   },
   headerTile: {
@@ -112,6 +127,7 @@ const styles = StyleSheet.create({
   },
   headerCopy: {
     flex: 1,
+    minWidth: 0,
     paddingRight: spacing.xs,
   },
   title: {
@@ -119,8 +135,6 @@ const styles = StyleSheet.create({
   },
   titleTile: {
     fontSize: 15,
-    height: 38,
-    lineHeight: 19,
   },
   meta: {
     fontSize: 11,
@@ -143,12 +157,9 @@ const styles = StyleSheet.create({
   },
   duaName: {
     fontSize: 12,
-    fontStyle: 'italic',
   },
   duaNameTile: {
     fontSize: 11,
-    height: 28,
-    lineHeight: 14,
   },
   arabic: {
     fontSize: 22,

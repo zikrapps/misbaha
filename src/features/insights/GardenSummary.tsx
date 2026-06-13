@@ -215,26 +215,49 @@ export function GardenSummary({ total, counts }: GardenSummaryProps) {
   const zoom = useMemo(() => getGardenZoom(treeCount), [treeCount]);
   const trees = useMemo(() => buildGardenTrees(counts, duaIds, zoom), [counts, zoom]);
   const isBarren = treeCount === 0;
-  const svgHeight = Math.round(228 + zoom.t * 48);
   const isPanorama = zoom.t > 0;
 
   return (
     <View style={[styles.wrap, { backgroundColor: theme.colors.oliveDeep }]}>
       <View style={styles.copy}>
-        <Text style={[styles.label, { color: theme.colors.sand }]}>{t.garden.lifetime}</Text>
-        <Text style={[styles.total, { color: theme.colors.white, fontFamily: theme.fonts.display }]}>
+        <Text
+          style={[
+            styles.label,
+            theme.proseLayout,
+            theme.labelDecoration,
+            { color: theme.colors.sand, fontFamily: theme.labelFont },
+          ]}
+        >
+          {t.garden.lifetime}
+        </Text>
+        <Text
+          style={[
+            styles.total,
+            theme.proseLayout,
+            { color: theme.colors.white, fontFamily: theme.labelFont },
+          ]}
+        >
           {formatNumber(total)}
         </Text>
-        <Text style={[styles.caption, { color: theme.colors.sand }]}>
+        <Text
+          style={[
+            styles.caption,
+            theme.proseLayout,
+            {
+              color: theme.colors.sand,
+              fontFamily: theme.labelFont,
+              lineHeight: theme.labelLineHeight(11, 1.4),
+            },
+          ]}
+        >
           {gardenZoomCaption(zoom, treeCount, language)}
         </Text>
       </View>
 
       <Svg
-        width="100%"
-        height={svgHeight}
         viewBox={`0 0 ${zoom.worldWidth} ${zoom.worldHeight}`}
-        preserveAspectRatio="xMidYMid meet"
+        preserveAspectRatio="xMidYMid slice"
+        style={[styles.scene, { aspectRatio: zoom.worldWidth / zoom.worldHeight }]}
       >
         <GardenGradients />
         <Rect x={0} y={0} width={zoom.worldWidth} height={zoom.worldHeight} fill="url(#gSky)" />
@@ -264,6 +287,9 @@ const styles = StyleSheet.create({
     borderRadius: radii.lg,
     overflow: 'hidden',
     paddingTop: spacing.lg,
+  },
+  scene: {
+    width: '100%',
   },
   copy: {
     paddingHorizontal: spacing.lg,

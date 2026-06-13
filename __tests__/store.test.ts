@@ -1,4 +1,5 @@
 import { resetStore } from '@/__tests__/helpers/store';
+import { goalLibraryGoals } from '@/src/data/goalLibrary';
 import { presetGoals } from '@/src/data/presetGoals';
 import { getGoalDayProgress, migratePersistedState, useMisbahaStore } from '@/src/store/useMisbahaStore';
 
@@ -74,6 +75,9 @@ describe('misbaha store', () => {
     const custom = { ...template, id: 'custom-plan', preset: false, createdAt: 1 };
     useMisbahaStore.getState().saveGoal(custom);
     expect(useMisbahaStore.getState().goals[0].id).toBe('custom-plan');
+
+    const libraryId = useMisbahaStore.getState().startGoal(goalLibraryGoals[0], '2026-05-21');
+    expect(libraryId).toContain('lib-1d-fajr-dhikr');
   });
 
   it('migrates persisted settings', () => {

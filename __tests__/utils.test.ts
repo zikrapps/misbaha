@@ -57,6 +57,11 @@ describe('shared utilities', () => {
     expect(migrated.goalProgress).toEqual({ g1: { 1: 2 } });
   });
 
+  it('defaults missing visualization to garden during migration', () => {
+    const migrated = migratePersistedState({ language: 'en' }) as { visualization: string };
+    expect(migrated.visualization).toBe('garden');
+  });
+
   it('drops invalid daily counts and events during migration', () => {
     const migrated = migratePersistedState({
       dailyCounts: { '2026-05-18': { ok: 1, bad: 'nope' }, broken: null },

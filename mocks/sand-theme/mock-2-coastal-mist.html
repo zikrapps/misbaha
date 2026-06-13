@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 2 — Coastal Mist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet" />
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        align-items: center;
+        background: radial-gradient(circle at 50% 0%, #2a2c30, #0e1012);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin: 0;
+        min-height: 100vh;
+        padding: 28px 16px 40px;
+      }
+      .caption {
+        color: #b8b0a4;
+        font: 14px/1.55 'Instrument Sans', sans-serif;
+        margin: 0;
+        max-width: 390px;
+        text-align: center;
+      }
+      .phone {
+        border: 3px solid #8a8480;
+        border-radius: 42px;
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+        height: 844px;
+        overflow: hidden;
+        position: relative;
+        width: 390px;
+      }
+      .texture-a {
+        background: url('textures/sand-grain.svg') 48% 40% / 195% auto no-repeat;
+        filter: grayscale(0.35) brightness(1.12) contrast(0.96);
+        inset: 0;
+        position: absolute;
+        transform: scale(1.03) rotate(0.5deg);
+      }
+      .texture-b {
+        background: url('textures/sand-grain.svg') 55% 62% / 170% auto no-repeat;
+        filter: grayscale(0.5) brightness(1.05);
+        inset: 0;
+        mix-blend-mode: multiply;
+        opacity: 0.28;
+        position: absolute;
+      }
+      .mist {
+        background: linear-gradient(180deg, rgba(240, 244, 248, 0.35) 0%, transparent 45%, rgba(200, 210, 220, 0.15) 100%);
+        inset: 0;
+        position: absolute;
+      }
+      .content {
+        color: #3a3834;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Instrument Sans', sans-serif;
+        gap: 16px;
+        height: 100%;
+        overflow: hidden;
+        padding: 54px 18px 92px;
+        position: relative;
+        z-index: 1;
+      }
+      .header h1 {
+        font-family: 'Source Serif 4', Georgia, serif;
+        font-size: 38px;
+        font-weight: 700;
+        letter-spacing: -0.2px;
+        margin: 0;
+      }
+      .header p { color: #78736a; font-size: 15px; margin: 2px 0 0; }
+      .stats { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+      .card {
+        background: linear-gradient(145deg, rgba(255, 255, 252, 0.9), rgba(240, 236, 228, 0.82));
+        border: 1px solid rgba(184, 176, 164, 0.5);
+        border-radius: 18px;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 8px 22px rgba(58, 56, 52, 0.08);
+        padding: 16px;
+      }
+      .card .label {
+        color: #6b7a6a;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+      }
+      .card .value {
+        font-family: 'Source Serif 4', Georgia, serif;
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 4px;
+      }
+      .section {
+        color: #6b7a6a;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.8px;
+        margin: 4px 0 0;
+        text-transform: uppercase;
+      }
+      .goal {
+        background: linear-gradient(160deg, rgba(252, 250, 246, 0.93), rgba(232, 228, 220, 0.86));
+        border: 1px solid rgba(184, 176, 164, 0.55);
+        border-radius: 18px;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 10px 26px rgba(58, 56, 52, 0.1);
+        padding: 18px;
+      }
+      .goal .badge {
+        background: #6b7a6a;
+        border-radius: 999px;
+        color: #f0ece4;
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 11px;
+      }
+      .goal h3 {
+        font-family: 'Source Serif 4', Georgia, serif;
+        font-size: 22px;
+        font-weight: 700;
+        margin: 10px 0 6px;
+      }
+      .goal p { color: #5c5a56; font-size: 13px; line-height: 1.5; margin: 0; }
+      .tabbar {
+        background: linear-gradient(180deg, rgba(90, 88, 84, 0.94), rgba(58, 56, 52, 0.98));
+        bottom: 0;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        left: 0;
+        padding: 12px 8px 22px;
+        position: absolute;
+        right: 0;
+        z-index: 2;
+      }
+      .tab { color: #b8b0a4; font-size: 10px; text-align: center; }
+      .tab.active { color: #f0ece4; font-weight: 600; }
+      .tab .dot {
+        background: currentColor;
+        border-radius: 50%;
+        height: 6px;
+        margin: 0 auto 6px;
+        width: 6px;
+      }
+      .tag {
+        background: #6b7a6a;
+        border-radius: 999px;
+        color: #f0ece4;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.8px;
+        padding: 6px 14px;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="tag">Mock 2 — Coastal Mist</span>
+    <div class="phone">
+      <div class="texture-a"></div>
+      <div class="texture-b"></div>
+      <div class="mist"></div>
+      <div class="content">
+        <div class="header">
+          <h1>Today</h1>
+          <p>Sunday, 7 June · 847 taps</p>
+        </div>
+        <div class="stats">
+          <div class="card">
+            <div class="label">Today's taps</div>
+            <div class="value">847</div>
+          </div>
+          <div class="card">
+            <div class="label">Lifetime</div>
+            <div class="value">12,403</div>
+          </div>
+        </div>
+        <div class="section">Goal focus</div>
+        <div class="goal">
+          <span class="badge">32%</span>
+          <h3>Morning adhkar</h3>
+          <p>Day 4 of 10 · SubhanAllah wa bihamdihi — 33 remaining today</p>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab active"><div class="dot"></div>Today</div>
+        <div class="tab"><div class="dot"></div>Tasbeeh</div>
+        <div class="tab"><div class="dot"></div>Goals</div>
+        <div class="tab"><div class="dot"></div>Visualize</div>
+      </div>
+    </div>
+    <p class="caption">Source Serif 4 + Instrument Sans on pale wind-swept sand. Cool grey grain, sage accents — calm coastal morning.</p>
+  </body>
+</html>

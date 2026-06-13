@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import { useState, type ComponentProps } from 'react';
-import { Alert } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 
 import { resetStore } from '@/__tests__/helpers/store';
 import { duas } from '@/src/data/duas';
@@ -64,6 +64,26 @@ describe('DuaCounterRow', () => {
 
     fireEvent.press(screen.getByLabelText(/expand/i));
     expect(screen.getByText(dua.arabic)).toBeTruthy();
+  });
+
+  it('right-aligns expanded Arabic text', () => {
+    render(
+      <RowHarness
+        dua={dua}
+        count={1}
+        tapWeight={1}
+        onIncrement={jest.fn()}
+        onOpen={jest.fn()}
+        onReset={jest.fn()}
+      />,
+    );
+
+    fireEvent.press(screen.getByLabelText(/expand/i));
+    const arabic = screen.getByText(dua.arabic);
+    const flat = StyleSheet.flatten(arabic.props.style);
+    expect(flat?.textAlign).toBe('right');
+    expect(flat?.writingDirection).toBe('rtl');
+    expect(flat?.width).toBe('100%');
   });
 
   it('shows hadith link for prayer duas when expanded', () => {

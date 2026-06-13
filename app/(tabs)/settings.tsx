@@ -7,7 +7,7 @@ import { Icon } from '@/src/components/Icon';
 import { Screen, SectionTitle } from '@/src/components/Screen';
 import { APP_DISPLAY_NAME, LEGAL_ENTITY, SUPPORT_EMAIL, SUPPORT_MAILTO } from '@/src/constants/legal';
 import { TapWeightDial } from '@/src/features/settings/TapWeightDial';
-import { proseLayout } from '@/src/i18n/textLayout';
+import { reloadApp, syncLayoutDirection } from '@/src/i18n/rtl';
 import { languages, themeLabels, useT } from '@/src/i18n/strings';
 import { useMisbahaStore } from '@/src/store/useMisbahaStore';
 import { AppTypography, radii, spacing, themes, useTheme } from '@/src/theme/theme';
@@ -20,15 +20,13 @@ export default function SettingsScreen() {
   const tapWeight = useMisbahaStore((state) => state.tapWeight);
   const themeId = useMisbahaStore((state) => state.themeId);
   const language = useMisbahaStore((state) => state.language);
-  const { typo } = theme;
-  const { labelFont } = theme;
-  const styles = useMemo(() => createStyles(typo), [typo]);
+  const { typo, labelFont, proseLayout, proseInlineLayout, proseCenterLayout } = theme;
+  const styles = useMemo(() => createStyles(typo), [language, typo.body, typo.subtitle, typo.small]);
   const clickSoundEnabled = useMisbahaStore((state) => state.clickSoundEnabled);
   const hapticsEnabled = useMisbahaStore((state) => state.hapticsEnabled);
   const setTapWeight = useMisbahaStore((state) => state.setTapWeight);
   const setThemeId = useMisbahaStore((state) => state.setThemeId);
   const setLanguage = useMisbahaStore((state) => state.setLanguage);
-  const setClickSoundEnabled = useMisbahaStore((state) => state.setClickSoundEnabled);
   const setHapticsEnabled = useMisbahaStore((state) => state.setHapticsEnabled);
   const openTutorial = useMisbahaStore((state) => state.openTutorial);
   const resetAllCounters = useMisbahaStore((state) => state.resetAllCounters);
@@ -40,38 +38,53 @@ export default function SettingsScreen() {
     ]);
   };
 
-  return (
-    <Screen title={t.settings.title} subtitle={t.settings.subtitle}>
-      <Pressable
-        accessibilityLabel={t.common.done}
-        accessibilityRole="button"
-        onPress={() => router.back()}
-        style={({ pressed }) => [
-          styles.done,
-          { backgroundColor: theme.colors.oliveDeep, borderColor: theme.colors.oliveDark },
-          pressed && styles.donePressed,
-        ]}
-      >
-        <Icon name="back" color={theme.colors.card} size={20} />
-        <Text style={[styles.doneText, { color: theme.colors.card, fontFamily: labelFont }]}>
-          {t.common.done}
-        </Text>
-      </Pressable>
+  const chooseLanguage = (id: Language) => {
+    if (id === language) return;
+    setLanguage(id);
+    // Switching to/from Urdu changes RTL: React Native must reload for native
+    // text alignment and tab order to flip.
+    if (syncLayoutDirection(id)) {
+      Alert.alert(t.settings.restartTitle, t.settings.restartBody, [
+        { text: t.settings.restartAction, onPress: reloadApp },
+      ]);
+    }
+  };
 
+  const doneAction = (
+    <Pressable
+      accessibilityLabel={t.common.done}
+      accessibilityRole="button"
+      onPress={() => router.back()}
+      style={({ pressed }) => [
+        styles.donePill,
+        theme.mirrorRow,
+        { backgroundColor: theme.colors.parchment, borderColor: theme.colors.line },
+        pressed && styles.donePillPressed,
+      ]}
+    >
+      <Icon name="back" color={theme.colors.oliveDark} size={16} />
+      <Text style={[styles.donePillText, proseInlineLayout, { color: theme.colors.oliveDark, fontFamily: labelFont }]}>
+        {t.common.done}
+      </Text>
+    </Pressable>
+  );
+
+  return (
+    <Screen title={t.settings.title} subtitle={t.settings.subtitle} action={doneAction}>
       <Card style={styles.dialCard}>
         <SectionTitle>{t.settings.countPerTap}</SectionTitle>
-        <Text style={[styles.statement, { color: theme.colors.ink, fontFamily: labelFont }]}>
+        <Text style={[styles.statement, proseCenterLayout, { color: theme.colors.ink, fontFamily: labelFont, fontStyle: theme.proseFontStyle }]}>
           {t.settings.tapStatement(tapWeight)}
         </Text>
         <TapWeightDial value={tapWeight} clickSoundEnabled={clickSoundEnabled} onChange={setTapWeight} />
-        <Text style={[styles.hint, { color: theme.colors.muted, fontFamily: labelFont }]}>
+        <Text style={[styles.hint, proseCenterLayout, { color: theme.colors.muted, fontFamily: labelFont }]}>
           {t.settings.tapHint}
         </Text>
       </Card>
 
       <SectionTitle>{t.settings.language}</SectionTitle>
       <Card style={styles.languageCard}>
-        <Text style={[styles.languageHint, { color: theme.colors.muted, fontFamily: labelFont }]}>
+        <Text style={[styles.languageHint, proseLayout, { color: theme.colors.muted, fontFamily: labelFont }]}>
           {t.settings.languageHint}
         </Text>
         <View style={styles.languageRow}>
@@ -84,7 +97,7 @@ export default function SettingsScreen() {
                 accessibilityLabel={option.name}
                 accessibilityRole="button"
                 accessibilityState={{ selected }}
-                onPress={() => setLanguage(id)}
+                onPress={() => chooseLanguage(id)}
                 style={[
                   styles.languageOption,
                   {
@@ -96,6 +109,7 @@ export default function SettingsScreen() {
                 <Text
                   style={[
                     styles.languageName,
+                    proseLayout,
                     {
                       color: selected ? theme.colors.card : theme.colors.ink,
                       fontFamily: labelFont,
@@ -107,6 +121,7 @@ export default function SettingsScreen() {
                 <Text
                   style={[
                     styles.languageNative,
+                    proseLayout,
                     {
                       color: selected ? theme.colors.sand : theme.colors.muted,
                       fontFamily: labelFont,
@@ -150,10 +165,10 @@ export default function SettingsScreen() {
                 <View style={[styles.swatch, { backgroundColor: option.colors.sand }]} />
                 <View style={[styles.swatch, { backgroundColor: option.colors.blush }]} />
               </View>
-              <Text style={[styles.themeName, { color: option.colors.ink, fontFamily: labelFont }]}>
+              <Text style={[styles.themeName, proseLayout, { color: option.colors.ink, fontFamily: labelFont }]}>
                 {themeLabels(language, id).name}
               </Text>
-              <Text style={[styles.themeDescription, { color: option.colors.muted, fontFamily: labelFont }]}>
+              <Text style={[styles.themeDescription, proseLayout, { color: option.colors.muted, fontFamily: labelFont }]}>
                 {themeLabels(language, id).description}
               </Text>
             </Pressable>
@@ -165,31 +180,12 @@ export default function SettingsScreen() {
       <Card style={styles.feedback}>
         <View style={styles.row}>
           <View style={styles.rowCopyWrap}>
-            <Icon name="sound" color={theme.colors.oliveDark} size={21} />
-            <View style={styles.rowText}>
-              <Text style={[styles.rowTitle, { color: theme.colors.ink, fontFamily: labelFont }]}>
-                {t.settings.clickSound}
-              </Text>
-              <Text style={[styles.rowCopy, { color: theme.colors.muted, fontFamily: labelFont }]}>
-                {t.settings.clickSoundHint}
-              </Text>
-            </View>
-          </View>
-          <Switch
-            onValueChange={setClickSoundEnabled}
-            thumbColor={theme.colors.card}
-            trackColor={{ false: theme.colors.line, true: theme.colors.olive }}
-            value={clickSoundEnabled}
-          />
-        </View>
-        <View style={styles.row}>
-          <View style={styles.rowCopyWrap}>
             <Icon name="haptic" color={theme.colors.oliveDark} size={21} />
             <View style={styles.rowText}>
-              <Text style={[styles.rowTitle, { color: theme.colors.ink, fontFamily: labelFont }]}>
+              <Text style={[styles.rowTitle, proseLayout, { color: theme.colors.ink, fontFamily: labelFont }]}>
                 {t.settings.haptic}
               </Text>
-              <Text style={[styles.rowCopy, { color: theme.colors.muted, fontFamily: labelFont }]}>
+              <Text style={[styles.rowCopy, proseLayout, { color: theme.colors.muted, fontFamily: labelFont }]}>
                 {t.settings.hapticHint}
               </Text>
             </View>
@@ -208,10 +204,10 @@ export default function SettingsScreen() {
         <Pressable onPress={openTutorial} style={styles.tutorialButton}>
           <Icon name="beads" color={theme.colors.oliveDark} size={22} />
           <View style={styles.tutorialCopy}>
-            <Text style={[styles.rowTitle, { color: theme.colors.ink, fontFamily: labelFont }]}>
+            <Text style={[styles.rowTitle, proseLayout, { color: theme.colors.ink, fontFamily: labelFont }]}>
               {t.settings.tutorialTitle}
             </Text>
-            <Text style={[styles.rowCopy, { color: theme.colors.muted, fontFamily: labelFont }]}>
+            <Text style={[styles.rowCopy, proseLayout, { color: theme.colors.muted, fontFamily: labelFont }]}>
               {t.settings.tutorialHint}
             </Text>
           </View>
@@ -220,10 +216,10 @@ export default function SettingsScreen() {
 
       <SectionTitle>{t.settings.about}</SectionTitle>
       <Card style={styles.aboutCard}>
-        <Text style={[styles.aboutEntity, proseLayout(language), { color: theme.colors.ink, fontFamily: labelFont }]}>
+        <Text style={[styles.aboutEntity, proseLayout, { color: theme.colors.ink, fontFamily: labelFont }]}>
           {APP_DISPLAY_NAME} · {t.settings.publishedBy(LEGAL_ENTITY)}
         </Text>
-        <Text style={[styles.rowCopy, proseLayout(language), { color: theme.colors.muted, fontFamily: labelFont }]}>
+        <Text style={[styles.rowCopy, proseLayout, { color: theme.colors.muted, fontFamily: labelFont }]}>
           {t.settings.contactHint}
         </Text>
         <Pressable
@@ -242,10 +238,10 @@ export default function SettingsScreen() {
         <Pressable onPress={confirmReset} style={styles.resetButton}>
           <Icon name="reset" color={theme.colors.blush} size={22} />
           <View style={styles.resetCopy}>
-            <Text style={[styles.resetTitle, { color: theme.colors.blush, fontFamily: labelFont }]}>
+            <Text style={[styles.resetTitle, proseLayout, { color: theme.colors.blush, fontFamily: labelFont }]}>
               {t.settings.resetTitle}
             </Text>
-            <Text style={[styles.rowCopy, { color: theme.colors.muted, fontFamily: labelFont }]}>
+            <Text style={[styles.rowCopy, proseLayout, { color: theme.colors.muted, fontFamily: labelFont }]}>
               {t.settings.resetHint}
             </Text>
           </View>
@@ -257,29 +253,26 @@ export default function SettingsScreen() {
 
 function createStyles(typo: AppTypography) {
   return StyleSheet.create({
-  done: {
+  donePill: {
     alignItems: 'center',
-    alignSelf: 'stretch',
-    borderRadius: radii.md,
-    borderWidth: 1,
-    flexDirection: 'row',
-    gap: spacing.sm,
-    justifyContent: 'center',
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 3,
+    alignSelf: 'flex-start',
+    borderRadius: radii.pill,
+    borderWidth: 1.5,
+    flexGrow: 0,
+    flexShrink: 0,
+    gap: spacing.xs,
+    marginTop: spacing.xs,
+    paddingLeft: 11,
+    paddingRight: spacing.md,
+    paddingVertical: 9,
   },
-  donePressed: {
+  donePillPressed: {
     opacity: 0.85,
   },
-  doneText: {
-    fontSize: typo.body,
+  donePillText: {
+    fontSize: typo.subtitle,
     fontWeight: '700',
-    letterSpacing: 0.4,
+    letterSpacing: 0.3,
   },
   dialCard: {
     alignItems: 'center',

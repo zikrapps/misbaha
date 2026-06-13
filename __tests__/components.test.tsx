@@ -1,9 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
+jest.mock('expo-router', () => ({
+  router: { push: jest.fn() },
+}));
+
 import { resetStore } from '@/__tests__/helpers/store';
 import { Card } from '@/src/components/Card';
 import { Icon, IconName } from '@/src/components/Icon';
 import { IconButton } from '@/src/components/IconButton';
+import { ProseText } from '@/src/components/ProseText';
 import { Screen, SectionTitle } from '@/src/components/Screen';
 import { presetGoals } from '@/src/data/presetGoals';
 import { goalTitle } from '@/src/i18n/goalText';
@@ -52,12 +57,14 @@ describe('UI components', () => {
   });
 
   it('renders default settings action on Screen', () => {
+    const { router } = require('expo-router');
     render(
       <Screen title="Settings shortcut" showSettingsAction>
         <Card />
       </Screen>,
     );
-    expect(screen.getAllByRole('button').length).toBeGreaterThan(0);
+    fireEvent.press(screen.getAllByRole('button')[0]!);
+    expect(router.push).toHaveBeenCalledWith('/settings');
   });
 
   it('renders all icon variants', () => {
@@ -99,7 +106,7 @@ describe('UI components', () => {
   });
 
   it('renders tap layer enabled and disabled', () => {
-    function Harness({ enabled }: { enabled: boolean }) {
+    function Harness({ enabled, withChildren = true }: { enabled: boolean; withChildren?: boolean }) {
       const { gesture } = useDuaCountGestures({ onBump: jest.fn() });
       return (
         <DuaCountTapLayer
@@ -111,18 +118,39 @@ describe('UI components', () => {
           y={10}
           tabBarInset={0}
         >
-          <Card />
+          {withChildren ? <Card /> : null}
         </DuaCountTapLayer>
       );
     }
 
     render(<Harness enabled />);
     render(<Harness enabled={false} />);
+    render(<Harness enabled={false} withChildren={false} />);
+    render(<Harness enabled withChildren={false} />);
   });
 
   it('renders Screen in Urdu', () => {
     useMisbahaStore.getState().setLanguage('ur');
     render(<Screen title="آج" subtitle="سب ٹائٹل" />);
     expect(screen.getByText('آج')).toBeTruthy();
+  });
+
+  it('renders prose text layout variants', () => {
+    render(
+      <>
+        <ProseText>Body copy</ProseText>
+        <ProseText inline>Inline copy</ProseText>
+        <ProseText centered>Centered copy</ProseText>
+      </>,
+    );
+    expect(screen.getByText('Body copy')).toBeTruthy();
+    expect(screen.getByText('Inline copy')).toBeTruthy();
+    expect(screen.getByText('Centered copy')).toBeTruthy();
+  });
+
+  it('renders section titles for Urdu without uppercase styling', () => {
+    useMisbahaStore.getState().setLanguage('ur');
+    render(<SectionTitle>عنوان</SectionTitle>);
+    expect(screen.getByText('عنوان')).toBeTruthy();
   });
 });

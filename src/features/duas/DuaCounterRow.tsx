@@ -5,8 +5,8 @@ import { Card } from '@/src/components/Card';
 import { Icon } from '@/src/components/Icon';
 import { countStateColor } from '@/src/features/duas/countStateColor';
 import { DuaContentBody } from '@/src/features/duas/DuaContentBody';
-import { duaPreview, duaTitle } from '@/src/i18n/duaText';
-import { proseFontStyle, proseLayout } from '@/src/i18n/textLayout';
+import { duaArabic, duaPreview, duaTitle } from '@/src/i18n/duaText';
+import { arabicBlockLayout, lineHeightFor, proseFontStyle } from '@/src/i18n/textLayout';
 import { formatNumber } from '@/src/i18n/format';
 import { useLanguage, useT } from '@/src/i18n/strings';
 import { AppTypography, raisedShadow, radii, spacing, useTheme } from '@/src/theme/theme';
@@ -45,7 +45,7 @@ export function DuaCounterRow({
   const language = useLanguage();
   const t = useT();
   const styles = useMemo(() => createStyles(typo, language), [typo, language]);
-  const { labelFont } = theme;
+  const { labelFont, arabicFont, proseLayout, proseInlineLayout, mirrorRow, arabicLayout } = theme;
   const passThrough = countingActive;
 
   const reset = () => {
@@ -84,7 +84,7 @@ export function DuaCounterRow({
         </Pressable>
 
         <View pointerEvents={passThrough ? 'box-none' : 'auto'} style={styles.duaArea}>
-          <Text style={[styles.title, proseLayout(language), { color: colors.muted, fontFamily: labelFont }]}>
+          <Text style={[styles.title, proseLayout, { color: colors.muted, fontFamily: labelFont }]}>
             {duaTitle(dua, language)}
           </Text>
           {expanded ? (
@@ -94,17 +94,21 @@ export function DuaCounterRow({
               labelFont={labelFont}
               colors={colors}
               textStyles={{
-                arabic: [styles.arabic, { color: colors.ink }],
-                translation: [styles.translation, { color: colors.muted, fontFamily: labelFont }],
-                meta: [styles.meta, { color: colors.oliveDark, fontFamily: labelFont }],
+                arabic: [styles.arabic, arabicLayout, { color: colors.ink, fontFamily: arabicFont }],
+                translation: [styles.translation, proseLayout, { color: colors.muted, fontFamily: labelFont }],
+                meta: [styles.meta, proseLayout, { color: colors.oliveDark, fontFamily: labelFont }],
                 link: styles.link,
                 linkRow: styles.linkRow,
               }}
             />
           ) : (
             <>
-              <Text style={[styles.arabic, { color: colors.ink }]}>{previewArabic(dua.arabic)}</Text>
-              <Text style={[styles.translation, proseLayout(language), { color: colors.muted, fontFamily: labelFont }]}>
+              <View style={styles.arabicBlock}>
+                <Text style={[styles.arabic, arabicLayout, { color: colors.ink, fontFamily: arabicFont }]}>
+                  {previewArabic(duaArabic(dua, language))}
+                </Text>
+              </View>
+              <Text style={[styles.translation, proseLayout, { color: colors.muted, fontFamily: labelFont }]}>
                 {duaPreview(dua, language)}
               </Text>
             </>
@@ -120,21 +124,27 @@ export function DuaCounterRow({
         </View>
       </View>
 
-      <View pointerEvents={passThrough ? 'box-none' : 'auto'} style={[styles.footer, { borderTopColor: colors.line }]}>
-        <Text
-          pointerEvents={passThrough ? 'none' : 'auto'}
-          style={[styles.hint, { color: colors.muted, fontFamily: labelFont }]}
-        >
-          {expanded ? t.duas.doubleTapHint(tapWeight) : t.duas.expandToCount}
-        </Text>
-        <View pointerEvents={passThrough ? 'box-none' : 'auto'} style={styles.actions}>
-          <Pressable onPress={onOpen} style={[styles.actionButton, { backgroundColor: colors.oliveDeep }]}>
+      <View pointerEvents={passThrough ? 'box-none' : 'auto'} style={[styles.footer, mirrorRow, { borderTopColor: colors.line }]}>
+        <View style={styles.hintWrap}>
+          <Text
+            pointerEvents={passThrough ? 'none' : 'auto'}
+            style={[styles.hint, proseLayout, { color: colors.muted, fontFamily: labelFont }]}
+          >
+            {expanded ? t.duas.doubleTapHint(tapWeight) : t.duas.expandToCount}
+          </Text>
+        </View>
+        <View pointerEvents={passThrough ? 'box-none' : 'auto'} style={[styles.actions, mirrorRow]}>
+          <Pressable onPress={onOpen} style={[styles.actionButton, mirrorRow, { backgroundColor: colors.oliveDeep }]}>
             <Icon name="open" color={colors.card} size={13} />
-            <Text style={[styles.actionText, { color: colors.card, fontFamily: labelFont }]}>{t.common.open}</Text>
+            <Text style={[styles.actionText, proseInlineLayout, { color: colors.card, fontFamily: labelFont }]}>
+              {t.common.open}
+            </Text>
           </Pressable>
-          <Pressable onPress={reset} style={[styles.actionButton, { backgroundColor: colors.oliveDeep }]}>
+          <Pressable onPress={reset} style={[styles.actionButton, mirrorRow, { backgroundColor: colors.oliveDeep }]}>
             <Icon name="reset" color={colors.card} size={13} />
-            <Text style={[styles.actionText, { color: colors.card, fontFamily: labelFont }]}>{t.common.reset}</Text>
+            <Text style={[styles.actionText, proseInlineLayout, { color: colors.card, fontFamily: labelFont }]}>
+              {t.common.reset}
+            </Text>
           </Pressable>
         </View>
       </View>
@@ -176,6 +186,7 @@ function createStyles(typo: AppTypography, language: 'en' | 'ur') {
       width: 36,
     },
     duaArea: {
+      alignItems: 'stretch',
       flex: 1,
       gap: spacing.xs,
       minWidth: 0,
@@ -183,11 +194,12 @@ function createStyles(typo: AppTypography, language: 'en' | 'ur') {
     },
     title: {
       fontSize: typo.caption,
+      lineHeight: lineHeightFor(language, typo.caption, 1.3),
     },
+    arabicBlock: arabicBlockLayout,
     arabic: {
       fontSize: typo.arabic,
       lineHeight: Math.round(typo.arabic * 1.55),
-      textAlign: 'right',
     },
     translation: {
       fontSize: isUrdu ? typo.body : typo.small,
@@ -227,24 +239,26 @@ function createStyles(typo: AppTypography, language: 'en' | 'ur') {
     footer: {
       alignItems: 'center',
       borderTopWidth: StyleSheet.hairlineWidth,
-      flexDirection: 'row',
+      gap: spacing.sm,
       justifyContent: 'space-between',
       paddingTop: spacing.sm,
     },
-    hint: {
+    hintWrap: {
       flex: 1,
+      minWidth: 0,
+    },
+    hint: {
       fontSize: typo.caption,
       lineHeight: Math.round(typo.caption * 1.45),
     },
     actions: {
       alignItems: 'center',
-      flexDirection: 'row',
+      flexShrink: 0,
       gap: spacing.xs,
     },
     actionButton: {
       alignItems: 'center',
       borderRadius: radii.pill,
-      flexDirection: 'row',
       gap: spacing.xs,
       paddingHorizontal: spacing.md,
       paddingVertical: spacing.xs,

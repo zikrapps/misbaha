@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Old Parchment theme — 3 varied mocks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=EB+Garamond:wght@500;700&family=Instrument+Sans:wght@500;600&family=Literata:opsz,wght@7..72,500;7..72,700&family=Noto+Naskh+Arabic:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        background: #121110;
+        color: #f2ebe0;
+        font-family: 'EB Garamond', Georgia, serif;
+        margin: 0;
+        padding: 32px;
+      }
+      h1 { font-size: 30px; margin: 0 0 8px; }
+      .lead { color: #b8aa96; line-height: 1.6; max-width: 54rem; }
+      .grid {
+        display: grid;
+        gap: 22px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        margin-top: 30px;
+      }
+      a.card {
+        background: #201c18;
+        border: 1px solid #4a4034;
+        border-radius: 14px;
+        color: inherit;
+        display: block;
+        padding: 18px;
+        text-decoration: none;
+        transition: transform 0.15s, border-color 0.15s;
+      }
+      a.card:hover { border-color: #c49a5c; transform: translateY(-2px); }
+      a.card h2 { font-size: 22px; margin: 0 0 10px; }
+      a.card span {
+        display: block;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
+      a.card p { color: #b8aa96; font-size: 14px; line-height: 1.55; margin: 0 0 12px; }
+      .meta {
+        color: #8a7a66;
+        display: grid;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11px;
+        gap: 4px;
+        line-height: 1.45;
+      }
+      .meta strong { color: #d4c4a8; font-weight: 600; }
+      .swatch-row { display: flex; gap: 6px; margin-bottom: 14px; }
+      .swatch { border-radius: 999px; height: 14px; width: 14px; }
+      .preview {
+        border-radius: 10px;
+        height: 128px;
+        margin-bottom: 14px;
+        object-fit: cover;
+        width: 100%;
+      }
+      .p1 { filter: sepia(0.35) saturate(1.35) brightness(1.02); }
+      .p2 { filter: grayscale(0.55) brightness(1.18) contrast(0.95); }
+      .p3 { filter: sepia(0.62) contrast(1.12) brightness(0.82) hue-rotate(-8deg); }
+    </style>
+  </head>
+  <body>
+    <h1>Old Parchment — 3 varied direction mocks</h1>
+    <p class="lead">
+      Same crumpled texture source, three distinct art directions: warm saffron ledger, cool stone vellum,
+      and deep Naskh manuscript. Each pairs a unique palette, texture treatment, and font stack.
+    </p>
+    <div class="grid">
+      <a class="card" href="mock-1-raw-crumple.html" style="border-color: #8b6914;">
+        <img alt="" class="preview p1" src="textures/parchment-crumple.png" />
+        <span style="color: #d4a24c;">Mock 1</span>
+        <h2 style="color: #f5ddb0; font-family: 'Cormorant Garamond', serif;">Saffron Ledger</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#f0d49a"></div>
+          <div class="swatch" style="background:#b8862b"></div>
+          <div class="swatch" style="background:#5c3d1e"></div>
+          <div class="swatch" style="background:#3d2612"></div>
+        </div>
+        <p>Warm honey paper, saturated crumple, gold-brown accents — lively and sunlit.</p>
+        <div class="meta">
+          <div><strong>Display:</strong> Cormorant Garamond</div>
+          <div><strong>UI labels:</strong> Source Serif 4</div>
+          <div><strong>Texture:</strong> sepia + saturate, zoomed 165%</div>
+        </div>
+      </a>
+      <a class="card" href="mock-2-washed.html" style="border-color: #6b7280;">
+        <img alt="" class="preview p2" src="textures/parchment-crumple.png" />
+        <span style="color: #9ca3af;">Mock 2</span>
+        <h2 style="color: #ece7df; font-family: 'EB Garamond', serif;">Stone Vellum</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#ece8e0"></div>
+          <div class="swatch" style="background:#b8b0a4"></div>
+          <div class="swatch" style="background:#5c6b5a"></div>
+          <div class="swatch" style="background:#2c2a28"></div>
+        </div>
+        <p>Cool grey-green vellum, desaturated crumple, sage accents — calm and archival.</p>
+        <div class="meta">
+          <div><strong>Display:</strong> EB Garamond</div>
+          <div><strong>UI labels:</strong> Instrument Sans</div>
+          <div><strong>Texture:</strong> grayscale wash + cool mist overlay</div>
+        </div>
+      </a>
+      <a class="card" href="mock-3-manuscript.html" style="border-color: #7c4a2a;">
+        <img alt="" class="preview p3" src="textures/parchment-crumple.png" />
+        <span style="color: #c4875a;">Mock 3</span>
+        <h2 style="color: #e8cdb0; font-family: 'Literata', serif;">Naskh Manuscript</h2>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#dcc9a8"></div>
+          <div class="swatch" style="background:#9a6538"></div>
+          <div class="swatch" style="background:#4a3020"></div>
+          <div class="swatch" style="background:#140e0a"></div>
+        </div>
+        <p>Deep umber ink, copper stains, Arabic-forward typography — oldest manuscript mood.</p>
+        <div class="meta">
+          <div><strong>Display:</strong> Noto Naskh Arabic + Literata</div>
+          <div><strong>UI labels:</strong> Literata</div>
+          <div><strong>Texture:</strong> heavy sepia, vignette, foxing</div>
+        </div>
+      </a>
+    </div>
+  </body>
+</html>

@@ -13,7 +13,7 @@ export function GestureTutorial() {
   const theme = useTheme();
   const colors = theme.colors;
   const t = useT();
-  const { labelFont } = theme;
+  const { labelFont, proseLayout, proseInlineLayout, proseCenterLayout, labelDecoration, labelLineHeight } = theme;
   const visible = useMisbahaStore((state) => state.tutorialVisible);
   const tutorialSession = useMisbahaStore((state) => state.tutorialSession);
   const closeTutorial = useMisbahaStore((state) => state.closeTutorial);
@@ -48,13 +48,25 @@ export function GestureTutorial() {
           <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.line }]}>
             <TutorialStepAnimation key={`${tutorialSession}-${step.id}`} stepId={step.id} />
 
-            <Text style={[styles.stepLabel, { color: colors.muted, fontFamily: labelFont }]}>
+            <Text style={[styles.stepLabel, proseCenterLayout, labelDecoration, { color: colors.muted, fontFamily: labelFont }]}>
               {t.tutorial.stepOf(stepIndex + 1, steps.length)}
             </Text>
-            <Text style={[styles.title, { color: colors.ink, fontFamily: theme.fonts.display }]}>
+            <Text
+              style={[
+                styles.title,
+                proseCenterLayout,
+                { color: colors.ink, fontFamily: labelFont, lineHeight: labelLineHeight(28, 1.2) },
+              ]}
+            >
               {step.title}
             </Text>
-            <Text style={[styles.body, proseStyle(theme.language), { color: colors.muted, fontFamily: labelFont }]}>
+            <Text
+              style={[
+                styles.body,
+                proseLayout,
+                { color: colors.muted, fontFamily: labelFont, lineHeight: labelLineHeight(15, 1.5) },
+              ]}
+            >
               {step.body}
             </Text>
 
@@ -80,7 +92,7 @@ export function GestureTutorial() {
                 onPress={closeTutorial}
                 style={({ pressed }) => [styles.skipButton, pressed && styles.pressed]}
               >
-                <Text style={[styles.skipText, { color: colors.muted, fontFamily: labelFont }]}>
+                <Text style={[styles.skipText, proseInlineLayout, { color: colors.muted, fontFamily: labelFont }]}>
                   {t.tutorial.skip}
                 </Text>
               </Pressable>
@@ -94,7 +106,7 @@ export function GestureTutorial() {
                   pressed && styles.pressed,
                 ]}
               >
-                <Text style={[styles.nextText, { color: colors.card, fontFamily: labelFont }]}>
+                <Text style={[styles.nextText, proseInlineLayout, { color: colors.card, fontFamily: labelFont }]}>
                   {isLast ? t.tutorial.finish : t.tutorial.next}
                 </Text>
                 {!isLast ? (
@@ -109,10 +121,6 @@ export function GestureTutorial() {
       </View>
     </Modal>
   );
-}
-
-function proseStyle(language: 'en' | 'ur') {
-  return language === 'ur' ? { textAlign: 'right' as const, writingDirection: 'rtl' as const } : undefined;
 }
 
 const styles = StyleSheet.create({
@@ -164,6 +172,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: spacing.sm,
+    width: '100%',
   },
   skipButton: {
     paddingHorizontal: spacing.sm,
@@ -177,6 +186,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: radii.md,
     flexDirection: 'row',
+    flexShrink: 0,
     gap: spacing.xs,
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.md,

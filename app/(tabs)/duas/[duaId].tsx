@@ -14,9 +14,10 @@ import { DuaContentBody } from '@/src/features/duas/DuaContentBody';
 import { DuaCountTapLayer } from '@/src/features/duas/DuaCountTapLayer';
 import { isNightDetailHours, nightDetailPalette, NightDetailPalette } from '@/src/features/duas/nightDetail';
 import { useDuaCountBump } from '@/src/features/duas/useDuaCountBump';
-import { TAB_BAR_HEIGHT, useDuaCountGestures } from '@/src/features/duas/useDuaCountGestures';
+import { useDuaCountGestures } from '@/src/features/duas/useDuaCountGestures';
+import { tabBarHeight } from '@/src/theme/tabBar';
 import { duaTitle } from '@/src/i18n/duaText';
-import { proseFontStyle, proseLayout } from '@/src/i18n/textLayout';
+import { arabicLayout, mirrorRow, proseCenterLayout, proseFontStyle, proseLayout } from '@/src/i18n/textLayout';
 import { formatNumber } from '@/src/i18n/format';
 import { useLanguage, useT } from '@/src/i18n/strings';
 import { useMisbahaStore } from '@/src/store/useMisbahaStore';
@@ -27,12 +28,12 @@ export default function DuaDetailScreen() {
   const colors = theme.colors;
   const language = useLanguage();
   const t = useT();
-  const { labelFont } = theme;
+  const { labelFont, arabicFont } = theme;
   const isNight = isNightDetailHours();
   const night = isNight ? nightDetailPalette : null;
   const styles = useMemo(
-    () => createStyles(colors, labelFont, theme.typo, language, night),
-    [colors, labelFont, theme.typo, language, night],
+    () => createStyles(colors, labelFont, arabicFont, theme.typo, language, night),
+    [colors, labelFont, arabicFont, theme.typo, language, night],
   );
   const { duaId } = useLocalSearchParams<{ duaId: string }>();
   const dua = duaId ? duasById[duaId] : undefined;
@@ -41,10 +42,13 @@ export default function DuaDetailScreen() {
   const hapticsEnabled = useMisbahaStore((state) => state.hapticsEnabled);
   const incrementDua = useMisbahaStore((state) => state.incrementDua);
 
-  const onIncrement = useCallback(() => {
-    if (!duaId) return;
-    incrementDua(duaId, tapWeight);
-  }, [duaId, incrementDua, tapWeight]);
+  const onIncrement = useCallback(
+    (times = 1) => {
+      if (!duaId) return;
+      incrementDua(duaId, tapWeight * times);
+    },
+    [duaId, incrementDua, tapWeight],
+  );
 
   const { feedback, showFeedback, bumpAt, onFeedbackFinish } = useDuaCountBump({
     hapticsEnabled,
@@ -101,7 +105,7 @@ export default function DuaDetailScreen() {
         y={feedback.y}
         nightMode={isNight}
         onFeedbackFinish={onFeedbackFinish}
-        tabBarInset={TAB_BAR_HEIGHT}
+        tabBarInset={tabBarHeight(language)}
         style={styles.tapLayer}
       >
         <View style={styles.header}>
@@ -159,6 +163,7 @@ export default function DuaDetailScreen() {
 function createStyles(
   colors: ReturnType<typeof useTheme>['colors'],
   displayFont: string,
+  arabicFont: string,
   typo: AppTypography,
   language: 'en' | 'ur',
   night: NightDetailPalette | null,
@@ -180,11 +185,11 @@ function createStyles(
   },
   header: {
     alignItems: 'center',
-    flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.md,
     zIndex: 8,
+    ...mirrorRow(language),
   },
   backButton: {
     alignItems: 'center',
@@ -252,7 +257,7 @@ function createStyles(
     fontFamily: displayFont,
     fontSize: typo.title,
     lineHeight: Math.round(typo.title * 1.2),
-    textAlign: 'center',
+    ...proseCenterLayout(language),
   },
   subtitle: {
     color: muted,
@@ -261,7 +266,7 @@ function createStyles(
     lineHeight: Math.round(typo.caption * 1.45),
     fontStyle: proseFontStyle(language),
     marginTop: spacing.xs,
-    textAlign: 'center',
+    ...proseCenterLayout(language),
   },
   duaCard: {
     backgroundColor: cardBg,
@@ -271,9 +276,10 @@ function createStyles(
   },
   arabic: {
     color: night?.arabic ?? colors.ink,
+    fontFamily: arabicFont,
     fontSize: typo.arabic + (isUrdu ? 4 : 10) + (night ? 2 : 0),
     lineHeight: Math.round((typo.arabic + (isUrdu ? 4 : 10) + (night ? 2 : 0)) * 1.55),
-    textAlign: 'right',
+    ...arabicLayout,
   },
   translation: {
     color: muted,
@@ -281,11 +287,13 @@ function createStyles(
     fontSize: isUrdu ? typo.body + 2 : typo.body,
     fontStyle: proseFontStyle(language),
     lineHeight: Math.round((isUrdu ? typo.body + 2 : typo.body) * 1.55),
+    ...proseLayout(language),
   },
   meta: {
     color: muted,
     fontSize: typo.small,
     lineHeight: Math.round(typo.small * 1.45),
+    ...proseLayout(language),
   },
   linkRow: {
     alignItems: 'center',

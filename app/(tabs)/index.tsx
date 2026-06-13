@@ -3,7 +3,9 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle, Defs, LinearGradient, Line, Path, Stop, Text as SvgText } from 'react-native-svg';
 
 import { Card } from '@/src/components/Card';
+import { ProseText } from '@/src/components/ProseText';
 import { Screen, SectionTitle } from '@/src/components/Screen';
+import { BadgeSummaryCard } from '@/src/features/badges/BadgeSummaryCard';
 import { GoalGrid, GoalGridItem } from '@/src/features/goals/GoalGrid';
 import { duas, duasById } from '@/src/data/duas';
 import { duaPreview } from '@/src/i18n/duaText';
@@ -34,26 +36,49 @@ function goalPercent(goal: GoalPlan, progress: Record<number, number>) {
 function GoalSummaryCard({ item }: { item: GoalSummary }) {
   const theme = useTheme();
   const colors = theme.colors;
-  const { typo } = theme;
-  const { labelFont } = theme;
+  const { typo, labelFont, proseLayout, labelDecoration, labelLineHeight, mirrorRow, alignStart } = theme;
+  const isUrdu = theme.language === 'ur';
 
   return (
     <Pressable onPress={item.onPress} style={styles.goalTilePressable}>
-      <Card style={styles.goalCard}>
-        <View style={[styles.percentBadge, { backgroundColor: colors.cream, borderColor: colors.line }]}>
-          <Text style={[styles.percentValue, { color: colors.oliveDeep, fontFamily: labelFont, fontSize: typo.small }]}>
+      <Card style={[styles.goalCard, isUrdu && styles.goalCardUrdu]}>
+        <View style={[styles.percentBadge, alignStart, { backgroundColor: colors.cream, borderColor: colors.line }]}>
+          <Text
+            style={[
+              styles.percentValue,
+              theme.proseInlineLayout,
+              { color: colors.oliveDeep, fontFamily: labelFont, fontSize: typo.small },
+            ]}
+          >
             {formatNumber(item.percent)}%
           </Text>
         </View>
-        <Text style={[styles.goalKind, { color: colors.oliveDark, fontSize: typo.micro }]} numberOfLines={1}>
+        <ProseText
+          style={[styles.goalKind, labelDecoration, { color: colors.oliveDark, fontSize: typo.micro }]}
+          numberOfLines={1}
+        >
           {item.kind}
-        </Text>
-        <Text style={[styles.goalTitle, { color: colors.ink, fontFamily: labelFont }]} numberOfLines={2}>
+        </ProseText>
+        <ProseText
+          style={[
+            styles.goalTitle,
+            { color: colors.ink, fontFamily: labelFont, lineHeight: labelLineHeight(typo.body, 1.25) },
+            isUrdu && styles.goalTitleUrdu,
+          ]}
+          numberOfLines={2}
+        >
           {item.title}
-        </Text>
-        <Text style={[styles.goalSummary, { color: colors.muted }]} numberOfLines={3}>
+        </ProseText>
+        <ProseText
+          style={[
+            styles.goalSummary,
+            { color: colors.muted, lineHeight: labelLineHeight(typo.small, 1.3) },
+            isUrdu && styles.goalSummaryUrdu,
+          ]}
+          numberOfLines={isUrdu ? 2 : 3}
+        >
           {item.summary}
-        </Text>
+        </ProseText>
       </Card>
     </Pressable>
   );
@@ -62,7 +87,7 @@ function GoalSummaryCard({ item }: { item: GoalSummary }) {
 function HourlyTapsVisual({ values }: { values: number[] }) {
   const theme = useTheme();
   const colors = theme.colors;
-  const { typo } = theme;
+  const { typo, labelFont, proseLayout, mirrorRow } = theme;
   const t = useT();
   const max = Math.max(1, ...values);
   const chartWidth = 312;
@@ -87,14 +112,24 @@ function HourlyTapsVisual({ values }: { values: number[] }) {
 
   return (
     <Card style={styles.visualCard}>
-      <View>
-        <Text style={[styles.visualTitle, { color: colors.ink, fontFamily: theme.fonts.display, fontSize: typo.subtitle + 4 }]}>
-          {t.today.todaysTaps}
-        </Text>
-        <Text style={[styles.visualCopy, { color: colors.muted, fontSize: typo.small, lineHeight: Math.round(typo.small * 1.45) }]}>
-          {t.today.hourlyHint}
-        </Text>
-      </View>
+      <Text
+        style={[
+          styles.visualTitle,
+          proseLayout,
+          { color: colors.ink, fontFamily: labelFont, fontSize: typo.subtitle + 4 },
+        ]}
+      >
+        {t.today.todaysTaps}
+      </Text>
+      <Text
+        style={[
+          styles.visualCopy,
+          proseLayout,
+          { color: colors.muted, fontSize: typo.small, lineHeight: Math.round(typo.small * 1.45) },
+        ]}
+      >
+        {t.today.hourlyHint}
+      </Text>
       <View style={styles.hourlyChartWrap}>
         <Svg width="100%" height={chartHeight + 20} viewBox={`0 0 ${chartWidth} ${chartHeight + 20}`}>
           <Defs>
@@ -139,7 +174,7 @@ export default function TodayScreen() {
   const { typo } = theme;
   const t = useT();
   const language = useLanguage();
-  const { labelFont } = theme;
+  const { labelFont, proseLayout, labelDecoration, mirrorRow } = theme;
   const counts = useMisbahaStore((state) => state.counts);
   const dailyCounts = useMisbahaStore((state) => state.dailyCounts);
   const events = useMisbahaStore((state) => state.events);
@@ -203,16 +238,32 @@ export default function TodayScreen() {
       showSettingsAction
     >
       <View style={[styles.hero, { backgroundColor: colors.oliveDeep }]}>
-        <View style={styles.heroStats}>
-          <View>
-            <Text style={[styles.heroLabel, { color: colors.sand, fontSize: typo.caption }]}>{t.today.todayTaps}</Text>
-            <Text style={[styles.heroValue, { color: colors.card, fontFamily: labelFont, fontSize: typo.title - 4 }]}>
+        <View style={[styles.heroStats, mirrorRow]}>
+          <View style={styles.heroStatCol}>
+            <Text style={[styles.heroLabel, proseLayout, labelDecoration, { color: colors.sand, fontSize: typo.caption }]}>
+              {t.today.todayTaps}
+            </Text>
+            <Text
+              style={[
+                styles.heroValue,
+                proseLayout,
+                { color: colors.card, fontFamily: labelFont, fontSize: typo.title - 4 },
+              ]}
+            >
               {formatNumber(totalToday)}
             </Text>
           </View>
-          <View>
-            <Text style={[styles.heroLabel, { color: colors.sand, fontSize: typo.caption }]}>{t.today.lifetime}</Text>
-            <Text style={[styles.heroValue, { color: colors.card, fontFamily: labelFont, fontSize: typo.title - 4 }]}>
+          <View style={styles.heroStatCol}>
+            <Text style={[styles.heroLabel, proseLayout, labelDecoration, { color: colors.sand, fontSize: typo.caption }]}>
+              {t.today.lifetime}
+            </Text>
+            <Text
+              style={[
+                styles.heroValue,
+                proseLayout,
+                { color: colors.card, fontFamily: labelFont, fontSize: typo.title - 4 },
+              ]}
+            >
               {formatNumber(lifetimeTotal)}
             </Text>
           </View>
@@ -230,6 +281,9 @@ export default function TodayScreen() {
 
       <SectionTitle>{t.today.dailyActivity}</SectionTitle>
       <HourlyTapsVisual values={hourlyTaps} />
+
+      <SectionTitle>{t.badges.title}</SectionTitle>
+      <BadgeSummaryCard />
     </Screen>
   );
 }
@@ -243,6 +297,10 @@ const styles = StyleSheet.create({
   heroStats: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  heroStatCol: {
+    alignSelf: 'stretch',
+    flex: 1,
   },
   heroLabel: {
     fontSize: 10,
@@ -261,7 +319,10 @@ const styles = StyleSheet.create({
   goalCard: {
     flex: 1,
     gap: spacing.sm,
-    height: 176,
+    minHeight: 176,
+  },
+  goalCardUrdu: {
+    minHeight: 188,
   },
   goalKind: {
     fontSize: 9,
@@ -271,16 +332,19 @@ const styles = StyleSheet.create({
   },
   goalTitle: {
     fontSize: 16,
-    height: 40,
     lineHeight: 20,
+  },
+  goalTitleUrdu: {
+    marginTop: spacing.xs,
   },
   goalSummary: {
     fontSize: 11,
-    height: 45,
     lineHeight: 15,
   },
+  goalSummaryUrdu: {
+    marginTop: spacing.xs,
+  },
   percentBadge: {
-    alignSelf: 'flex-start',
     borderRadius: radii.pill,
     borderWidth: 1,
     paddingHorizontal: spacing.sm,

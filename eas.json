@@ -1,9 +1,8 @@
 {
   "cli": {
     "version": ">= 16.0.0",
-    "appVersionSource": "remote"
+    "appVersionSource": "local"
   },
-  "metadataPath": "./store.config.json",
   "build": {
     "development": {
       "developmentClient": true,
@@ -23,6 +22,10 @@
   },
   "submit": {
     "production": {
+      "ios": {
+        "ascAppId": "6777759005",
+        "metadataPath": "./store.config.json"
+      },
       "android": {
         "track": "internal"
       }

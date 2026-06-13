@@ -3,21 +3,24 @@ import { DimensionValue, Pressable, StyleSheet, Text, TextStyle, View, ViewStyle
 import { GestureDetector } from 'react-native-gesture-handler';
 
 import { Card } from '@/src/components/Card';
+import { DuaContentBody } from '@/src/features/duas/DuaContentBody';
 import { DuaTapFeedback } from '@/src/features/duas/DuaTapFeedback';
 import { useDuaCountBump } from '@/src/features/duas/useDuaCountBump';
 import { useDuaCountGestures } from '@/src/features/duas/useDuaCountGestures';
 import { formatNumber } from '@/src/i18n/format';
-import { proseLayout } from '@/src/i18n/textLayout';
-import { useLanguage, useT } from '@/src/i18n/strings';
+import { useT } from '@/src/i18n/strings';
 import { useMisbahaStore } from '@/src/store/useMisbahaStore';
-import { spacing } from '@/src/theme/theme';
-import { Language } from '@/src/types/misbaha';
+import { spacing, useTheme } from '@/src/theme/theme';
+import { DuaRecord, Language } from '@/src/types/misbaha';
 
 export type GoalTodayDuaCardStyles = {
   todayCard: ViewStyle;
   overline: TextStyle;
   arabic: TextStyle;
   translation: TextStyle;
+  meta?: TextStyle;
+  link?: TextStyle;
+  linkRow?: ViewStyle;
   progressLine: ViewStyle;
   progressNumber: TextStyle;
   target: TextStyle;
@@ -29,8 +32,7 @@ export type GoalTodayDuaCardStyles = {
 };
 
 type GoalTodayDuaCardProps = {
-  arabic: string;
-  translation: string;
+  dua: DuaRecord;
   todayProgress: number;
   todayTarget: number;
   tapWeight: number;
@@ -41,8 +43,7 @@ type GoalTodayDuaCardProps = {
 };
 
 export function GoalTodayDuaCard({
-  arabic,
-  translation,
+  dua,
   todayProgress,
   todayTarget,
   tapWeight,
@@ -52,8 +53,16 @@ export function GoalTodayDuaCard({
   styles,
 }: GoalTodayDuaCardProps) {
   const t = useT();
+  const { colors, labelFont } = useTheme();
   const hapticsEnabled = useMisbahaStore((state) => state.hapticsEnabled);
-  const onIncrement = useCallback(() => onCount(), [onCount]);
+  const onIncrement = useCallback(
+    (times = 1) => {
+      for (let i = 0; i < times; i += 1) {
+        onCount();
+      }
+    },
+    [onCount],
+  );
   const { feedback, showFeedback, bumpAt, onFeedbackFinish } = useDuaCountBump({
     hapticsEnabled,
     onIncrement,
@@ -76,8 +85,20 @@ export function GoalTodayDuaCard({
         </GestureDetector>
 
         <Text style={styles.overline}>{t.goalDetail.todaysTasbeeh}</Text>
-        <Text style={styles.arabic}>{arabic}</Text>
-        <Text style={[styles.translation, proseLayout(language)]}>{translation}</Text>
+        <DuaContentBody
+          dua={dua}
+          language={language}
+          labelFont={labelFont}
+          colors={colors}
+          linkMode="auto"
+          textStyles={{
+            arabic: styles.arabic,
+            translation: styles.translation,
+            meta: styles.meta,
+            link: styles.link,
+            linkRow: styles.linkRow,
+          }}
+        />
         <View style={styles.progressLine}>
           <Text style={styles.progressNumber}>{formatNumber(todayProgress)}</Text>
           <Text style={styles.target}>/ {formatNumber(todayTarget)}</Text>

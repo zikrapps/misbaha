@@ -1,6 +1,8 @@
 import { Language, ThemeId } from '@/src/types/misbaha';
 
-const URDU_FONT_SCALE = 1.32;
+// Naskh reads well slightly larger than Latin, but it no longer needs the
+// outsized boost that Nastaliq did to stay legible.
+const URDU_FONT_SCALE = 1.15;
 
 export const typography = {
   title: 32,
@@ -170,10 +172,36 @@ export const themes: Record<
       arabic: 'Georgia',
     },
   },
+  fadedGold: {
+    id: 'fadedGold',
+    name: 'Faded Gold',
+    description: 'Sun-bleached champagne — dusty wheat glass and quiet ceremonial warmth.',
+    colors: {
+      ink: '#5c4a32',
+      muted: '#8a7a68',
+      cream: '#f5efe0',
+      parchment: '#ebe4d4',
+      sand: '#e4d4af',
+      card: '#fffcf5',
+      olive: '#a89868',
+      oliveDark: '#8b7355',
+      oliveDeep: '#6b5a42',
+      moss: '#c4b896',
+      blush: '#9a7060',
+      line: '#d8ccb0',
+      white: '#ffffff',
+    },
+    fonts: {
+      display: 'Georgia',
+      body: 'System',
+      arabic: 'Georgia',
+    },
+  },
 };
 
 const LEGACY_THEME_IDS: Record<string, ThemeId> = {
   midnight: 'chromatic',
+  creased: 'parchment',
 };
 
 export function normalizeThemeId(themeId: string | undefined): ThemeId {

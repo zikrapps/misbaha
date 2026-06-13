@@ -7,6 +7,8 @@ import { Screen, SectionTitle } from '@/src/components/Screen';
 import { buildRandomSurpriseGoal } from '@/src/data/presetGoals';
 import { GoalCard } from '@/src/features/goals/GoalCard';
 import { GoalGrid, GoalGridItem } from '@/src/features/goals/GoalGrid';
+import { GoalLibrarySection } from '@/src/features/goals/GoalLibrarySection';
+import { PlanNewGoalRow } from '@/src/features/goals/PlanNewGoalRow';
 import { SuggestedGoalCard } from '@/src/features/goals/SuggestedGoalCard';
 import { isActiveGoal, pickSuggestedGoals } from '@/src/features/goals/suggestedGoals';
 import { useT } from '@/src/i18n/strings';
@@ -34,11 +36,13 @@ export default function GoalsScreen() {
           fontSize: 12,
           marginBottom: spacing.sm,
           marginTop: -spacing.xs,
+          ...theme.proseLayout,
         },
         empty: {
           fontSize: 13,
-          fontStyle: 'italic',
+          fontStyle: theme.proseFontStyle,
           marginBottom: spacing.md,
+          ...theme.proseLayout,
         },
         surpriseGoal: {
           backgroundColor: colors.oliveDeep,
@@ -47,8 +51,8 @@ export default function GoalsScreen() {
         },
         surpriseGoalContent: {
           alignItems: 'center',
-          flexDirection: 'row',
           gap: spacing.md,
+          ...theme.mirrorRow,
         },
         surpriseGoalCopy: {
           flex: 1,
@@ -56,31 +60,18 @@ export default function GoalsScreen() {
         },
         surpriseGoalTitle: {
           color: colors.card,
-          fontFamily: theme.fonts.display,
+          fontFamily: theme.labelFont,
           fontSize: 22,
+          ...theme.proseLayout,
         },
         surpriseGoalHint: {
           color: colors.sand,
           fontFamily: theme.labelFont,
           fontSize: 13,
-        },
-        newGoal: {
-          alignItems: 'center',
-          backgroundColor: colors.olive,
-          borderRadius: radii.md,
-          padding: spacing.lg,
-        },
-        newGoalContent: {
-          alignItems: 'center',
-          flexDirection: 'row',
-          gap: spacing.sm,
-        },
-        newGoalText: {
-          color: colors.card,
-          fontSize: 16,
+          ...theme.proseLayout,
         },
       }),
-    [colors, theme.fonts.display, theme.labelFont],
+    [colors, theme.labelFont, theme.mirrorRow, theme.proseLayout, theme.proseFontStyle],
   );
 
   const handleSurpriseGoal = useCallback(() => {
@@ -142,14 +133,9 @@ export default function GoalsScreen() {
         </>
       ) : null}
 
-      <Pressable style={styles.newGoal} onPress={() => router.push('/goals/create')}>
-        <View style={styles.newGoalContent}>
-          <Icon name="plus" color={colors.card} size={18} />
-          <Text style={[styles.newGoalText, { color: colors.card, fontFamily: theme.fonts.display }]}>
-            {t.goals.planNew}
-          </Text>
-        </View>
-      </Pressable>
+      <PlanNewGoalRow onPress={() => router.push('/goals/create')} />
+
+      <GoalLibrarySection />
     </Screen>
   );
 }

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Goal PDF — 3 design mocks</title>
+    <style>
+      body {
+        background: #1e1e1e;
+        color: #f5f0e6;
+        font-family: Georgia, serif;
+        margin: 0;
+        padding: 32px;
+      }
+      h1 { font-size: 28px; margin: 0 0 8px; }
+      p { color: #c9bfb0; line-height: 1.5; max-width: 52rem; }
+      .grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        margin-top: 28px;
+      }
+      a.card {
+        background: #2a2a2a;
+        border: 1px solid #4a4a4a;
+        border-radius: 12px;
+        color: inherit;
+        display: block;
+        padding: 20px;
+        text-decoration: none;
+        transition: border-color 0.15s;
+      }
+      a.card:hover { border-color: #8b6914; }
+      a.card h2 { color: #e8dcc4; font-size: 20px; margin: 0 0 8px; }
+      a.card span {
+        color: #6f8f4e;
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+      a.card p { font-size: 14px; margin: 0; }
+    </style>
+  </head>
+  <body>
+    <h1>Goal PDF — 3 design mocks</h1>
+    <p>
+      Each mock includes a <strong>portrait</strong> and <strong>landscape</strong> A4 page for the same
+      10-day sample goal. Open in a browser and use Print → Save as PDF to compare.
+    </p>
+    <div class="grid">
+      <a class="card" href="mock-1-parchment.html">
+        <span>Mock 1</span>
+        <h2>Parchment Frame</h2>
+        <p>Gold &amp; olive double frame with corner stars — closest to the current export.</p>
+      </a>
+      <a class="card" href="mock-2-minimal.html">
+        <span>Mock 2</span>
+        <h2>Minimal Columns</h2>
+        <p>Clean olive rules, compact header band, checkbox grid — less decoration, more density.</p>
+      </a>
+      <a class="card" href="mock-3-ornate.html">
+        <span>Mock 3</span>
+        <h2>Ornate Mihrab</h2>
+        <p>Arch header, tile motif border, deep olive accents — more ceremonial / printable card feel.</p>
+      </a>
+    </div>
+  </body>
+</html>

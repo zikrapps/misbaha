@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 4 — Silver Liquid Glass · All screens</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { background: radial-gradient(circle at 50% 0%, #1a1a1e, #08080a); color: #f5f5f7; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif; margin: 0; min-height: 100vh; padding: 28px 20px 48px; }
+      .page-head { margin: 0 auto 28px; max-width: 1200px; text-align: center; }
+      .page-head h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.4px; margin: 0 0 6px; }
+      .page-head p { color: #98989d; font-size: 14px; line-height: 1.55; margin: 0; }
+      .tag { backdrop-filter: blur(16px); background: rgba(174,174,178,0.15); border: 1px solid rgba(200,200,210,0.35); border-radius: 999px; color: #d1d1d6; display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 14px; padding: 6px 14px; text-transform: uppercase; }
+      .row { display: flex; gap: 28px; justify-content: center; margin: 0 auto; max-width: 1200px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x mandatory; }
+      .col { flex: 0 0 340px; scroll-snap-align: center; }
+      .screen-label { color: #98989d; font-size: 12px; font-weight: 600; letter-spacing: 0.6px; margin: 0 0 10px; text-align: center; text-transform: uppercase; }
+      .phone { border: 3px solid #48484a; border-radius: 44px; box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 28px 70px rgba(0,0,0,0.7); height: 736px; overflow: hidden; position: relative; width: 340px; }
+      .bg {
+        background:
+          linear-gradient(135deg, #2c2c30 0%, #1c1c1e 40%, #3a3a3e 100%),
+          repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px);
+        inset: 0;
+        position: absolute;
+      }
+      .sheen {
+        animation: sheen 8s ease-in-out infinite alternate;
+        background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.18) 48%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.18) 52%, transparent 70%);
+        inset: 0;
+        position: absolute;
+      }
+      @keyframes sheen { from { transform: translateX(-20%); } to { transform: translateX(20%); } }
+      .chrome-blob { background: radial-gradient(circle, rgba(200,200,210,0.25) 0%, transparent 65%); border-radius: 50%; filter: blur(40px); height: 220px; left: 50%; position: absolute; top: 180px; transform: translateX(-50%); width: 220px; }
+      .glass { backdrop-filter: blur(40px) saturate(120%) brightness(1.1); -webkit-backdrop-filter: blur(40px) saturate(120%) brightness(1.1); background: linear-gradient(145deg, rgba(255,255,255,0.22), rgba(180,180,190,0.12)); border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset, 0 0 0 0.5px rgba(160,160,170,0.3), 0 8px 28px rgba(0,0,0,0.25); }
+      .glass-strong { backdrop-filter: blur(48px) saturate(130%) brightness(1.12); -webkit-backdrop-filter: blur(48px) saturate(130%) brightness(1.12); background: linear-gradient(155deg, rgba(255,255,255,0.32), rgba(200,200,210,0.18)); border: 1px solid rgba(255,255,255,0.65); box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 12px 36px rgba(0,0,0,0.3); }
+      .scroll { color: #1c1c1e; display: flex; flex-direction: column; gap: 10px; height: calc(100% - 72px); overflow: hidden; padding: 50px 12px 8px; position: relative; z-index: 1; }
+      .scroll-inner { display: flex; flex: 1; flex-direction: column; gap: 10px; overflow: hidden; }
+      .h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin: 0; }
+      .sub { color: rgba(28,28,30,0.5); font-size: 13px; margin: 1px 0 0; }
+      .row2 { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; }
+      .card { border-radius: 16px; padding: 12px; }
+      .lbl { color: rgba(28,28,30,0.42); font-size: 10px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; }
+      .val { font-size: 24px; font-weight: 700; letter-spacing: -0.4px; margin-top: 2px; }
+      .sec { color: rgba(28,28,30,0.4); font-size: 10px; font-weight: 600; letter-spacing: 0.5px; margin-top: 2px; text-transform: uppercase; }
+      .badge { background: linear-gradient(135deg, #8e8e93, #636366); border: 1px solid rgba(255,255,255,0.45); border-radius: 999px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); color: #fff; display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; }
+      .goal h3 { font-size: 17px; font-weight: 700; margin: 8px 0 4px; }
+      .goal p { color: rgba(28,28,30,0.58); font-size: 12px; line-height: 1.45; margin: 0; }
+      .tabbar { backdrop-filter: blur(48px) saturate(130%); background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(200,200,210,0.2)); border-top: 1px solid rgba(255,255,255,0.6); bottom: 0; box-shadow: 0 -1px 0 rgba(255,255,255,0.5) inset; display: grid; grid-template-columns: repeat(4, 1fr); left: 0; padding: 8px 6px 22px; position: absolute; right: 0; z-index: 2; }
+      .tab { color: rgba(28,28,30,0.38); font-size: 9px; font-weight: 500; text-align: center; }
+      .tab.on { color: #48484a; font-weight: 700; }
+      .tab .dot { background: currentColor; border-radius: 50%; height: 4px; margin: 0 auto 4px; width: 4px; }
+      .island { background: linear-gradient(180deg, #3a3a3c, #1c1c1e); border-radius: 18px; box-shadow: 0 1px 0 rgba(255,255,255,0.2) inset; height: 30px; left: 50%; position: absolute; top: 10px; transform: translateX(-50%); width: 108px; z-index: 4; }
+      .status { color: #1c1c1e; display: flex; font-size: 12px; font-weight: 600; justify-content: space-between; left: 0; padding: 12px 22px 0; position: absolute; right: 0; top: 0; z-index: 3; }
+      .head-row { align-items: flex-start; display: flex; justify-content: space-between; }
+      .gear { backdrop-filter: blur(12px); background: rgba(255,255,255,0.35); border: 1px solid rgba(255,255,255,0.55); border-radius: 50%; color: #1c1c1e; font-size: 14px; height: 32px; line-height: 32px; text-align: center; width: 32px; }
+      .total-row { align-items: center; border-bottom: 1px solid rgba(28,28,30,0.1); display: flex; justify-content: space-between; padding-bottom: 8px; }
+      .total-lbl { color: rgba(28,28,30,0.42); font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+      .total-val { font-size: 15px; font-weight: 600; }
+      .grid2 { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; }
+      .tile { border-radius: 16px; min-height: 108px; overflow: hidden; padding: 10px; position: relative; }
+      .tile-q { background: linear-gradient(135deg, #7a7a82, #4a4a52); color: #fff; }
+      .tile-p { background: linear-gradient(135deg, #9a9aa2, #6a6a72); color: #fff; }
+      .tile-m { background: linear-gradient(135deg, #d8d8de, #b0b0b8); color: #2c2c30; }
+      .tile-n { background: linear-gradient(135deg, #3a3a42, #1c1c22); color: #e5e5ea; }
+      .tile-chip { border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; display: inline-block; font-size: 9px; font-weight: 600; padding: 2px 7px; }
+      .tile-m .tile-chip { border-color: rgba(44,44,48,0.2); }
+      .tile-eye { font-size: 8px; font-weight: 700; letter-spacing: 0.8px; margin-top: 6px; opacity: 0.7; text-transform: uppercase; }
+      .tile-title { font-size: 15px; font-weight: 600; line-height: 1.15; margin-top: 2px; }
+      .dua-row { border-radius: 16px; padding: 10px; }
+      .dua-row .title { color: rgba(28,28,30,0.48); font-size: 10px; margin-bottom: 4px; }
+      .dua-row .arabic { direction: rtl; font-family: Georgia, serif; font-size: 17px; line-height: 1.4; text-align: right; }
+      .dua-foot { align-items: center; display: flex; justify-content: space-between; margin-top: 8px; }
+      .count-pill { background: rgba(99,99,102,0.15); border: 1px solid rgba(99,99,102,0.3); border-radius: 999px; color: #48484a; font-size: 18px; font-weight: 700; padding: 4px 14px; }
+      .hint { color: rgba(28,28,30,0.38); font-size: 9px; }
+      .toggle { backdrop-filter: blur(20px); background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.45); border-radius: 999px; display: grid; grid-template-columns: repeat(3, 1fr); overflow: hidden; padding: 3px; }
+      .tog { border-radius: 999px; color: rgba(28,28,30,0.45); font-size: 9px; font-weight: 600; padding: 7px 4px; text-align: center; }
+      .tog.on { background: linear-gradient(135deg, #8e8e93, #636366); color: #fff; }
+      .growth { align-items: center; border-radius: 18px; display: flex; gap: 10px; padding: 12px; }
+      .sprout { filter: grayscale(0.6) brightness(1.1); font-size: 40px; }
+      .growth-copy { flex: 1; min-width: 0; }
+      .overline { color: rgba(72,72,74,0.65); font-size: 8px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
+      .growth-title { font-size: 13px; font-weight: 600; margin-top: 1px; }
+      .growth-count { font-size: 26px; font-weight: 700; letter-spacing: -0.4px; }
+      .growth-word { color: rgba(72,72,74,0.6); font-size: 12px; }
+      .ring { flex-shrink: 0; height: 56px; position: relative; width: 56px; }
+      .ring-txt { font-size: 11px; font-weight: 700; inset: 0; position: absolute; text-align: center; top: 18px; }
+      .ring-lbl { color: rgba(72,72,74,0.55); font-size: 7px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+      .scene { border-radius: 16px; height: 110px; overflow: hidden; }
+      .stats3 { display: grid; gap: 6px; grid-template-columns: repeat(3, 1fr); }
+      .stat { border-radius: 12px; padding: 8px; text-align: center; }
+      .stat .lbl { font-size: 8px; }
+      .stat .val { font-size: 14px; }
+      .bars { border-radius: 14px; padding: 10px 10px 6px; }
+      .bar-row { align-items: flex-end; display: flex; gap: 2px; height: 48px; }
+      .bar { background: linear-gradient(180deg, rgba(174,174,178,0.8), rgba(99,99,102,0.5)); border-radius: 2px 2px 0 0; flex: 1; }
+      .axis { color: rgba(28,28,30,0.38); display: flex; font-size: 8px; justify-content: space-between; margin-top: 4px; }
+    </style>
+  </head>
+  <body>
+    <div class="page-head">
+      <span class="tag">Mock 4 — Silver</span>
+      <h1>Today · Tasbeeh · Visualize</h1>
+      <p>Brushed chrome mesh with mirror-bright rims — cool metallic glass, specular sweep, monochrome elegance.</p>
+    </div>
+    <div class="row">
+      <div class="col"><p class="screen-label">Today</p><div class="phone"><div class="bg"></div><div class="sheen"></div><div class="chrome-blob"></div><div class="island"></div><div class="status"><span>9:41</span><span>●●●</span></div><div class="scroll"><div class="scroll-inner"><div><h2 class="h1">Today</h2><p class="sub">Sunday, 7 June · 847 taps</p></div><div class="row2"><div class="card glass"><div class="lbl">Today's taps</div><div class="val">847</div></div><div class="card glass"><div class="lbl">Lifetime</div><div class="val">12,403</div></div></div><div class="sec">Goal focus</div><div class="goal card glass-strong"><span class="badge">32%</span><h3>Morning adhkar</h3><p>Day 4 of 10 · SubhanAllah wa bihamdihi — 33 remaining today</p></div></div></div><div class="tabbar"><div class="tab on"><div class="dot"></div>Today</div><div class="tab"><div class="dot"></div>Tasbeeh</div><div class="tab"><div class="dot"></div>Goals</div><div class="tab"><div class="dot"></div>Visualize</div></div></div></div>
+      <div class="col"><p class="screen-label">Tasbeeh</p><div class="phone"><div class="bg"></div><div class="sheen"></div><div class="chrome-blob"></div><div class="island"></div><div class="status"><span>9:41</span><span>●●●</span></div><div class="scroll"><div class="scroll-inner"><div class="head-row"><div><h2 class="h1">Tasbeeh</h2><p class="sub">tap, hold, repeat</p></div><div class="gear">⚙</div></div><div class="total-row"><span class="total-lbl">Total taps</span><span class="total-val">12,403</span></div><div class="grid2"><div class="tile tile-q glass"><span class="tile-chip">12 duas</span><div class="tile-eye">From the Quran</div><div class="tile-title">Quranic Duas</div></div><div class="tile tile-p glass"><span class="tile-chip">18 duas</span><div class="tile-eye">After every salah</div><div class="tile-title">Five daily prayers</div></div><div class="tile tile-m glass" style="box-shadow:0 0 0 2px rgba(174,174,178,0.7),0 1px 0 rgba(255,255,255,0.8) inset"><span class="tile-chip">24 duas</span><div class="tile-eye">Begin your day</div><div class="tile-title">Adhkar Subha</div></div><div class="tile tile-n glass"><span class="tile-chip">16 duas</span><div class="tile-eye">Before sleep</div><div class="tile-title">Adhkar Layl</div></div></div><div class="dua-row glass-strong"><div class="title">SubhanAllahi wa bihamdihi</div><div class="arabic">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</div><div class="dua-foot"><span class="hint">double-tap anywhere · +1 each</span><span class="count-pill">847</span></div></div></div></div><div class="tabbar"><div class="tab"><div class="dot"></div>Today</div><div class="tab on"><div class="dot"></div>Tasbeeh</div><div class="tab"><div class="dot"></div>Goals</div><div class="tab"><div class="dot"></div>Visualize</div></div></div></div>
+      <div class="col"><p class="screen-label">Visualize</p><div class="phone"><div class="bg"></div><div class="sheen"></div><div class="chrome-blob"></div><div class="island"></div><div class="status"><span>9:41</span><span>●●●</span></div><div class="scroll"><div class="scroll-inner"><div><h2 class="h1">Visualize</h2><p class="sub">a garden of dhikr</p></div><div class="toggle glass"><div class="tog on">Garden</div><div class="tog">Earth</div><div class="tog">Space</div></div><div class="growth glass-strong"><div class="sprout">🌱</div><div class="growth-copy"><div class="overline">Your garden</div><div class="growth-title">Today's Growth</div><div><span class="growth-count">847</span> <span class="growth-word">dhikr</span></div></div><div class="ring"><svg viewBox="0 0 56 56" width="56" height="56"><circle cx="28" cy="28" r="24" fill="none" stroke="rgba(28,28,30,0.1)" stroke-width="4"/><circle cx="28" cy="28" r="24" fill="none" stroke="#636366" stroke-width="4" stroke-dasharray="113 113" stroke-dashoffset="36" stroke-linecap="round" transform="rotate(-90 28 28)"/></svg><div class="ring-txt">68%<br><span class="ring-lbl">Of goal</span></div></div></div><div class="scene glass"><svg viewBox="0 0 316 110" width="100%" height="110"><defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8b8c0"/><stop offset="1" stop-color="#d8d8de"/></linearGradient></defs><rect width="316" height="110" fill="url(#sky)"/><path d="M0 82 L80 68 L160 76 L240 62 L316 70 L316 110 L0 110 Z" fill="#8e8e93" opacity="0.5"/><circle cx="80" cy="78" r="10" fill="#636366"/><circle cx="200" cy="70" r="14" fill="#7a7a82"/></svg></div><div class="stats3"><div class="stat glass"><div class="lbl">Today</div><div class="val">847</div></div><div class="stat glass"><div class="lbl">Active days</div><div class="val">22</div></div><div class="stat glass"><div class="lbl">Per day</div><div class="val">413</div></div></div><div class="bars glass"><div class="bar-row"><div class="bar" style="height:32%"></div><div class="bar" style="height:48%"></div><div class="bar" style="height:38%"></div><div class="bar" style="height:62%"></div><div class="bar" style="height:55%"></div><div class="bar" style="height:78%"></div><div class="bar" style="height:68%"></div><div class="bar" style="height:88%"></div></div><div class="axis"><span>30 days ago</span><span>today</span></div></div></div></div><div class="tabbar"><div class="tab"><div class="dot"></div>Today</div><div class="tab"><div class="dot"></div>Tasbeeh</div><div class="tab"><div class="dot"></div>Goals</div><div class="tab on"><div class="dot"></div>Visualize</div></div></div></div>
+    </div>
+  </body>
+</html>

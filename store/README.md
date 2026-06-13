@@ -27,4 +27,6 @@ These names are tied to your store accounts; they cannot be set from `app.json` 
 4. App Store metadata: `eas metadata:push`
 5. Submit: `eas submit --platform ios` / `eas submit --platform android`
 
+**Full Apple App Store guide (all phases):** [docs/PUBLISHING-APPLE-APP-STORE.md](../docs/PUBLISHING-APPLE-APP-STORE.md)
+
 Contact: salam@zikrapps.com

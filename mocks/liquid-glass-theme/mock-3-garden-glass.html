@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 3 — Garden Glass</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet" />
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        align-items: center;
+        background: radial-gradient(circle at 50% 0%, #1a2418, #0a0c0a);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin: 0;
+        min-height: 100vh;
+        padding: 28px 16px 40px;
+      }
+      .caption {
+        color: #8fa367;
+        font: 14px/1.55 'Source Serif 4', Georgia, serif;
+        margin: 0;
+        max-width: 390px;
+        text-align: center;
+      }
+      .phone {
+        border: 3px solid #2d4a22;
+        border-radius: 48px;
+        box-shadow:
+          0 0 0 1px rgba(143, 163, 103, 0.15),
+          0 32px 80px rgba(0, 0, 0, 0.6);
+        height: 844px;
+        overflow: hidden;
+        position: relative;
+        width: 390px;
+      }
+      .garden-mesh {
+        background:
+          radial-gradient(ellipse 90% 70% at 20% 25%, rgba(200, 221, 184, 0.7) 0%, transparent 55%),
+          radial-gradient(ellipse 80% 60% at 80% 20%, rgba(143, 163, 103, 0.55) 0%, transparent 50%),
+          radial-gradient(ellipse 100% 80% at 50% 90%, rgba(111, 143, 78, 0.5) 0%, transparent 55%),
+          linear-gradient(175deg, #e8f0dc 0%, #c8ddb8 30%, #8fb87a 60%, #4a6b3a 100%);
+        inset: 0;
+        position: absolute;
+      }
+      .garden-mesh::after {
+        background: radial-gradient(ellipse 60% 40% at 50% 40%, rgba(247, 240, 223, 0.35) 0%, transparent 70%);
+        content: '';
+        inset: 0;
+        position: absolute;
+      }
+      .leaf-glow {
+        animation: sway 10s ease-in-out infinite alternate;
+        background: radial-gradient(circle, rgba(111, 143, 78, 0.3) 0%, transparent 65%);
+        border-radius: 50%;
+        filter: blur(50px);
+        height: 240px;
+        position: absolute;
+        right: -30px;
+        top: 200px;
+        width: 240px;
+      }
+      @keyframes sway {
+        from { transform: translate(0, 0); }
+        to { transform: translate(-15px, 20px); }
+      }
+      .glass {
+        backdrop-filter: blur(36px) saturate(140%) brightness(1.05);
+        -webkit-backdrop-filter: blur(36px) saturate(140%) brightness(1.05);
+        background: rgba(255, 252, 245, 0.32);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.65) inset,
+          0 8px 28px rgba(45, 74, 34, 0.1),
+          0 2px 6px rgba(45, 74, 34, 0.06);
+      }
+      .glass-strong {
+        backdrop-filter: blur(44px) saturate(150%) brightness(1.06);
+        -webkit-backdrop-filter: blur(44px) saturate(150%) brightness(1.06);
+        background: rgba(255, 250, 240, 0.42);
+        border: 1px solid rgba(255, 255, 255, 0.58);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.75) inset,
+          0 12px 36px rgba(45, 74, 34, 0.12);
+      }
+      .content {
+        color: #372c24;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Source Serif 4', Georgia, serif;
+        gap: 14px;
+        height: 100%;
+        overflow: hidden;
+        padding: 58px 16px 100px;
+        position: relative;
+        z-index: 1;
+      }
+      .header h1 {
+        font-family: 'Literata', Georgia, serif;
+        font-size: 36px;
+        font-weight: 700;
+        letter-spacing: -0.2px;
+        margin: 0;
+      }
+      .header p { color: rgba(55, 44, 36, 0.5); font-size: 15px; margin: 2px 0 0; }
+      .stats { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+      .card {
+        border-radius: 20px;
+        padding: 16px;
+      }
+      .card .label {
+        color: rgba(45, 74, 34, 0.55);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+      }
+      .card .value {
+        font-family: 'Literata', Georgia, serif;
+        font-size: 30px;
+        font-weight: 700;
+        margin-top: 4px;
+      }
+      .section {
+        color: rgba(45, 74, 34, 0.5);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.8px;
+        margin: 4px 0 0;
+        text-transform: uppercase;
+      }
+      .goal {
+        border-radius: 22px;
+        padding: 18px;
+      }
+      .goal .badge {
+        backdrop-filter: blur(16px);
+        background: rgba(45, 74, 34, 0.82);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        box-shadow: 0 2px 10px rgba(45, 74, 34, 0.25);
+        color: #f7f0df;
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 12px;
+      }
+      .goal h3 {
+        font-family: 'Literata', Georgia, serif;
+        font-size: 21px;
+        font-weight: 700;
+        margin: 10px 0 6px;
+      }
+      .goal p { color: rgba(55, 44, 36, 0.6); font-size: 13px; line-height: 1.5; margin: 0; }
+      .tabbar {
+        backdrop-filter: blur(44px) saturate(150%) brightness(1.04);
+        -webkit-backdrop-filter: blur(44px) saturate(150%) brightness(1.04);
+        background: rgba(255, 250, 240, 0.38);
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        bottom: 0;
+        box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.45) inset;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        left: 0;
+        padding: 10px 8px 26px;
+        position: absolute;
+        right: 0;
+        z-index: 2;
+      }
+      .tab { color: rgba(55, 44, 36, 0.4); font-size: 10px; text-align: center; }
+      .tab.active { color: #2d4a22; font-weight: 600; }
+      .tab .dot {
+        background: currentColor;
+        border-radius: 50%;
+        height: 5px;
+        margin: 0 auto 5px;
+        width: 5px;
+      }
+      .tag {
+        backdrop-filter: blur(12px);
+        background: rgba(111, 143, 78, 0.2);
+        border: 1px solid rgba(111, 143, 78, 0.35);
+        border-radius: 999px;
+        color: #8fd46a;
+        font-family: 'Source Serif 4', Georgia, serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        padding: 6px 14px;
+        text-transform: uppercase;
+      }
+      .status-bar {
+        color: #372c24;
+        display: flex;
+        font-family: 'Source Serif 4', Georgia, serif;
+        font-size: 14px;
+        font-weight: 600;
+        justify-content: space-between;
+        left: 0;
+        padding: 14px 28px 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 3;
+      }
+      .dynamic-island {
+        background: #2d4a22;
+        border-radius: 20px;
+        height: 34px;
+        left: 50%;
+        position: absolute;
+        top: 12px;
+        transform: translateX(-50%);
+        width: 120px;
+        z-index: 4;
+      }
+      .arabic-accent {
+        color: rgba(45, 74, 34, 0.35);
+        direction: rtl;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 13px;
+        margin-top: -4px;
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="tag">Mock 3 — Garden Glass</span>
+    <div class="phone">
+      <div class="garden-mesh"></div>
+      <div class="leaf-glow"></div>
+      <div class="dynamic-island"></div>
+      <div class="status-bar">
+        <span>9:41</span>
+        <span>●●●</span>
+      </div>
+      <div class="content">
+        <div class="header">
+          <h1>Today</h1>
+          <p>Sunday, 7 June · 847 taps</p>
+          <div class="arabic-accent">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        </div>
+        <div class="stats">
+          <div class="card glass">
+            <div class="label">Today's taps</div>
+            <div class="value">847</div>
+          </div>
+          <div class="card glass">
+            <div class="label">Lifetime</div>
+            <div class="value">12,403</div>
+          </div>
+        </div>
+        <div class="section">Goal focus</div>
+        <div class="goal glass-strong">
+          <span class="badge">32%</span>
+          <h3>Morning adhkar</h3>
+          <p>Day 4 of 10 · SubhanAllah wa bihamdihi — 33 remaining today</p>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab active"><div class="dot"></div>Today</div>
+        <div class="tab"><div class="dot"></div>Tasbeeh</div>
+        <div class="tab"><div class="dot"></div>Goals</div>
+        <div class="tab"><div class="dot"></div>Visualize</div>
+      </div>
+    </div>
+    <p class="caption">Literata + Source Serif 4 on olive garden mesh. Warm cream glass refracting devotional greens — Misbaha-native liquid glass.</p>
+  </body>
+</html>

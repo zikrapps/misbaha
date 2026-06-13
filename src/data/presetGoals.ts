@@ -11,6 +11,16 @@ const rotations = [
   'rabbi-zidni',
   'morning-hasbiyallah',
   'night-bismika',
+  'remembrance-tasbeeh-high-reward',
+  'remembrance-la-hawla',
+  'relief-ya-hayyu-ya-qayyum',
+  'relief-hamm-hazan-dayn',
+  'heart-thabbit-qalbi',
+  'heart-seeking-allah-love',
+  'salah-between-sujood',
+  'daily-leaving-home',
+  'ramadan-laylatul-qadr',
+  'rabbi-adkhilni-mudkhala-sidq',
 ];
 
 export function buildGoalDays(duration: number, offset = 0) {

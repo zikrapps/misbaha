@@ -10,6 +10,7 @@ export function resetStore() {
     tapWeight: 1,
     themeId: 'garden',
     language: 'en',
+    visualization: 'garden',
     clickSoundEnabled: true,
     hapticsEnabled: true,
     tutorialCompleted: false,

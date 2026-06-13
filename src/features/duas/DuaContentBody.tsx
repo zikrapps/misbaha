@@ -2,12 +2,13 @@ import { Pressable, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-n
 
 import { Icon } from '@/src/components/Icon';
 import { NightDetailPalette } from '@/src/features/duas/nightDetail';
-import { duaSpeaker, duaTranslation } from '@/src/i18n/duaText';
-import { proseLayout } from '@/src/i18n/textLayout';
+import { duaArabic, duaSpeaker, duaTranslation } from '@/src/i18n/duaText';
+import { arabicBlockLayout, arabicLayout, proseInlineLayout, proseLayout } from '@/src/i18n/textLayout';
 import { useT } from '@/src/i18n/strings';
 import { ThemeColors } from '@/src/theme/palette';
 import { DuaRecord, Language } from '@/src/types/misbaha';
 import { openExternalUrl } from '@/src/utils/openExternalUrl';
+import type { StyleProp } from 'react-native';
 
 type DuaContentBodyProps = {
   dua: DuaRecord;
@@ -15,10 +16,10 @@ type DuaContentBodyProps = {
   labelFont: string;
   colors: ThemeColors;
   textStyles: {
-    arabic: TextStyle;
-    translation: TextStyle;
-    meta?: TextStyle;
-    link?: TextStyle;
+    arabic: StyleProp<TextStyle>;
+    translation: StyleProp<TextStyle>;
+    meta?: StyleProp<TextStyle>;
+    link?: StyleProp<TextStyle>;
     linkRow?: ViewStyle;
   };
   night?: NightDetailPalette | null;
@@ -58,7 +59,9 @@ export function DuaContentBody({
 
   return (
     <>
-      <Text style={textStyles.arabic}>{dua.arabic}</Text>
+      <View style={styles.arabicBlock}>
+        <Text style={[textStyles.arabic, arabicLayout]}>{duaArabic(dua, language)}</Text>
+      </View>
       <Text style={[textStyles.translation, proseLayout(language)]}>{duaTranslation(dua, language)}</Text>
       {speaker ? (
         <Text style={[textStyles.meta, proseLayout(language)]}>
@@ -68,13 +71,15 @@ export function DuaContentBody({
       {linkMode === 'auto' && reference?.url ? (
         <Pressable onPress={() => openLink(reference.url!)} style={[styles.linkRow, textStyles.linkRow]}>
           <Icon name="link" color={linkColor} size={16} />
-          <Text style={[textStyles.link, { color: linkColor, fontFamily: labelFont }]}>{reference.label}</Text>
+          <Text style={[textStyles.link, proseInlineLayout(language), { color: linkColor, fontFamily: labelFont }]}>
+            {reference.label}
+          </Text>
         </Pressable>
       ) : null}
       {linkMode === 'split' && dua.quranUrl ? (
         <Pressable onPress={() => openLink(dua.quranUrl!)} style={[styles.linkRow, textStyles.linkRow]}>
           <Icon name="link" color={linkColor} size={15} />
-          <Text style={[textStyles.link, { color: linkColor, fontFamily: labelFont }]}>
+          <Text style={[textStyles.link, proseInlineLayout(language), { color: linkColor, fontFamily: labelFont }]}>
             {dua.quranReference} {t.duas.onQuran}
           </Text>
         </Pressable>
@@ -82,7 +87,7 @@ export function DuaContentBody({
       {linkMode === 'split' && dua.hadithUrl ? (
         <Pressable onPress={() => openLink(dua.hadithUrl!)} style={[styles.linkRow, textStyles.linkRow]}>
           <Icon name="link" color={linkColor} size={15} />
-          <Text style={[textStyles.link, { color: linkColor, fontFamily: labelFont }]}>
+          <Text style={[textStyles.link, proseInlineLayout(language), { color: linkColor, fontFamily: labelFont }]}>
             {dua.hadithReference} {t.duas.onSunnah}
           </Text>
         </Pressable>
@@ -92,6 +97,7 @@ export function DuaContentBody({
 }
 
 const styles = StyleSheet.create({
+  arabicBlock: arabicBlockLayout,
   linkRow: {
     alignItems: 'center',
     flexDirection: 'row',

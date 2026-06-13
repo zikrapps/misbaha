@@ -22,8 +22,34 @@ function exerciseStrings(s: ReturnType<typeof getStrings>, language: 'en' | 'ur'
   expect(s.garden.moreToRanges(3)).toContain('3');
   expect(s.garden.mountainRanges(4)).toContain('4');
   expect(s.settings.tapStatement(5)).toContain('5');
+  expect(s.duas.tileDuaCount(3)).toContain('3');
+  expect(s.duas.doubleTapHint(2)).toContain('2');
+  expect(s.tutorial.stepOf(2, 9)).toContain('2');
+  expect(s.journey.reached('Madinah')).toContain('Madinah');
+  expect(s.journey.remainingTo('12 km', 'Istanbul')).toContain('Istanbul');
+  expect(s.journey.inDhikr('2 hours')).toContain('2');
+  expect(s.journey.duration.days(2)).toContain('2');
+  if (language === 'en') {
+    expect(s.journey.duration.days(1)).toMatch(/1 day/);
+    expect(s.journey.duration.days(2)).toMatch(/days/);
+    expect(s.journey.duration.hours(1)).toMatch(/1 hour/);
+    expect(s.journey.duration.hours(2)).toMatch(/hours/);
+    expect(s.journey.duration.minutes(1)).toMatch(/1 minute/);
+    expect(s.journey.duration.minutes(2)).toMatch(/minutes/);
+    expect(s.journey.duration.seconds(1)).toMatch(/1 second/);
+    expect(s.journey.duration.seconds(2)).toMatch(/seconds/);
+  } else {
+    expect(s.journey.duration.hours(1)).toBeTruthy();
+    expect(s.journey.duration.minutes(5)).toBeTruthy();
+    expect(s.journey.duration.seconds(30)).toBeTruthy();
+  }
+  expect(s.journey.units.km).toBeTruthy();
   if (language === 'en') {
     expect(s.goals.dayProgress(2, 7, 1)).toContain('Day');
+    expect(s.settings.themeAccessibility('Garden', 'Warm')).toContain('Garden');
+    expect(s.duas.expandToCount).toBeTruthy();
+  } else {
+    expect(s.duas.expandToCount).toBeTruthy();
     expect(s.settings.themeAccessibility('Garden', 'Warm')).toContain('Garden');
   }
   expect(s.settings.publishedBy('Zikr Apps')).toContain('Zikr');

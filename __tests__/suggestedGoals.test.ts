@@ -23,6 +23,7 @@ describe('suggestedGoals', () => {
     const picked = pickSuggestedGoals(presetGoals, 2);
     expect(picked.length).toBeLessThanOrEqual(2);
     expect(picked.every((goal) => goal.preset)).toBe(true);
+    expect(pickSuggestedGoals(presetGoals).length).toBeLessThanOrEqual(4);
   });
 
   it('treats started goals as active', () => {

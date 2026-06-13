@@ -12,7 +12,7 @@ The **seller name** on the App Store is your Apple Developer **legal entity** �
 
 | Field | Value |
 | --- | --- |
-| **Name** | Misbaha |
+| **Name** | Misbaha مِسْبَحَة |
 | **Subtitle** | By Zikr Apps |
 | **Copyright** | 2026 Zikr Apps |
 | **Primary category** | Lifestyle |

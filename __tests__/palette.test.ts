@@ -11,6 +11,15 @@ describe('theme palette', () => {
     const theme = getTheme('parchment');
     expect(theme.id).toBe('parchment');
     expect(theme.colors.ink).toBe('#353330');
+    expect(normalizeThemeId('creased')).toBe('parchment');
+  });
+
+  it('returns faded gold palette from mock 9', () => {
+    const theme = getTheme('fadedGold');
+    expect(theme.id).toBe('fadedGold');
+    expect(theme.colors.ink).toBe('#5c4a32');
+    expect(theme.colors.cream).toBe('#f5efe0');
+    expect(theme.colors.oliveDark).toBe('#8b7355');
   });
 
   it('scales typography for Urdu', () => {
