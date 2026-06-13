@@ -82,15 +82,24 @@ Play Store and App Store copy, plus EAS Metadata for Apple, live under [`store/`
 - **Push App Store metadata:** `npm run metadata:push`
 - **Publish to the Apple App Store:** [docs/PUBLISHING-APPLE-APP-STORE.md](./docs/PUBLISHING-APPLE-APP-STORE.md)
 
-## Android APK (sideload)
+## Android sideload (APK)
+
+Build a signed release APK for direct install on Android devices (no Play Store):
 
 ```bash
 npm install -g eas-cli
 eas login
-npm run build:apk
+npm run build:sideload
 ```
 
-See [Expo EAS Build](https://docs.expo.dev/build/introduction/) for details.
+When the EAS build finishes, download the `.apk` and install it:
+
+- **USB:** `adb install -r path/to/misbaha.apk` (enable USB debugging on the device)
+- **File transfer:** copy the APK to the phone, open it in Files, tap Install (allow “Install unknown apps” for that app if prompted)
+
+Bump `expo.android.versionCode` in `app.json` before each new sideload update.
+
+**Full guide:** [docs/PUBLISHING-ANDROID-SIDELOAD.md](./docs/PUBLISHING-ANDROID-SIDELOAD.md)
 
 ## License
 

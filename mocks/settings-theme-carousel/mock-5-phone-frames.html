@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 5 — Mini phone frames</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .frame-track {
+        display: flex;
+        gap: 14px;
+        margin: 0 -20px;
+        overflow-x: auto;
+        padding: 8px 32px 12px;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .frame-track::-webkit-scrollbar { display: none; }
+      .frame-slide {
+        align-items: center;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 8px;
+        scroll-snap-align: center;
+      }
+      .mini-phone {
+        border: 2.5px solid #3d342c;
+        border-radius: 22px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        height: 148px;
+        overflow: hidden;
+        transition: border-color 0.2s, transform 0.2s;
+        width: 72px;
+      }
+      .frame-slide.selected .mini-phone {
+        border-color: var(--olive-dark);
+        border-width: 3px;
+        transform: scale(1.05);
+      }
+      .frame-slide:not(.selected) .mini-phone { opacity: 0.75; }
+      .mini-screen { display: flex; flex-direction: column; gap: 4px; height: 100%; padding: 10px 6px 6px; }
+      .mini-title { border-radius: 3px; height: 6px; width: 70%; }
+      .mini-row { border-radius: 4px; flex: 1; }
+      .mini-tabs {
+        border-top: 1px solid;
+        display: flex;
+        gap: 4px;
+        justify-content: space-around;
+        margin-top: auto;
+        padding-top: 4px;
+      }
+      .mini-tab { border-radius: 2px; height: 3px; width: 14px; }
+      .frame-label {
+        color: var(--ink);
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .frame-caption {
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.35;
+        margin: 0 28px;
+        text-align: center;
+      }
+      .check {
+        align-items: center;
+        background: var(--olive-dark);
+        border-radius: 50%;
+        color: #fff;
+        display: none;
+        font-size: 10px;
+        height: 18px;
+        justify-content: center;
+        position: absolute;
+        right: -4px;
+        top: -4px;
+        width: 18px;
+      }
+      .frame-slide { position: relative; }
+      .frame-slide.selected .check { display: flex; }
+    </style>
+  </head>
+  <body>
+    <a class="back" href="index.html">← All mocks</a>
+    <p class="caption"><strong>Mock 5 — Mini phone frames.</strong> Each theme as a tiny in-app preview inside a phone silhouette — shows cream, cards, and accent together, not just three dots.</p>
+    <div class="phone">
+      <div class="scroll">
+        <div class="pad header">
+          <div><h1>Settings</h1><p>tune the counter</p></div>
+          <button type="button" class="done-link">Done</button>
+        </div>
+        <div class="pad card compact">
+          <div class="section-title">Count per tap</div>
+          <div class="dial-wrap"><div class="dial"></div><div class="slider"></div></div>
+        </div>
+        <div class="pad section-title">Language</div>
+        <div class="pad card compact">
+          <div class="lang-row">
+            <div class="lang-opt on"><span class="name">English</span><span class="native">English</span></div>
+            <div class="lang-opt"><span class="name">Urdu</span><span class="native">اردو</span></div>
+          </div>
+        </div>
+        <div class="pad section-title">Theme</div>
+        <div class="theme-highlight">
+          <div class="frame-track" id="track"></div>
+          <p class="frame-caption" id="caption">Cream parchment, olive ink, soft devotional warmth.</p>
+        </div>
+        <div class="pad section-title">Feedback</div>
+        <div class="pad card compact">
+          <div class="feedback-row"><span>Click sound</span><div class="toggle"></div></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const themes = [
+        { name: 'Garden', desc: 'Cream parchment, olive ink, soft devotional warmth.', cream: '#f7f0df', parchment: '#fbf6e8', olive: '#6f8f4e', oliveDeep: '#213a18', line: '#ded1b2', ink: '#372c24' },
+        { name: 'Chromatic', desc: 'Cool indigo-violet base with teal accents — readable and vivid.', cream: '#f2f4fb', parchment: '#e6eaf5', olive: '#5b4fc7', oliveDeep: '#2a2654', line: '#ccd3e6', ink: '#1a2138' },
+        { name: 'Rose', desc: 'Warm rose clay, date-palm green, and softer rounded type.', cream: '#fbefe7', parchment: '#fff7ef', olive: '#7d8d58', oliveDeep: '#24341b', line: '#e6c8bc', ink: '#3b2521' },
+        { name: 'Parchment', desc: 'Warm grey parchment — ink on paper, entirely greyscale.', cream: '#ece7dd', parchment: '#f5f1e8', olive: '#5c5954', oliveDeep: '#2e2c28', line: '#cfc9bd', ink: '#353330' },
+        { name: 'Faded Gold', desc: 'Sun-bleached champagne — dusty wheat tones and quiet warmth.', cream: '#f5efe0', parchment: '#ebe4d4', olive: '#a89868', oliveDeep: '#6b5a42', line: '#d8ccb0', ink: '#5c4a32' },
+      ];
+      let selected = 0;
+      const track = document.getElementById('track');
+      const caption = document.getElementById('caption');
+      themes.forEach((t, i) => {
+        const slide = document.createElement('button');
+        slide.type = 'button';
+        slide.className = 'frame-slide' + (i === 0 ? ' selected' : '');
+        slide.style.background = 'none';
+        slide.style.border = 'none';
+        slide.style.cursor = 'pointer';
+        slide.innerHTML = `
+          <div class="check">✓</div>
+          <div class="mini-phone">
+            <div class="mini-screen" style="background:${t.cream}">
+              <div class="mini-title" style="background:${t.ink};opacity:0.7"></div>
+              <div class="mini-row" style="background:${t.parchment};border:1px solid ${t.line}"></div>
+              <div class="mini-row" style="background:${t.oliveDeep}"></div>
+              <div class="mini-tabs" style="border-color:${t.line}">
+                <div class="mini-tab" style="background:${t.olive}"></div>
+                <div class="mini-tab" style="background:${t.line}"></div>
+                <div class="mini-tab" style="background:${t.line}"></div>
+              </div>
+            </div>
+          </div>
+          <span class="frame-label">${t.name}</span>`;
+        slide.onclick = () => select(i);
+        track.appendChild(slide);
+      });
+      function select(i) {
+        selected = i;
+        [...track.children].forEach((el, j) => el.classList.toggle('selected', j === i));
+        caption.textContent = themes[i].desc;
+        track.children[i].scrollIntoView({ inline: 'center', behavior: 'smooth' });
+      }
+      track.addEventListener('scroll', () => {
+        const center = track.scrollLeft + track.clientWidth / 2;
+        let best = 0, bestDist = Infinity;
+        [...track.children].forEach((el, i) => {
+          const mid = el.offsetLeft + el.offsetWidth / 2;
+          const d = Math.abs(center - mid);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+        if (best !== selected) {
+          selected = best;
+          [...track.children].forEach((el, j) => el.classList.toggle('selected', j === best));
+          caption.textContent = themes[best].desc;
+        }
+      });
+    </script>
+  </body>
+</html>

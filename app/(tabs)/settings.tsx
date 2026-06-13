@@ -7,11 +7,12 @@ import { Icon } from '@/src/components/Icon';
 import { Screen, SectionTitle } from '@/src/components/Screen';
 import { APP_DISPLAY_NAME, LEGAL_ENTITY, SUPPORT_EMAIL, SUPPORT_MAILTO } from '@/src/constants/legal';
 import { TapWeightDial } from '@/src/features/settings/TapWeightDial';
+import { ThemeCarousel } from '@/src/features/settings/ThemeCarousel';
 import { reloadApp, syncLayoutDirection } from '@/src/i18n/rtl';
-import { languages, themeLabels, useT } from '@/src/i18n/strings';
+import { languages, useT } from '@/src/i18n/strings';
 import { useMisbahaStore } from '@/src/store/useMisbahaStore';
-import { AppTypography, radii, spacing, themes, useTheme } from '@/src/theme/theme';
-import { Language, ThemeId } from '@/src/types/misbaha';
+import { AppTypography, radii, spacing, useTheme } from '@/src/theme/theme';
+import { Language } from '@/src/types/misbaha';
 import { openExternalUrl } from '@/src/utils/openExternalUrl';
 
 export default function SettingsScreen() {
@@ -137,44 +138,7 @@ export default function SettingsScreen() {
       </Card>
 
       <SectionTitle>{t.settings.theme}</SectionTitle>
-      <Card style={styles.themeGrid}>
-        {(Object.keys(themes) as ThemeId[]).map((id) => {
-          const option = themes[id];
-          const selected = themeId === id;
-          return (
-            <Pressable
-              key={id}
-              accessibilityLabel={t.settings.themeAccessibility(
-                themeLabels(language, id).name,
-                themeLabels(language, id).description,
-              )}
-              accessibilityRole="button"
-              accessibilityState={{ selected }}
-              onPress={() => setThemeId(id)}
-              style={[
-                styles.themeOption,
-                {
-                  backgroundColor: option.colors.parchment,
-                  borderColor: selected ? option.colors.oliveDark : option.colors.line,
-                },
-                selected && styles.themeOptionSelected,
-              ]}
-            >
-              <View style={styles.swatches}>
-                <View style={[styles.swatch, { backgroundColor: option.colors.oliveDeep }]} />
-                <View style={[styles.swatch, { backgroundColor: option.colors.sand }]} />
-                <View style={[styles.swatch, { backgroundColor: option.colors.blush }]} />
-              </View>
-              <Text style={[styles.themeName, proseLayout, { color: option.colors.ink, fontFamily: labelFont }]}>
-                {themeLabels(language, id).name}
-              </Text>
-              <Text style={[styles.themeDescription, proseLayout, { color: option.colors.muted, fontFamily: labelFont }]}>
-                {themeLabels(language, id).description}
-              </Text>
-            </Pressable>
-          );
-        })}
-      </Card>
+      <ThemeCarousel language={language} themeId={themeId} onSelect={setThemeId} />
 
       <SectionTitle>{t.settings.feedback}</SectionTitle>
       <Card style={styles.feedback}>
@@ -318,34 +282,6 @@ function createStyles(typo: AppTypography) {
   },
   feedback: {
     gap: spacing.md,
-  },
-  themeGrid: {
-    gap: spacing.md,
-  },
-  themeOption: {
-    borderRadius: radii.md,
-    borderWidth: 1.5,
-    gap: spacing.sm,
-    padding: spacing.md,
-  },
-  themeOptionSelected: {
-    borderWidth: 3,
-  },
-  swatches: {
-    flexDirection: 'row',
-    gap: spacing.xs,
-  },
-  swatch: {
-    borderRadius: radii.pill,
-    height: 18,
-    width: 18,
-  },
-  themeName: {
-    fontSize: typo.subtitle,
-  },
-  themeDescription: {
-    fontSize: typo.small,
-    lineHeight: Math.round(typo.small * 1.45),
   },
   row: {
     alignItems: 'center',

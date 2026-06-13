@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 2 — Snap cards + dots</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .snap-wrap { margin: 0 20px; }
+      .snap-track {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .snap-track::-webkit-scrollbar { display: none; }
+      .snap-slide {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+      }
+      .snap-card {
+        border-radius: 14px;
+        border: 2px solid var(--line);
+        padding: 18px 16px;
+      }
+      .snap-card .theme-name { font-size: 18px; margin-top: 10px; }
+      .snap-card .theme-desc { color: var(--muted); margin-top: 4px; }
+      .snap-meta {
+        margin-top: 12px;
+        text-align: center;
+      }
+      .snap-meta .name {
+        color: var(--ink);
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .snap-meta .desc {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.45;
+        margin-top: 4px;
+      }
+      .dots {
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+        margin-top: 10px;
+      }
+      .dot {
+        background: var(--line);
+        border-radius: 999px;
+        height: 7px;
+        transition: width 0.2s, background 0.2s;
+        width: 7px;
+      }
+      .dot.on {
+        background: var(--olive-dark);
+        width: 20px;
+      }
+      .swatch-lg { height: 22px; width: 22px; }
+    </style>
+  </head>
+  <body>
+    <a class="back" href="index.html">← All mocks</a>
+    <p class="caption"><strong>Mock 2 — Snap cards + dots.</strong> One card per swipe with pagination dots — iOS-style picker. Name repeats below for clarity when swatches dominate.</p>
+    <div class="phone">
+      <div class="scroll">
+        <div class="pad header">
+          <div><h1>Settings</h1><p>tune the counter</p></div>
+          <button type="button" class="done-link">Done</button>
+        </div>
+        <div class="pad card compact">
+          <div class="section-title">Count per tap</div>
+          <div class="dial-wrap"><div class="dial"></div><div class="slider"></div></div>
+        </div>
+        <div class="pad section-title">Language</div>
+        <div class="pad card compact">
+          <div class="lang-row">
+            <div class="lang-opt on"><span class="name">English</span><span class="native">English</span></div>
+            <div class="lang-opt"><span class="name">Urdu</span><span class="native">اردو</span></div>
+          </div>
+        </div>
+        <div class="pad section-title">Theme</div>
+        <div class="theme-highlight snap-wrap">
+          <div class="snap-track" id="track">
+            <div class="snap-slide"><div class="snap-card" style="background:#fbf6e8;border-color:#2d4a22;border-width:3px;">
+              <div class="swatch-row"><div class="swatch swatch-lg" style="background:#213a18"></div><div class="swatch swatch-lg" style="background:#e7d7b0"></div><div class="swatch swatch-lg" style="background:#bf7b6e"></div></div>
+              <div class="theme-name" style="color:#372c24">Garden</div>
+              <div class="theme-desc">Cream parchment, olive ink, soft devotional warmth.</div>
+            </div></div>
+            <div class="snap-slide"><div class="snap-card" style="background:#e6eaf5;">
+              <div class="swatch-row"><div class="swatch swatch-lg" style="background:#2a2654"></div><div class="swatch swatch-lg" style="background:#cfd7f5"></div><div class="swatch swatch-lg" style="background:#b42356"></div></div>
+              <div class="theme-name" style="color:#1a2138">Chromatic</div>
+              <div class="theme-desc">Cool indigo-violet base with teal accents — readable and vivid.</div>
+            </div></div>
+            <div class="snap-slide"><div class="snap-card" style="background:#fff7ef;">
+              <div class="swatch-row"><div class="swatch swatch-lg" style="background:#24341b"></div><div class="swatch swatch-lg" style="background:#eccaa7"></div><div class="swatch swatch-lg" style="background:#9f3f4b"></div></div>
+              <div class="theme-name" style="color:#3b2521">Rose</div>
+              <div class="theme-desc">Warm rose clay, date-palm green, and softer rounded type.</div>
+            </div></div>
+            <div class="snap-slide"><div class="snap-card" style="background:#f5f1e8;">
+              <div class="swatch-row"><div class="swatch swatch-lg" style="background:#2e2c28"></div><div class="swatch swatch-lg" style="background:#d8d2c6"></div><div class="swatch swatch-lg" style="background:#6a6560"></div></div>
+              <div class="theme-name" style="color:#353330">Parchment</div>
+              <div class="theme-desc">Warm grey parchment — ink on paper, entirely greyscale.</div>
+            </div></div>
+            <div class="snap-slide"><div class="snap-card" style="background:#ebe4d4;">
+              <div class="swatch-row"><div class="swatch swatch-lg" style="background:#6b5a42"></div><div class="swatch swatch-lg" style="background:#e4d4af"></div><div class="swatch swatch-lg" style="background:#9a7060"></div></div>
+              <div class="theme-name" style="color:#5c4a32">Faded Gold</div>
+              <div class="theme-desc">Sun-bleached champagne — dusty wheat tones and quiet warmth.</div>
+            </div></div>
+          </div>
+          <div class="dots" id="dots">
+            <div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          </div>
+          <div class="snap-meta" id="meta">
+            <div class="name">Garden</div>
+            <div class="desc">Cream parchment, olive ink, soft devotional warmth.</div>
+          </div>
+        </div>
+        <div class="pad section-title">Feedback</div>
+        <div class="pad card compact">
+          <div class="feedback-row"><span>Haptic feedback</span><div class="toggle"></div></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const track = document.getElementById('track');
+      const dots = [...document.getElementById('dots').children];
+      const meta = document.getElementById('meta');
+      const labels = [
+        ['Garden', 'Cream parchment, olive ink, soft devotional warmth.'],
+        ['Chromatic', 'Cool indigo-violet base with teal accents — readable and vivid.'],
+        ['Rose', 'Warm rose clay, date-palm green, and softer rounded type.'],
+        ['Parchment', 'Warm grey parchment — ink on paper, entirely greyscale.'],
+        ['Faded Gold', 'Sun-bleached champagne — dusty wheat tones and quiet warmth.'],
+      ];
+      track.addEventListener('scroll', () => {
+        const i = Math.round(track.scrollLeft / track.clientWidth);
+        dots.forEach((d, j) => d.classList.toggle('on', j === i));
+        meta.querySelector('.name').textContent = labels[i][0];
+        meta.querySelector('.desc').textContent = labels[i][1];
+        track.querySelectorAll('.snap-card').forEach((c, j) => {
+          c.style.borderColor = j === i ? '#2d4a22' : '#ded1b2';
+          c.style.borderWidth = j === i ? '3px' : '2px';
+        });
+      });
+    </script>
+  </body>
+</html>

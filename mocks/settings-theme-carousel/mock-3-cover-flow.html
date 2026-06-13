@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 3 — Cover flow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .flow-stage {
+        height: 168px;
+        margin: 0 20px;
+        perspective: 900px;
+        position: relative;
+      }
+      .flow-card {
+        border-radius: 16px;
+        border: 2px solid var(--line);
+        box-shadow: 0 12px 28px rgba(55, 44, 36, 0.12);
+        left: 50%;
+        padding: 16px 14px;
+        position: absolute;
+        top: 50%;
+        transform-origin: center center;
+        transition: transform 0.35s ease, opacity 0.35s, border-color 0.35s;
+        width: 200px;
+      }
+      .flow-card.center {
+        border-color: var(--olive-dark);
+        border-width: 3px;
+        box-shadow: 0 18px 40px rgba(55, 44, 36, 0.2);
+        z-index: 3;
+      }
+      .flow-card .theme-name { margin-top: 10px; }
+      .flow-card .theme-desc { color: var(--muted); font-size: 11px; margin-top: 3px; }
+      .flow-nav {
+        align-items: center;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 10px;
+      }
+      .flow-btn {
+        align-items: center;
+        background: var(--parchment);
+        border: 1.5px solid var(--line);
+        border-radius: 50%;
+        color: var(--olive-dark);
+        cursor: pointer;
+        display: flex;
+        font-size: 18px;
+        height: 36px;
+        justify-content: center;
+        width: 36px;
+      }
+      .flow-label {
+        color: var(--ink);
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        min-width: 100px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="back" href="index.html">← All mocks</a>
+    <p class="caption"><strong>Mock 3 — Cover flow.</strong> 3D perspective carousel — center theme floats forward. Chevron buttons for precision; feels gallery-like without eating much vertical space.</p>
+    <div class="phone">
+      <div class="scroll">
+        <div class="pad header">
+          <div><h1>Settings</h1><p>tune the counter</p></div>
+          <button type="button" class="done-link">Done</button>
+        </div>
+        <div class="pad card compact">
+          <div class="section-title">Count per tap</div>
+          <div class="dial-wrap"><div class="dial"></div><div class="slider"></div></div>
+        </div>
+        <div class="pad section-title">Language</div>
+        <div class="pad card compact">
+          <div class="lang-row">
+            <div class="lang-opt on"><span class="name">English</span><span class="native">English</span></div>
+            <div class="lang-opt"><span class="name">Urdu</span><span class="native">اردو</span></div>
+          </div>
+        </div>
+        <div class="pad section-title">Theme</div>
+        <div class="theme-highlight">
+          <div class="flow-stage" id="stage"></div>
+          <div class="flow-nav">
+            <button type="button" class="flow-btn" id="prev" aria-label="Previous theme">‹</button>
+            <span class="flow-label" id="label">Garden</span>
+            <button type="button" class="flow-btn" id="next" aria-label="Next theme">›</button>
+          </div>
+        </div>
+        <div class="pad section-title">Feedback</div>
+        <div class="pad card compact">
+          <div class="feedback-row"><span>Click sound</span><div class="toggle"></div></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const themes = [
+        { name: 'Garden', desc: 'Cream parchment warmth', bg: '#fbf6e8', ink: '#372c24', sw: ['#213a18', '#e7d7b0', '#bf7b6e'] },
+        { name: 'Chromatic', desc: 'Indigo-violet & teal', bg: '#e6eaf5', ink: '#1a2138', sw: ['#2a2654', '#cfd7f5', '#b42356'] },
+        { name: 'Rose', desc: 'Rose clay & palm green', bg: '#fff7ef', ink: '#3b2521', sw: ['#24341b', '#eccaa7', '#9f3f4b'] },
+        { name: 'Parchment', desc: 'Greyscale ink on paper', bg: '#f5f1e8', ink: '#353330', sw: ['#2e2c28', '#d8d2c6', '#6a6560'] },
+        { name: 'Faded Gold', desc: 'Sun-bleached champagne', bg: '#ebe4d4', ink: '#5c4a32', sw: ['#6b5a42', '#e4d4af', '#9a7060'] },
+      ];
+      let index = 0;
+      const stage = document.getElementById('stage');
+      const label = document.getElementById('label');
+      const cards = themes.map((t) => {
+        const el = document.createElement('div');
+        el.className = 'flow-card';
+        el.style.background = t.bg;
+        el.innerHTML = `<div class="swatch-row">${t.sw.map((c) => `<div class="swatch" style="background:${c}"></div>`).join('')}</div>
+          <div class="theme-name" style="color:${t.ink}">${t.name}</div>
+          <div class="theme-desc">${t.desc}</div>`;
+        stage.appendChild(el);
+        return el;
+      });
+      function layout() {
+        cards.forEach((card, i) => {
+          let offset = i - index;
+          if (offset > 2) offset -= themes.length;
+          if (offset < -2) offset += themes.length;
+          const abs = Math.abs(offset);
+          const scale = offset === 0 ? 1 : abs === 1 ? 0.88 : 0.76;
+          const x = offset * 108;
+          const rot = offset * -28;
+          const z = 3 - abs;
+          card.style.transform = `translate(-50%, -50%) translateX(${x}px) rotateY(${rot}deg) scale(${scale})`;
+          card.style.opacity = abs > 1 ? 0.35 : abs === 1 ? 0.7 : 1;
+          card.classList.toggle('center', offset === 0);
+          card.style.zIndex = z;
+        });
+        label.textContent = themes[index].name;
+      }
+      document.getElementById('prev').onclick = () => { index = (index - 1 + themes.length) % themes.length; layout(); };
+      document.getElementById('next').onclick = () => { index = (index + 1) % themes.length; layout(); };
+      layout();
+    </script>
+  </body>
+</html>

@@ -14,7 +14,8 @@
     "clean": "rm -rf android/build android/app/build android/.gradle .expo web-build dist",
     "generate:splash": "python3 scripts/generate-splash.py",
     "postinstall": "node scripts/patch-expo-splash-hide.js",
-    "build:apk": "eas build --platform android --profile preview",
+    "build:apk": "eas build --platform android --profile sideload",
+    "build:sideload": "eas build --platform android --profile sideload",
     "metadata:push": "eas metadata:push"
   },
   "dependencies": {

@@ -29,4 +29,6 @@ These names are tied to your store accounts; they cannot be set from `app.json` 
 
 **Full Apple App Store guide (all phases):** [docs/PUBLISHING-APPLE-APP-STORE.md](../docs/PUBLISHING-APPLE-APP-STORE.md)
 
+**Android sideload (APK, no Play Store):** [docs/PUBLISHING-ANDROID-SIDELOAD.md](../docs/PUBLISHING-ANDROID-SIDELOAD.md)
+
 Contact: salam@zikrapps.com

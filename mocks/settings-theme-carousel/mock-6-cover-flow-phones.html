@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 6 — Cover flow + screen previews</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .flow-viewport {
+        margin: 0 -20px;
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .flow-viewport::-webkit-scrollbar { display: none; }
+      .flow-track {
+        align-items: flex-start;
+        display: flex;
+        gap: 0;
+        min-height: 248px;
+        padding: 12px calc(50% - 64px) 0;
+        perspective: 1100px;
+      }
+      .flow-track.scrolling .flow-slide {
+        transition: none;
+      }
+      .flow-slide {
+        align-items: center;
+        cursor: grab;
+        display: flex;
+        flex: 0 0 128px;
+        flex-direction: column;
+        gap: 8px;
+        scroll-snap-align: center;
+        transform-origin: center center;
+        transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.32s;
+        user-select: none;
+      }
+      .flow-slide:active { cursor: grabbing; }
+      .flow-slide.center { z-index: 4; }
+      .preview-wrap { position: relative; }
+      .preview-screen {
+        border-radius: 12px;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+        display: flex;
+        flex-direction: column;
+        height: 188px;
+        overflow: hidden;
+        transition: box-shadow 0.3s, outline 0.3s;
+        width: 112px;
+      }
+      .flow-slide.center .preview-screen {
+        box-shadow: 0 18px 44px rgba(0, 0, 0, 0.2);
+        outline: 2.5px solid var(--olive-dark);
+        outline-offset: 1px;
+      }
+      .pv-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 4px;
+        min-height: 0;
+        overflow: hidden;
+        padding: 7px 7px 0;
+      }
+      .pv-head { margin-bottom: 1px; }
+      .pv-title {
+        border-radius: 3px;
+        height: 7px;
+        width: 52%;
+      }
+      .pv-sub {
+        border-radius: 2px;
+        height: 4px;
+        margin-top: 3px;
+        opacity: 0.55;
+        width: 38%;
+      }
+      .pv-sec {
+        border-radius: 2px;
+        height: 3px;
+        margin-top: 2px;
+        opacity: 0.45;
+        width: 44%;
+      }
+      .pv-hero {
+        border-radius: 8px;
+        display: grid;
+        gap: 6px;
+        grid-template-columns: 1fr 1fr;
+        padding: 8px 7px;
+      }
+      .pv-stat .lbl { border-radius: 2px; height: 3px; opacity: 0.7; width: 70%; }
+      .pv-stat .val { border-radius: 3px; height: 8px; margin-top: 4px; width: 55%; }
+      .pv-grid2 { display: grid; gap: 4px; grid-template-columns: 1fr 1fr; }
+      .pv-card {
+        border-radius: 6px;
+        border-width: 1px;
+        border-style: solid;
+        padding: 5px;
+      }
+      .pv-card .chip { border-radius: 999px; height: 8px; width: 18px; }
+      .pv-card .line { border-radius: 2px; height: 3px; margin-top: 4px; }
+      .pv-card .line.w60 { width: 60%; }
+      .pv-card .line.w80 { width: 80%; }
+      .pv-card .line.w45 { width: 45%; }
+      .pv-chart {
+        border-radius: 6px;
+        border-width: 1px;
+        border-style: solid;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+        padding: 5px 4px 3px;
+        position: relative;
+      }
+      .pv-chart .lbl { border-radius: 2px; height: 3px; width: 55%; }
+      .pv-chart svg { display: block; height: 100%; margin-top: 3px; width: 100%; }
+      .pv-tiles { display: grid; gap: 3px; grid-template-columns: 1fr 1fr; }
+      .pv-tile {
+        border-radius: 6px;
+        height: 28px;
+        position: relative;
+      }
+      .pv-tile .eye {
+        border-radius: 2px;
+        height: 2px;
+        left: 5px;
+        opacity: 0.65;
+        position: absolute;
+        top: 5px;
+        width: 28%;
+      }
+      .pv-tile .ttl {
+        border-radius: 2px;
+        bottom: 6px;
+        height: 4px;
+        left: 5px;
+        position: absolute;
+        width: 55%;
+      }
+      .pv-dua {
+        border-radius: 6px;
+        border-width: 1px;
+        border-style: solid;
+        display: flex;
+        gap: 4px;
+        padding: 5px;
+      }
+      .pv-dua .chev {
+        border-radius: 50%;
+        flex-shrink: 0;
+        height: 10px;
+        width: 10px;
+      }
+      .pv-dua .lines { flex: 1; min-width: 0; }
+      .pv-dua .lines .l { border-radius: 2px; height: 3px; margin-top: 3px; }
+      .pv-dua .lines .l:first-child { margin-top: 0; width: 35%; opacity: 0.55; }
+      .pv-dua .lines .l.wide { width: 90%; }
+      .pv-dua .lines .l.mid { width: 65%; }
+      .pv-dua .pill {
+        border-radius: 50%;
+        border-width: 1.5px;
+        border-style: solid;
+        flex-shrink: 0;
+        height: 18px;
+        width: 18px;
+      }
+      .pv-surprise {
+        border-radius: 8px;
+        display: flex;
+        gap: 6px;
+        padding: 8px;
+      }
+      .pv-surprise .ico {
+        border-radius: 50%;
+        flex-shrink: 0;
+        height: 14px;
+        opacity: 0.85;
+        width: 14px;
+      }
+      .pv-surprise .copy { flex: 1; }
+      .pv-surprise .copy .l { border-radius: 2px; height: 4px; margin-top: 3px; }
+      .pv-surprise .copy .l:first-child { height: 5px; margin-top: 0; width: 75%; }
+      .pv-surprise .copy .l:last-child { opacity: 0.65; width: 90%; }
+      .pv-goal-tile {
+        border-radius: 6px;
+        border-width: 1px;
+        border-style: solid;
+        height: 34px;
+        opacity: 0.85;
+      }
+      .pv-toggle {
+        border-radius: 999px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        overflow: hidden;
+        padding: 2px;
+      }
+      .pv-toggle .seg { border-radius: 999px; height: 10px; }
+      .pv-growth {
+        border-radius: 7px;
+        border-width: 1px;
+        border-style: solid;
+        display: flex;
+        gap: 5px;
+        padding: 6px;
+      }
+      .pv-growth .sprout {
+        border-radius: 50%;
+        flex-shrink: 0;
+        height: 22px;
+        width: 22px;
+      }
+      .pv-growth .copy .l { border-radius: 2px; height: 3px; margin-top: 3px; }
+      .pv-growth .copy .l:first-child { margin-top: 0; width: 40%; }
+      .pv-growth .copy .l.val { height: 6px; width: 30%; }
+      .pv-viz {
+        border-radius: 7px;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+        position: relative;
+      }
+      .pv-viz .hill {
+        border-radius: 50% 50% 0 0;
+        bottom: 0;
+        height: 55%;
+        left: 10%;
+        position: absolute;
+        width: 80%;
+      }
+      .pv-viz .tree {
+        border-radius: 50% 50% 2px 2px;
+        bottom: 28%;
+        height: 18px;
+        position: absolute;
+        width: 14px;
+      }
+      .pv-dial {
+        align-items: center;
+        border-radius: 8px;
+        border-width: 1px;
+        border-style: solid;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 8px 6px;
+      }
+      .pv-dial .ring {
+        border-radius: 50%;
+        border-width: 3px;
+        border-style: solid;
+        height: 36px;
+        width: 36px;
+      }
+      .pv-dial .notch {
+        border-radius: 999px;
+        height: 3px;
+        width: 70%;
+      }
+      .pv-lang { display: flex; gap: 4px; }
+      .pv-lang .opt {
+        border-radius: 5px;
+        border-width: 1px;
+        border-style: solid;
+        flex: 1;
+        height: 22px;
+      }
+      .pv-tabs {
+        border-top-width: 1px;
+        border-top-style: solid;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: auto;
+        padding: 4px 2px 5px;
+      }
+      .pv-tab {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .pv-tab .ico { border-radius: 50%; height: 4px; width: 4px; }
+      .pv-tab .lbl { border-radius: 1px; height: 2px; width: 14px; }
+      .flow-label {
+        color: var(--ink);
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .flow-slide.center .flow-label { opacity: 1; }
+      .page-tag {
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        opacity: 0;
+        text-transform: uppercase;
+        transition: opacity 0.3s;
+      }
+      .flow-slide.center .page-tag { opacity: 0.7; }
+      .flow-nav {
+        align-items: center;
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        margin-top: 6px;
+      }
+      .flow-btn {
+        align-items: center;
+        background: var(--parchment);
+        border: 1.5px solid var(--line);
+        border-radius: 50%;
+        color: var(--olive-dark);
+        cursor: pointer;
+        display: flex;
+        font-size: 20px;
+        height: 38px;
+        justify-content: center;
+        width: 38px;
+      }
+      .flow-meta { max-width: 280px; text-align: center; }
+      .flow-meta .name {
+        color: var(--ink);
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .swatch-strip {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        margin-top: 6px;
+      }
+      .swatch-strip .dot { border-radius: 999px; height: 10px; width: 10px; }
+      .selected-ring {
+        align-items: center;
+        background: var(--olive-dark);
+        border-radius: 50%;
+        color: #fff;
+        display: none;
+        font-size: 9px;
+        height: 18px;
+        justify-content: center;
+        position: absolute;
+        right: -5px;
+        top: -5px;
+        width: 18px;
+        z-index: 2;
+      }
+      .flow-slide.center .selected-ring { display: flex; }
+    </style>
+  </head>
+  <body>
+    <a class="back" href="index.html">← All mocks</a>
+    <p class="caption"><strong>Mock 6 — Cover flow + screen previews.</strong> Scroll horizontally for a fluid 3D carousel — bezel-free screens, abstract shapes only, each theme on a different tab.</p>
+    <div class="phone">
+      <div class="scroll">
+        <div class="pad header">
+          <div><h1>Settings</h1><p>tune the counter</p></div>
+          <button type="button" class="done-link">Done</button>
+        </div>
+        <div class="pad card compact">
+          <div class="section-title">Count per tap</div>
+          <div class="dial-wrap"><div class="dial"></div><div class="slider"></div></div>
+        </div>
+        <div class="pad section-title">Language</div>
+        <div class="pad card compact">
+          <div class="lang-row">
+            <div class="lang-opt on"><span class="name">English</span><span class="native">English</span></div>
+            <div class="lang-opt"><span class="name">Urdu</span><span class="native">اردو</span></div>
+          </div>
+        </div>
+        <div class="pad section-title">Theme</div>
+        <div class="theme-highlight">
+          <div class="flow-viewport" id="viewport">
+            <div class="flow-track" id="track"></div>
+          </div>
+          <div class="flow-nav">
+            <button type="button" class="flow-btn" id="prev" aria-label="Previous theme">‹</button>
+            <div class="flow-meta" id="meta">
+              <div class="name">Garden</div>
+              <div class="swatch-strip" id="swatches"></div>
+            </div>
+            <button type="button" class="flow-btn" id="next" aria-label="Next theme">›</button>
+          </div>
+        </div>
+        <div class="pad section-title">Feedback</div>
+        <div class="pad card compact">
+          <div class="feedback-row"><span>Click sound</span><div class="toggle"></div></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const themes = [
+        {
+          name: 'Garden',
+          desc: 'Cream parchment, olive ink, soft devotional warmth.',
+          page: 'Today',
+          activeTab: 0,
+          cream: '#f7f0df', parchment: '#fbf6e8', card: '#fffaf0', sand: '#e7d7b0',
+          olive: '#6f8f4e', oliveDark: '#2d4a22', oliveDeep: '#213a18',
+          line: '#ded1b2', ink: '#372c24', muted: '#867b6b', blush: '#bf7b6e', moss: '#8fa367',
+          sw: ['#213a18', '#e7d7b0', '#bf7b6e'],
+        },
+        {
+          name: 'Chromatic',
+          desc: 'Cool indigo-violet base with teal accents — readable and vivid.',
+          page: 'Tasbeeh',
+          activeTab: 1,
+          cream: '#f2f4fb', parchment: '#e6eaf5', card: '#ffffff', sand: '#cfd7f5',
+          olive: '#5b4fc7', oliveDark: '#4338a8', oliveDeep: '#2a2654',
+          line: '#ccd3e6', ink: '#1a2138', muted: '#4d5672', blush: '#b42356', moss: '#0f766e',
+          sw: ['#2a2654', '#cfd7f5', '#b42356'],
+        },
+        {
+          name: 'Rose',
+          desc: 'Warm rose clay, date-palm green, and softer rounded type.',
+          page: 'Goals',
+          activeTab: 2,
+          cream: '#fbefe7', parchment: '#fff7ef', card: '#fff9f3', sand: '#eccaa7',
+          olive: '#7d8d58', oliveDark: '#44572a', oliveDeep: '#24341b',
+          line: '#e6c8bc', ink: '#3b2521', muted: '#8a6159', blush: '#9f3f4b', moss: '#9aa96f',
+          sw: ['#24341b', '#eccaa7', '#9f3f4b'],
+        },
+        {
+          name: 'Parchment',
+          desc: 'Warm grey parchment — ink on paper, entirely greyscale.',
+          page: 'Visualize',
+          activeTab: 3,
+          cream: '#ece7dd', parchment: '#f5f1e8', card: '#faf8f3', sand: '#d8d2c6',
+          olive: '#5c5954', oliveDark: '#45423e', oliveDeep: '#2e2c28',
+          line: '#cfc9bd', ink: '#353330', muted: '#78736a', blush: '#6a6560', moss: '#8f8a82',
+          sw: ['#2e2c28', '#d8d2c6', '#6a6560'],
+        },
+        {
+          name: 'Faded Gold',
+          desc: 'Sun-bleached champagne — dusty wheat tones and quiet warmth.',
+          page: 'Settings',
+          activeTab: -1,
+          cream: '#f5efe0', parchment: '#ebe4d4', card: '#fffcf5', sand: '#e4d4af',
+          olive: '#a89868', oliveDark: '#8b7355', oliveDeep: '#6b5a42',
+          line: '#d8ccb0', ink: '#5c4a32', muted: '#8a7a68', blush: '#9a7060', moss: '#c4b896',
+          sw: ['#6b5a42', '#e4d4af', '#9a7060'],
+        },
+      ];
+
+      function tabsHtml(t) {
+        const active = t.activeTab;
+        return `<div class="pv-tabs" style="background:${t.oliveDeep};border-color:${t.oliveDark}">
+          ${[0, 1, 2, 3].map((i) => `
+            <div class="pv-tab">
+              <div class="ico" style="background:${i === active ? '#fff' : t.sand}"></div>
+              <div class="lbl" style="background:${i === active ? 'rgba(255,255,255,0.7)' : t.sand};opacity:${i === active ? 1 : 0.5}"></div>
+            </div>`).join('')}
+        </div>`;
+      }
+
+      function headHtml(t) {
+        return `<div class="pv-head">
+          <div class="pv-title" style="background:${t.ink}"></div>
+          <div class="pv-sub" style="background:${t.muted}"></div>
+        </div>`;
+      }
+
+      function previewToday(t) {
+        return `${headHtml(t)}
+          <div class="pv-hero" style="background:${t.oliveDeep}">
+            <div class="pv-stat"><div class="lbl" style="background:${t.sand}"></div><div class="val" style="background:${t.card}"></div></div>
+            <div class="pv-stat"><div class="lbl" style="background:${t.sand}"></div><div class="val" style="background:${t.card}"></div></div>
+          </div>
+          <div class="pv-sec" style="background:${t.muted}"></div>
+          <div class="pv-grid2">
+            <div class="pv-card" style="background:${t.parchment};border-color:${t.line}">
+              <div class="chip" style="background:${t.cream};border:1px solid ${t.line}"></div>
+              <div class="line w60" style="background:${t.oliveDark}"></div>
+              <div class="line w80" style="background:${t.ink}"></div>
+              <div class="line w45" style="background:${t.muted}"></div>
+            </div>
+            <div class="pv-card" style="background:${t.parchment};border-color:${t.line}">
+              <div class="chip" style="background:${t.cream};border:1px solid ${t.line}"></div>
+              <div class="line w60" style="background:${t.oliveDark}"></div>
+              <div class="line w80" style="background:${t.ink}"></div>
+            </div>
+          </div>
+          <div class="pv-chart" style="background:${t.parchment};border-color:${t.line}">
+            <div class="lbl" style="background:${t.ink}"></div>
+            <svg viewBox="0 0 90 36" preserveAspectRatio="none">
+              <path d="M0,30 C15,28 20,18 35,20 C50,22 60,8 75,12 C82,14 88,10 90,8 L90,36 L0,36 Z" fill="${t.oliveDeep}" opacity="0.2"/>
+              <path d="M0,30 C15,28 20,18 35,20 C50,22 60,8 75,12 C82,14 88,10 90,8" fill="none" stroke="${t.oliveDeep}" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>`;
+      }
+
+      function previewTasbeeh(t) {
+        return `${headHtml(t)}
+          <div style="align-items:center;border-bottom:1px solid ${t.line};display:flex;justify-content:space-between;padding-bottom:4px">
+            <div style="background:${t.muted};border-radius:2px;height:3px;width:38%"></div>
+            <div style="background:${t.oliveDark};border-radius:2px;height:4px;width:22%"></div>
+          </div>
+          <div class="pv-tiles">
+            <div class="pv-tile" style="background:linear-gradient(135deg,${t.olive},${t.oliveDark})"><div class="eye" style="background:#fff"></div><div class="ttl" style="background:#fff"></div></div>
+            <div class="pv-tile" style="background:linear-gradient(135deg,${t.blush},${t.muted})"><div class="eye" style="background:#fff"></div><div class="ttl" style="background:#fff"></div></div>
+            <div class="pv-tile" style="background:linear-gradient(135deg,${t.sand},${t.olive})"><div class="eye" style="background:${t.ink}"></div><div class="ttl" style="background:${t.ink}"></div></div>
+            <div class="pv-tile" style="background:linear-gradient(135deg,${t.oliveDeep},${t.oliveDark})"><div class="eye" style="background:#fff"></div><div class="ttl" style="background:#fff"></div></div>
+          </div>
+          <div class="pv-dua" style="background:${t.parchment};border-color:${t.oliveDark};border-width:1.5px;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+            <div class="chev" style="background:${t.oliveDeep}"></div>
+            <div class="lines">
+              <div class="l" style="background:${t.muted}"></div>
+              <div class="l wide" style="background:${t.ink}"></div>
+              <div class="l mid" style="background:${t.muted}"></div>
+            </div>
+            <div class="pill" style="background:${t.card};border-color:${t.olive}"></div>
+          </div>
+          <div class="pv-dua" style="background:${t.parchment};border-color:${t.line};opacity:0.5;padding:4px 5px">
+            <div class="chev" style="background:${t.card};border:1px solid ${t.line}"></div>
+            <div class="lines"><div class="l" style="background:${t.muted}"></div><div class="l wide" style="background:${t.ink};opacity:0.6"></div></div>
+            <div class="pill" style="background:${t.card};border-color:${t.line};height:14px;width:14px"></div>
+          </div>`;
+      }
+
+      function previewGoals(t) {
+        return `${headHtml(t)}
+          <div class="pv-sec" style="background:${t.muted}"></div>
+          <div class="pv-grid2">
+            <div class="pv-goal-tile" style="background:${t.parchment};border-color:${t.line}"></div>
+            <div class="pv-goal-tile" style="background:${t.parchment};border-color:${t.line}"></div>
+          </div>
+          <div class="pv-surprise" style="background:${t.oliveDeep}">
+            <div class="ico" style="background:${t.card}"></div>
+            <div class="copy">
+              <div class="l" style="background:${t.card}"></div>
+              <div class="l" style="background:${t.sand}"></div>
+            </div>
+          </div>
+          <div class="pv-sec" style="background:${t.muted}"></div>
+          <div class="pv-grid2">
+            <div class="pv-card" style="background:${t.parchment};border-color:${t.line};min-height:32px">
+              <div class="line w80" style="background:${t.ink}"></div>
+              <div class="line w60" style="background:${t.muted};margin-top:5px"></div>
+            </div>
+            <div class="pv-card" style="background:${t.parchment};border-color:${t.line};min-height:32px">
+              <div class="line w80" style="background:${t.ink}"></div>
+              <div class="line w45" style="background:${t.muted};margin-top:5px"></div>
+            </div>
+          </div>`;
+      }
+
+      function previewVisualize(t) {
+        return `${headHtml(t)}
+          <div class="pv-toggle" style="background:${t.parchment};border:1px solid ${t.line}">
+            <div class="seg" style="background:${t.oliveDeep}"></div>
+            <div class="seg" style="background:transparent"></div>
+            <div class="seg" style="background:transparent"></div>
+          </div>
+          <div class="pv-growth" style="background:${t.parchment};border-color:${t.line}">
+            <div class="sprout" style="background:${t.moss}"></div>
+            <div class="copy">
+              <div class="l" style="background:${t.oliveDark}"></div>
+              <div class="l val" style="background:${t.ink}"></div>
+            </div>
+          </div>
+          <div class="pv-viz" style="background:linear-gradient(180deg,${t.cream} 0%,${t.sand} 100%)">
+            <div class="hill" style="background:${t.moss};opacity:0.35"></div>
+            <div class="tree" style="background:${t.olive};left:28%"></div>
+            <div class="tree" style="background:${t.oliveDark};left:48%;height:22px;width:16px"></div>
+            <div class="tree" style="background:${t.olive};left:66%;height:14px;width:11px"></div>
+          </div>
+          <div style="display:flex;gap:3px;margin-top:1px">
+            <div class="pv-card" style="background:${t.parchment};border-color:${t.line};flex:1;padding:4px">
+              <div class="line w60" style="background:${t.muted};height:2px"></div>
+              <div class="line" style="background:${t.ink};height:4px;margin-top:3px;width:50%"></div>
+            </div>
+            <div class="pv-card" style="background:${t.parchment};border-color:${t.line};flex:1;padding:4px">
+              <div class="line w60" style="background:${t.muted};height:2px"></div>
+              <div class="line" style="background:${t.ink};height:4px;margin-top:3px;width:40%"></div>
+            </div>
+            <div class="pv-card" style="background:${t.parchment};border-color:${t.line};flex:1;padding:4px">
+              <div class="line w60" style="background:${t.muted};height:2px"></div>
+              <div class="line" style="background:${t.ink};height:4px;margin-top:3px;width:35%"></div>
+            </div>
+          </div>`;
+      }
+
+      function previewSettings(t) {
+        return `<div class="pv-head" style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div><div class="pv-title" style="background:${t.ink}"></div><div class="pv-sub" style="background:${t.muted}"></div></div>
+          <div style="background:${t.oliveDark};border-radius:2px;height:5px;width:22px;margin-top:2px"></div>
+        </div>
+          <div class="pv-sec" style="background:${t.muted}"></div>
+          <div class="pv-dial" style="background:${t.parchment};border-color:${t.line}">
+            <div class="ring" style="border-color:${t.line};border-top-color:${t.olive}"></div>
+            <div class="notch" style="background:${t.line}"></div>
+          </div>
+          <div class="pv-sec" style="background:${t.muted}"></div>
+          <div class="pv-lang">
+            <div class="opt" style="background:${t.oliveDeep};border-color:${t.oliveDark}"></div>
+            <div class="opt" style="background:${t.parchment};border-color:${t.line}"></div>
+          </div>
+          <div class="pv-sec" style="background:${t.muted};margin-top:2px"></div>
+          <div class="pv-card" style="background:${t.parchment};border-color:${t.oliveDark};border-width:2px;flex:1;min-height:0">
+            <div class="pv-grid2" style="gap:3px">
+              <div style="background:${t.oliveDeep};border-radius:3px;height:8px"></div>
+              <div style="background:${t.sand};border-radius:3px;height:8px"></div>
+              <div style="background:${t.blush};border-radius:3px;height:8px"></div>
+            </div>
+            <div class="line w80" style="background:${t.ink};margin-top:6px"></div>
+            <div class="line w60" style="background:${t.muted};margin-top:4px"></div>
+          </div>`;
+      }
+
+      const renderers = {
+        Today: previewToday,
+        Tasbeeh: previewTasbeeh,
+        Goals: previewGoals,
+        Visualize: previewVisualize,
+        Settings: previewSettings,
+      };
+
+      function previewHtml(t) {
+        const body = renderers[t.page](t);
+        const tabs = t.activeTab >= 0 ? tabsHtml(t) : '';
+        return `<div class="preview-screen" style="background:${t.cream}">
+          <div class="pv-body">${body}</div>
+          ${tabs}
+        </div>`;
+      }
+
+      let index = 0;
+      const viewport = document.getElementById('viewport');
+      const track = document.getElementById('track');
+      const meta = document.getElementById('meta');
+      const swatches = document.getElementById('swatches');
+      let scrollTimer = null;
+      let dragMoved = false;
+
+      const slides = themes.map((t, i) => {
+        const el = document.createElement('div');
+        el.className = 'flow-slide';
+        el.dataset.index = String(i);
+        el.innerHTML = `
+          <div class="preview-wrap">
+            <div class="selected-ring">✓</div>
+            ${previewHtml(t)}
+          </div>
+          <span class="page-tag" style="color:var(--muted)">${t.page}</span>
+          <span class="flow-label">${t.name}</span>`;
+        el.addEventListener('click', () => {
+          if (dragMoved) return;
+          scrollToIndex(i);
+        });
+        track.appendChild(el);
+        return el;
+      });
+
+      function updateMeta() {
+        const t = themes[index];
+        meta.querySelector('.name').textContent = t.name;
+        swatches.innerHTML = t.sw.map((c) => `<div class="dot" style="background:${c}"></div>`).join('');
+      }
+
+      function updateFromScroll() {
+        const center = viewport.scrollLeft + viewport.clientWidth / 2;
+        let bestIndex = 0;
+        let bestDist = Infinity;
+
+        slides.forEach((slide, i) => {
+          const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+          const pxOffset = slideCenter - center;
+          const offset = pxOffset / (slide.offsetWidth * 0.85);
+          const abs = Math.abs(offset);
+
+          if (abs < bestDist) {
+            bestDist = abs;
+            bestIndex = i;
+          }
+
+          const scale = Math.max(0.66, 1 - abs * 0.17);
+          const rot = Math.max(-48, Math.min(48, offset * -32));
+          const opacity = Math.max(0.38, 1 - abs * 0.3);
+
+          slide.style.transform = `rotateY(${rot}deg) scale(${scale})`;
+          slide.style.opacity = opacity;
+          slide.style.zIndex = String(Math.max(1, Math.round(4 - abs)));
+          slide.classList.toggle('center', abs < 0.42);
+        });
+
+        if (bestIndex !== index) {
+          index = bestIndex;
+          updateMeta();
+        }
+      }
+
+      function scrollToIndex(i, smooth = true) {
+        const slide = slides[i];
+        const target = slide.offsetLeft - (viewport.clientWidth - slide.offsetWidth) / 2;
+        viewport.scrollTo({ left: target, behavior: smooth ? 'smooth' : 'instant' });
+      }
+
+      viewport.addEventListener('scroll', () => {
+        track.classList.add('scrolling');
+        updateFromScroll();
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          track.classList.remove('scrolling');
+          dragMoved = false;
+        }, 80);
+      }, { passive: true });
+
+      viewport.addEventListener('pointerdown', () => { dragMoved = false; });
+      viewport.addEventListener('pointermove', () => { dragMoved = true; }, { passive: true });
+
+      document.getElementById('prev').onclick = () => scrollToIndex((index - 1 + themes.length) % themes.length);
+      document.getElementById('next').onclick = () => scrollToIndex((index + 1) % themes.length);
+
+      window.addEventListener('resize', updateFromScroll);
+      requestAnimationFrame(() => {
+        scrollToIndex(0, false);
+        updateFromScroll();
+      });
+    </script>
+  </body>
+</html>

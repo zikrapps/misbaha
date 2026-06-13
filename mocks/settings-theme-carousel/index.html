@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Settings Theme — carousel mocks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #372c24;
+        --muted: #867b6b;
+        --cream: #f7f0df;
+        --parchment: #fbf6e8;
+        --sand: #e7d7b0;
+        --card: #fffaf0;
+        --olive: #6f8f4e;
+        --olive-dark: #2d4a22;
+        --olive-deep: #213a18;
+        --line: #ded1b2;
+        --bg: #12100e;
+      }
+      * { box-sizing: border-box; }
+      body {
+        background: var(--bg);
+        color: var(--cream);
+        font-family: 'Source Serif 4', Georgia, serif;
+        margin: 0;
+        padding: 40px;
+      }
+      h1 { font-size: 32px; margin: 0 0 8px; }
+      .lead { color: #b8a88a; line-height: 1.65; max-width: 56rem; margin: 0 0 36px; }
+      .grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+      a.card {
+        background: #1e1a16;
+        border: 1px solid #3d342c;
+        border-radius: 16px;
+        color: inherit;
+        display: block;
+        padding: 24px;
+        text-decoration: none;
+        transition: border-color 0.15s, transform 0.15s;
+      }
+      a.card:hover { border-color: var(--olive); transform: translateY(-2px); }
+      a.card span {
+        color: var(--olive);
+        display: block;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+      a.card h2 { font-size: 22px; margin: 0 0 10px; }
+      a.card p { color: #9a8f7e; font-size: 14px; line-height: 1.55; margin: 0; }
+      .current {
+        background: #2a241e;
+        border: 1px dashed #5a5045;
+        border-radius: 12px;
+        color: #8a7a66;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13px;
+        margin-top: 36px;
+        padding: 16px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Settings Theme — carousel mocks</h1>
+    <p class="lead">
+      The shipped theme picker is a vertical stack of five full-width cards — readable, but long and repetitive.
+      Each mock keeps the real Settings layout (dial, language, feedback) and replaces only the theme section with a horizontal carousel pattern.
+    </p>
+    <div class="grid">
+      <a class="card" href="mock-1-peek-carousel.html">
+        <span>Mock 1</span>
+        <h2>Peek carousel</h2>
+        <p>Center card full width; neighbors peek at the edges. Swipe to browse — compact height, strong “there’s more” affordance.</p>
+      </a>
+      <a class="card" href="mock-2-snap-cards.html">
+        <span>Mock 2</span>
+        <h2>Snap cards + dots</h2>
+        <p>One theme per viewport with scroll-snap. Dot pagination and name/description below — familiar iOS picker rhythm.</p>
+      </a>
+      <a class="card" href="mock-3-cover-flow.html">
+        <span>Mock 3</span>
+        <h2>Cover flow</h2>
+        <p>3D perspective stack — center theme prominent, flanking cards recede. Feels tactile and premium; best for visual themes.</p>
+      </a>
+      <a class="card" href="mock-4-preview-strip.html">
+        <span>Mock 4</span>
+        <h2>Hero + strip</h2>
+        <p>Large live preview of the selected palette on top; swipeable thumbnail strip below. Wallpaper-picker pattern — see before you commit.</p>
+      </a>
+      <a class="card" href="mock-5-phone-frames.html">
+        <span>Mock 5</span>
+        <h2>Mini phone frames</h2>
+        <p>Each theme rendered as a tiny in-app screenshot inside a phone silhouette. Shows the whole experience, not just swatches.</p>
+      </a>
+      <a class="card" href="mock-6-cover-flow-phones.html">
+        <span>Mock 6</span>
+        <h2>Cover flow + phones</h2>
+        <p>Hybrid of Mock 3 and 5 — bezel-free 3D carousel; each theme previews a different tab with abstract UI shapes (no dua text).</p>
+      </a>
+    </div>
+    <p class="current">
+      <strong>Current (app):</strong> vertical list of five theme cards inside one parchment Card — swatches, name, and description stacked; selected state is a thicker border.
+    </p>
+  </body>
+</html>

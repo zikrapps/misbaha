@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock 1 — Peek carousel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      .peek-track {
+        display: flex;
+        gap: 10px;
+        margin: 0 -20px;
+        overflow-x: auto;
+        padding: 4px 28px 8px;
+        scroll-padding: 28px;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .peek-track::-webkit-scrollbar { display: none; }
+      .peek-card {
+        border-radius: 14px;
+        border: 2px solid transparent;
+        flex: 0 0 78%;
+        padding: 14px;
+        scroll-snap-align: center;
+        transition: transform 0.2s, opacity 0.2s;
+      }
+      .peek-card.selected {
+        border-color: var(--olive-dark);
+        border-width: 3px;
+        transform: scale(1);
+      }
+      .peek-card:not(.selected) {
+        opacity: 0.72;
+        transform: scale(0.96);
+      }
+      .peek-card .theme-name { margin-top: 8px; }
+      .peek-card .theme-desc { color: var(--muted); margin-top: 2px; }
+    </style>
+  </head>
+  <body>
+    <a class="back" href="index.html">← All mocks</a>
+    <p class="caption"><strong>Mock 1 — Peek carousel.</strong> Neighbors visible at the edges invite a swipe; center card is selected. Cuts vertical scroll vs. the stacked list.</p>
+    <div class="phone">
+      <div class="scroll">
+        <div class="pad header">
+          <div><h1>Settings</h1><p>tune the counter</p></div>
+          <button type="button" class="done-link">Done</button>
+        </div>
+        <div class="pad card compact">
+          <div class="section-title">Count per tap</div>
+          <div class="dial-wrap"><div class="dial"></div><div class="slider"></div></div>
+        </div>
+        <div class="pad section-title">Language</div>
+        <div class="pad card compact">
+          <div class="lang-row">
+            <div class="lang-opt on"><span class="name">English</span><span class="native">English</span></div>
+            <div class="lang-opt"><span class="name">Urdu</span><span class="native">اردو</span></div>
+          </div>
+        </div>
+        <div class="pad section-title">Theme</div>
+        <div class="theme-highlight" style="margin: 0 12px;">
+          <div class="peek-track" id="track">
+            <div class="peek-card" data-theme="rose" style="background:#fff7ef;border-color:#44572a;">
+              <div class="swatch-row">
+                <div class="swatch" style="background:#24341b"></div>
+                <div class="swatch" style="background:#eccaa7"></div>
+                <div class="swatch" style="background:#9f3f4b"></div>
+              </div>
+              <div class="theme-name" style="color:#3b2521">Rose</div>
+              <div class="theme-desc" style="color:#8a6159">Warm rose clay, date-palm green.</div>
+            </div>
+            <div class="peek-card selected" data-theme="garden" style="background:#fbf6e8;">
+              <div class="swatch-row">
+                <div class="swatch" style="background:#213a18"></div>
+                <div class="swatch" style="background:#e7d7b0"></div>
+                <div class="swatch" style="background:#bf7b6e"></div>
+              </div>
+              <div class="theme-name" style="color:#372c24">Garden</div>
+              <div class="theme-desc" style="color:#867b6b">Cream parchment, olive ink, soft devotional warmth.</div>
+            </div>
+            <div class="peek-card" data-theme="chromatic" style="background:#e6eaf5;">
+              <div class="swatch-row">
+                <div class="swatch" style="background:#2a2654"></div>
+                <div class="swatch" style="background:#cfd7f5"></div>
+                <div class="swatch" style="background:#b42356"></div>
+              </div>
+              <div class="theme-name" style="color:#1a2138">Chromatic</div>
+              <div class="theme-desc" style="color:#4d5672">Cool indigo-violet with teal accents.</div>
+            </div>
+            <div class="peek-card" data-theme="parchment" style="background:#f5f1e8;">
+              <div class="swatch-row">
+                <div class="swatch" style="background:#2e2c28"></div>
+                <div class="swatch" style="background:#d8d2c6"></div>
+                <div class="swatch" style="background:#6a6560"></div>
+              </div>
+              <div class="theme-name" style="color:#353330">Parchment</div>
+              <div class="theme-desc" style="color:#78736a">Ink on paper — entirely greyscale.</div>
+            </div>
+            <div class="peek-card" data-theme="fadedGold" style="background:#ebe4d4;">
+              <div class="swatch-row">
+                <div class="swatch" style="background:#6b5a42"></div>
+                <div class="swatch" style="background:#e4d4af"></div>
+                <div class="swatch" style="background:#9a7060"></div>
+              </div>
+              <div class="theme-name" style="color:#5c4a32">Faded Gold</div>
+              <div class="theme-desc" style="color:#8a7a68">Sun-bleached champagne warmth.</div>
+            </div>
+          </div>
+        </div>
+        <div class="pad section-title">Feedback</div>
+        <div class="pad card compact">
+          <div class="feedback-row"><span>Click sound</span><div class="toggle"></div></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const track = document.getElementById('track');
+      const cards = [...track.querySelectorAll('.peek-card')];
+      track.addEventListener('scroll', () => {
+        const center = track.scrollLeft + track.clientWidth / 2;
+        let best = cards[0], bestDist = Infinity;
+        cards.forEach((c) => {
+          const mid = c.offsetLeft + c.offsetWidth / 2;
+          const d = Math.abs(center - mid);
+          if (d < bestDist) { bestDist = d; best = c; }
+        });
+        cards.forEach((c) => c.classList.toggle('selected', c === best));
+      });
+      cards.forEach((c) => c.addEventListener('click', () => c.scrollIntoView({ inline: 'center', behavior: 'smooth' })));
+    </script>
+  </body>
+</html>
