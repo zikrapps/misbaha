@@ -1,0 +1,56 @@
+Misbaha — 75-second promo narration (Daniel, plain English, zoom highlights)
+=============================================================================
+
+Rebuild: NARRATOR=B ./scripts/build-promo-video.sh
+
+INTRO
+-----
+For many Muslims, faith includes a quiet daily rhythm — repeating short prayers that remember God, often counted on prayer beads. Misbaha helps them stay consistent: counting each phrase, following plans, and tracking progress.
+
+TODAY (zoom: stats hero)
+------------------------
+Today shows daily counts, lifetime totals, active goals, and hourly activity.
+
+LIBRARY (zoom: category grid)
+-----------------------------
+The Counter organizes prayers by category — scripture, morning and evening, worship, and hardship.
+
+SEARCH — Counter (zoom: search bar)
+-----------------------------------
+Search by English spelling or Arabic script — on the Counter screen or inside Goals.
+
+SEARCH — Goals (zoom: search bar)
+---------------------------------
+The same search works when planning goals — pick prayers and drop them into your plan.
+
+PRAYER DETAIL (zoom: counter area)
+----------------------------------
+Open any prayer for text, translation, and references. Double-tap to count, hold to complete.
+
+GOALS (zoom: active plans)
+--------------------------
+Goals turn remembrance into plans — suggested paths, surprise challenges, or custom rotations.
+
+GOAL DETAIL
+-----------
+Each goal focuses one prayer per day with progress tracking and a quick counter.
+
+PLAN A GOAL
+-----------
+Plan a new goal by choosing prayers and duration.
+
+VISUALIZE (zoom: mode toggle)
+-----------------------------
+Visualize three ways — a growing garden, a walk across the earth, or a rise into the stars.
+
+BADGES (zoom: badges section)
+-----------------------------
+Earn badges as you count — finish prayer cycles, keep streaks, complete goals, and try new prayers. Each milestone unlocks the next set of ten.
+
+SETTINGS (zoom: tap dial)
+-------------------------
+Tune counts per tap, themes, language, sound, and haptics.
+
+OUTRO
+-----
+Misbaha — counting, goals, and visual journeys. From Zikr Apps.

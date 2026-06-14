@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 import { GestureTutorial } from '@/src/features/tutorial/GestureTutorial';
+import { isE2eEnabled } from '@/src/e2e/config';
 import { useMisbahaStore } from '@/src/store/useMisbahaStore';
 
 type TutorialHostProps = {
@@ -14,7 +15,7 @@ export function TutorialHost({ ready }: TutorialHostProps) {
   const autoStarted = useRef(false);
 
   useEffect(() => {
-    if (!ready || autoStarted.current || tutorialCompleted || tutorialVisible) {
+    if (!ready || autoStarted.current || tutorialCompleted || tutorialVisible || isE2eEnabled()) {
       return;
     }
     autoStarted.current = true;

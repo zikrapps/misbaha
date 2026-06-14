@@ -11,6 +11,7 @@ import { StatusBar } from 'expo-status-bar';
 import { ErrorBoundary } from '@/src/components/ErrorBoundary';
 import { BadgeUnlockHost } from '@/src/features/badges/BadgeUnlockHost';
 import { TutorialHost } from '@/src/features/tutorial/TutorialHost';
+import { isE2eEnabled } from '@/src/e2e/config';
 import { syncLayoutDirection, reloadApp } from '@/src/i18n/rtl';
 import { useT } from '@/src/i18n/strings';
 import { useStoreHydrated } from '@/src/store/hydration';
@@ -59,7 +60,7 @@ function RootLayoutInner() {
 
   // Clear stale native RTL from older builds, then prompt for one full restart.
   useEffect(() => {
-    if (!hydrated || rtlPromptShown.current) return;
+    if (!hydrated || rtlPromptShown.current || isE2eEnabled()) return;
     if (syncLayoutDirection(language)) {
       rtlPromptShown.current = true;
       Alert.alert(t.settings.restartTitle, t.settings.restartBody, [
@@ -70,13 +71,13 @@ function RootLayoutInner() {
   }, [hydrated, language, t]);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1 }} testID={hydrated && isE2eEnabled() ? 'app-ready' : undefined}>
       <StatusBar style="dark" />
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" />
       </Stack>
       <TutorialHost ready={hydrated} />
-      {hydrated ? <BadgeUnlockHost /> : null}
+      {hydrated && !isE2eEnabled() ? <BadgeUnlockHost /> : null}
     </GestureHandlerRootView>
   );
 }

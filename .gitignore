@@ -61,3 +61,9 @@ coverage/
 # OS / misc
 Thumbs.db
 *.log
+
+# DevLoop run outputs (keep specs/docs, ignore generated artifacts)
+devloop/runs/*
+!devloop/runs/.gitkeep
+devloop/artifacts/*
+!devloop/artifacts/.gitkeep

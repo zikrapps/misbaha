@@ -1,0 +1,88 @@
+{
+  "narrator": "B",
+  "voice": "Daniel",
+  "rate": 160,
+  "duration_seconds": 83.77,
+  "target_seconds": 83.726939,
+  "output": "/Users/ahmed/opt/misbaha/marketing/misbaha-promo-75s.mp4",
+  "segments": [
+    {
+      "key": "intro",
+      "caption": "A calm companion for daily remembrance",
+      "narration": "For many Muslims, faith includes a quiet daily rhythm \u2014 repeating short prayers that remember God, often counted on prayer beads. Misbaha helps them stay consistent: counting each phrase, following plans, and tracking progress.",
+      "duration_seconds": 15.7
+    },
+    {
+      "key": "today",
+      "caption": "Your spiritual dashboard at a glance",
+      "narration": "Today shows daily counts, lifetime totals, active goals, and hourly activity.",
+      "duration_seconds": 6.1
+    },
+    {
+      "key": "library",
+      "caption": "Browse prayers by category",
+      "narration": "The Counter organizes prayers by category \u2014 scripture, morning and evening, worship, and hardship.",
+      "duration_seconds": 6.59
+    },
+    {
+      "key": "search",
+      "caption": "Find any prayer instantly",
+      "narration": "Search by English spelling or Arabic script \u2014 on the Counter screen or inside Goals.",
+      "duration_seconds": 5.16
+    },
+    {
+      "key": "search-goals",
+      "caption": "Search while building a goal",
+      "narration": "The same search works when planning goals \u2014 pick prayers and drop them into your plan.",
+      "duration_seconds": 5.07
+    },
+    {
+      "key": "detail",
+      "caption": "Count toward your daily target",
+      "narration": "Open any prayer for text, translation, and references. Double-tap to count, hold to complete.",
+      "duration_seconds": 7.23
+    },
+    {
+      "key": "goals",
+      "caption": "Gentle plans for steady progress",
+      "narration": "Goals turn remembrance into plans \u2014 suggested paths, surprise challenges, or custom rotations.",
+      "duration_seconds": 7.57
+    },
+    {
+      "key": "goal-detail",
+      "caption": "One focused prayer each day",
+      "narration": "Each goal focuses one prayer per day with progress tracking and a quick counter.",
+      "duration_seconds": 4.51
+    },
+    {
+      "key": "goal-create",
+      "caption": "Build your own spiritual roadmap",
+      "narration": "Plan a new goal by choosing prayers and duration.",
+      "duration_seconds": 2.88
+    },
+    {
+      "key": "visualize",
+      "caption": "Three visual journeys through your progress",
+      "narration": "Visualize three ways \u2014 a growing garden, a walk across the earth, or a rise into the stars.",
+      "duration_seconds": 6.14
+    },
+    {
+      "key": "badges",
+      "caption": "Badges reward consistency and exploration",
+      "narration": "Earn badges as you count \u2014 finish prayer cycles, keep streaks, complete goals, and try new prayers. Each milestone unlocks the next set of ten.",
+      "duration_seconds": 10.51
+    },
+    {
+      "key": "settings",
+      "caption": "Personalize the counting experience",
+      "narration": "Tune counts per tap, themes, language, sound, and haptics.",
+      "duration_seconds": 5.29
+    },
+    {
+      "key": "outro",
+      "caption": "Misbaha by Zikr Apps",
+      "narration": "Misbaha \u2014 counting, goals, and visual journeys. From Zikr Apps.",
+      "duration_seconds": 5.18
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "$schema": "./scenarios.schema.json",
+  "app": {
+    "name": "Misbaha",
+    "version": "1.2.0",
+    "bundleId": "com.zikrapps.misbaha",
+    "commit": "1e060079dfe5bd194ec8e0556d6a7a518ded0495"
+  },
+  "platform": {
+    "os": "iOS",
+    "version": "26.3",
+    "device": "iPhone 17 Pro Simulator"
+  },
+  "reset": {
+    "strategy": "C",
+    "deepLinkReset": "misbaha://test/reset",
+    "deepLinkSeed": "misbaha://test/seed",
+    "e2eEnv": "EXPO_PUBLIC_E2E=1",
+    "iosResetCommand": "xcrun simctl openurl booted \"misbaha://test/reset\"",
+    "iosSeedCommand": "xcrun simctl openurl booted \"misbaha://test/seed\""
+  },
+  "scenarios": [
+    {
+      "id": "scenario-home",
+      "name": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "routines": ["launch_and_dismiss_tutorial"],
+      "tags": ["smoke", "baseline", "hardened"]
+    },
+    {
+      "id": "scenario-count",
+      "name": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "routines": [
+        "launch_and_dismiss_tutorial",
+        "navigate_to_tab",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "parameters": {
+        "navigate_to_tab": { "tab": "tasbeeh" },
+        "expand_dua_and_count": { "category": "daily", "duaIndex": 0, "tapCount": 3 }
+      },
+      "tags": ["baseline", "hardened"]
+    },
+    {
+      "id": "scenario-search",
+      "name": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "routines": [
+        "launch_and_dismiss_tutorial",
+        "navigate_to_tab",
+        "search_dua"
+      ],
+      "parameters": {
+        "navigate_to_tab": { "tab": "tasbeeh" },
+        "search_dua": { "query": "subhan" }
+      },
+      "tags": ["baseline", "hardened"]
+    },
+    {
+      "id": "scenario-goal",
+      "name": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "routines": [
+        "launch_and_dismiss_tutorial",
+        "start_surprise_goal"
+      ],
+      "tags": ["baseline", "hardened"]
+    },
+    {
+      "id": "scenario-lifecycle",
+      "name": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "routines": [
+        "launch_and_dismiss_tutorial",
+        "navigate_to_tab",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "parameters": {
+        "navigate_to_tab": { "tab": "tasbeeh" },
+        "expand_dua_and_count": { "category": "daily", "duaIndex": 0, "tapCount": 3 }
+      },
+      "postRoutineActions": [
+        { "type": "background", "waitSeconds": 2 },
+        { "type": "foreground" },
+        { "type": "assertCounterUnchanged" }
+      ],
+      "tags": ["baseline", "hardened"]
+    }
+  ]
+}
