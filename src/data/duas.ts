@@ -1,4 +1,5 @@
 import { DuaRecord, PrayerDirection } from '@/src/types/misbaha';
+import { moodDuas } from './moodDuas';
 import { quranicDuas } from './quranicDuas';
 
 export const prayerOrder: PrayerDirection[] = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
@@ -500,6 +501,7 @@ export const duas: DuaRecord[] = [
     hadithUrl: 'https://sunnah.com/ibnmajah:3850',
   },
   ...quranicDuas,
+  ...moodDuas,
 ];
 
 export const duasById = Object.fromEntries(duas.map((dua) => [dua.id, dua])) as Record<string, DuaRecord>;
