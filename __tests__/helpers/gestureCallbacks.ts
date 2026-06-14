@@ -31,6 +31,16 @@ export function findGestureCallback(prefix: string, phase: 'onEnd' | 'onStart') 
   return undefined;
 }
 
+export function findGestureCallbacks(prefix: string, phase: 'onEnd' | 'onStart') {
+  const matches: Array<(event: GestureEvent) => void> = [];
+  for (const [key, callbacks] of callbacksByKey) {
+    if (key.startsWith(`${prefix}-`) && callbacks[phase]) {
+      matches.push(callbacks[phase]!);
+    }
+  }
+  return matches;
+}
+
 export function nextGestureKey(prefix: string) {
   tapCounter += 1;
   return `${prefix}-${tapCounter}`;

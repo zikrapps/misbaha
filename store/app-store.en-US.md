@@ -20,4 +20,4 @@ The **seller name** on the App Store is your Apple Developer **legal entity** â€
 | **Privacy Policy URL** | https://zikrapps.com/privacy |
 | **Contact** | salam@zikrapps.com |
 
-See `store.config.json` for full description, keywords, and review contact.
+See `store.config.json` for full description, keywords, release notes, and review contact.

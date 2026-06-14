@@ -3,6 +3,8 @@ import { Gesture } from 'react-native-gesture-handler';
 
 export const DUA_COUNT_DOUBLE_TAP_DELAY_MS = 380;
 export const DUA_COUNT_LONG_PRESS_MS = 450;
+/** Hold this long on an expanded dua to record all remaining repetitions. */
+export const DUA_COUNT_HOLD_COMPLETE_MS = 3000;
 export const DUA_COUNT_GHOST_PRESS_GUARD_MS = 450;
 export const DUA_COUNT_DOUBLE_TAP_SLOP_PX = 48;
 /** Ignore rapid re-fires from one physical touch (iOS / New Architecture ghost taps). */
@@ -20,6 +22,8 @@ type UseDuaCountGesturesOptions = {
   enabled?: boolean;
   /** Tasbeeh list: only a completed double tap counts; single taps are ignored. */
   doubleTapOnly?: boolean;
+  /** When set, holding for 3s fills the remaining count to the target. */
+  onHoldComplete?: (x: number, y: number) => void;
 };
 
 function isGhostRefire(
@@ -41,6 +45,7 @@ export function useDuaCountGestures({
   onBump,
   enabled = true,
   doubleTapOnly = false,
+  onHoldComplete,
 }: UseDuaCountGesturesOptions) {
   const skipNextPressAfterLong = useRef<number | null>(null);
   const pendingSingle = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -120,8 +125,22 @@ export function useDuaCountGestures({
       .runOnJS(true)
       .onEnd((event) => handleTapEnd(event.x, event.y));
 
+    const holdComplete =
+      onHoldComplete != null
+        ? Gesture.LongPress()
+            .enabled(enabled)
+            .minDuration(DUA_COUNT_HOLD_COMPLETE_MS)
+            .runOnJS(true)
+            .onStart((event) => {
+              clearPendingSingle();
+              lastTap.current = null;
+              skipNextPressAfterLong.current = Date.now();
+              onHoldComplete(event.x, event.y);
+            })
+        : null;
+
     if (doubleTapOnly) {
-      return tap;
+      return holdComplete ? Gesture.Simultaneous(tap, holdComplete) : tap;
     }
 
     const longPress = Gesture.LongPress()
@@ -135,8 +154,9 @@ export function useDuaCountGestures({
         bump(event.x, event.y, 1);
       });
 
-    return Gesture.Exclusive(longPress, tap);
-  }, [bump, clearPendingSingle, doubleTapOnly, enabled, handleTapEnd]);
+    const tapModes = Gesture.Exclusive(longPress, tap);
+    return holdComplete ? Gesture.Simultaneous(tapModes, holdComplete) : tapModes;
+  }, [bump, clearPendingSingle, doubleTapOnly, enabled, handleTapEnd, onHoldComplete]);
 
   const resetTapWindow = useCallback(() => {
     clearPendingSingle();

@@ -56,6 +56,12 @@ export type Strings = {
     chart6pm: string;
     chart1159pm: string;
   };
+  duaSearch: {
+    placeholder: string;
+    noResults: string;
+    unsupportedLanguageWarning: string;
+    addToGoalHint: string;
+  };
   duas: {
     title: string;
     subtitle: string;
@@ -78,6 +84,7 @@ export type Strings = {
     counterHint: string;
     tapHint: (weight: number) => string;
     doubleTapHint: (weight: number) => string;
+    expandedCountHint: (weight: number) => string;
     expandToCount: string;
     resetTitle: string;
     resetBody: (title: string) => string;
@@ -175,6 +182,11 @@ export type Strings = {
     customTitleLabel: string;
     customDescription: string;
     shuffle: string;
+    goalNameLabel: string;
+    goalNamePlaceholder: string;
+    emptySlot: string;
+    removeDay: string;
+    saveGoal: string;
     plansFor: (days: number) => string;
     startPlan: string;
     moreDays: (count: number) => string;
@@ -295,8 +307,10 @@ export type Strings = {
     stepOf: (current: number, total: number) => string;
     steps: {
       welcome: { title: string; body: string };
+      categories: { title: string; body: string };
       expand: { title: string; body: string };
-      doubleTap: { title: string; body: string };
+      count: { title: string; body: string };
+      search: { title: string; body: string };
       duaDetail: { title: string; body: string };
       goals: { title: string; body: string };
       goalDetail: { title: string; body: string };
@@ -352,6 +366,13 @@ const enStrings: Strings = {
     chart6pm: '6pm',
     chart1159pm: '11:59pm',
   },
+  duaSearch: {
+    placeholder: 'Search by transliteration or Arabic',
+    noResults: 'No matching dua found.',
+    unsupportedLanguageWarning:
+      'Searching by English is not supported — use transliteration or Arabic.',
+    addToGoalHint: 'Tap a result to fill the first blank day, or replace in order.',
+  },
   duas: {
     title: 'Tasbeeh',
     subtitle: 'tap, hold, repeat',
@@ -374,6 +395,8 @@ const enStrings: Strings = {
     counterHint: 'tap, double-tap, or hold the dua to count',
     tapHint: (weight) => `tap, double-tap, or hold to count • +${formatNumber(weight)} each`,
     doubleTapHint: (weight) => `double-tap anywhere to count • +${formatNumber(weight)} each`,
+    expandedCountHint: (weight) =>
+      `double-tap to count • hold 3s to complete • +${formatNumber(weight)} each`,
     expandToCount: 'Expand to count',
     resetTitle: 'Reset counter?',
     resetBody: (title) => `Reset ${title} back to 0?`,
@@ -469,8 +492,13 @@ const enStrings: Strings = {
     surpriseTitle: 'Surprise me',
     surpriseDescription: 'App suggests a different dua per day.',
     customTitleLabel: 'Custom',
-    customDescription: 'Reshuffle the rotation before starting.',
+    customDescription: 'Pick your duas, remove any day, and search to fill blanks.',
     shuffle: 'Randomize daily tasbeehs',
+    goalNameLabel: 'Goal name',
+    goalNamePlaceholder: 'My custom dhikr plan',
+    emptySlot: 'Empty day — search to add a dua',
+    removeDay: 'Remove dua',
+    saveGoal: 'Save goal',
     plansFor: (days) => `Plans for ${formatNumber(days)} days`,
     startPlan: 'Start this plan',
     moreDays: (count) => `+ ${formatNumber(count)} more days`,
@@ -653,27 +681,35 @@ const enStrings: Strings = {
     steps: {
       welcome: {
         title: 'Welcome to Misbaha',
-        body: 'A calm counter for tasbeeh, daily goals, and visual journeys through dhikr. This quick tour shows how to count and navigate.',
+        body: 'A calm counter for tasbeeh, daily goals, and visual journeys through dhikr. This quick tour covers browsing, counting, and planning.',
+      },
+      categories: {
+        title: 'Browse by category',
+        body: 'On Tasbeeh, tap a category tile — Quranic, morning & night adhkar, salah, and more — to open its dua list.',
       },
       expand: {
         title: 'Expand a dua',
-        body: 'On Tasbeeh, tap the chevron beside a dua to expand it. Counting only works while a row is expanded.',
+        body: 'Inside a category, tap the chevron beside a dua to expand it. Counting only works while a row is expanded.',
       },
-      doubleTap: {
-        title: 'Double-tap to count',
-        body: 'Double-tap anywhere on the expanded dua to add to your count. A raindrop splash marks each count.',
+      count: {
+        title: 'Count toward your target',
+        body: 'Double-tap the expanded dua to add counts. A progress bar fills toward the target — hold for 3 seconds to complete the rest in one go.',
+      },
+      search: {
+        title: 'Find any dua',
+        body: 'Use the search bar on Tasbeeh or Goals to find a dua by transliteration or Arabic, then jump straight to it.',
       },
       duaDetail: {
         title: 'Full dua screen',
-        body: 'Open a dua for the full view. Tap, double-tap, or press and hold anywhere to count — each adds your count-per-tap setting.',
+        body: 'Open a dua for the full view with references. Tap, double-tap, or hold anywhere to count — hold 3s to fill whatever remains.',
       },
       goals: {
         title: 'Goals & plans',
-        body: 'On Goals, start suggested plans or tap Surprise new goal for a random 1–30 day plan built for you.',
+        body: 'On Goals, start a suggested plan, tap Surprise new goal for a random path, or Plan a new goal to pick your own duas and duration.',
       },
       goalDetail: {
         title: 'Count inside a goal',
-        body: 'On a goal detail page, double-tap today’s dua to count toward that day. Swipe right anywhere to return to Goals.',
+        body: 'On a goal page, double-tap today’s dua to count toward that day. Hold 3s to finish the daily target. Swipe right anywhere to return to Goals.',
       },
       today: {
         title: 'Today dashboard',
@@ -736,6 +772,13 @@ const urStrings: Strings = {
     chart6pm: '6 بجے شام',
     chart1159pm: '11:59 بجے رات',
   },
+  duaSearch: {
+    placeholder: 'حرفی نقل یا عربی سے تلاش کریں',
+    noResults: 'کوئی مماثل دعا نہیں ملی۔',
+    unsupportedLanguageWarning:
+      'اردو ترجمے سے تلاش سپورٹ نہیں — حرفی نقل یا عربی استعمال کریں۔',
+    addToGoalHint: 'پہلے خالی دن میں شامل کرنے یا ترتیب سے بدلنے کے لیے نتیجہ پر ٹیپ کریں۔',
+  },
   duas: {
     title: 'تسبیح',
     subtitle: 'ٹیپ کریں، دبائیں، دہرائیں',
@@ -758,6 +801,8 @@ const urStrings: Strings = {
     counterHint: 'شمار کے لیے دعا پر ٹیپ، دو بار ٹیپ، یا دبائیں',
     tapHint: (weight) => `شمار کے لیے ٹیپ، دو بار ٹیپ، یا دبائیں • ہر بار +${formatNumber(weight)}`,
     doubleTapHint: (weight) => `شمار کے لیے کہیں بھی دو بار ٹیپ کریں • ہر بار +${formatNumber(weight)}`,
+    expandedCountHint: (weight) =>
+      `شمار کے لیے دو بار ٹیپ کریں • 3 سیکنڈ دبائے رکھیں • ہر بار +${formatNumber(weight)}`,
     expandToCount: 'شمار کے لیے کھولیں',
     resetTitle: 'شمار کنندہ دوبارہ ترتیب دیں؟',
     resetBody: (title) => `${title} کا شمار 0 پر واپس کریں؟`,
@@ -854,8 +899,13 @@ const urStrings: Strings = {
     surpriseTitle: 'مجھے حیران کریں',
     surpriseDescription: 'ایپ ہر دن مختلف دعا تجویز کرے گی۔',
     customTitleLabel: 'ذاتی',
-    customDescription: 'شروع کرنے سے پہلے ترتیب بدلیں۔',
+    customDescription: 'دعائیں منتخب کریں، دن ہٹائیں، اور خالی جگہ تلاش سے بھریں۔',
     shuffle: 'روزانہ تسبیح بے ترتیب کریں',
+    goalNameLabel: 'مقصد کا نام',
+    goalNamePlaceholder: 'میرا ذاتی ذکر منصوبہ',
+    emptySlot: 'خالی دن — دعا تلاش کر کے شامل کریں',
+    removeDay: 'دعا ہٹائیں',
+    saveGoal: 'مقصد محفوظ کریں',
     plansFor: (days) => `${formatNumber(days)} دن کے منصوبے`,
     startPlan: 'یہ منصوبہ شروع کریں',
     moreDays: (count) => `+ ${formatNumber(count)} مزید دن`,
@@ -1037,27 +1087,35 @@ const urStrings: Strings = {
     steps: {
       welcome: {
         title: 'مسبحة میں خوش آمدید',
-        body: 'تسبیح، روزانہ مقاصد، اور ذکر کے بصری سفر کے لیے ایک پرسکون شمار کنندہ۔ یہ مختصر تعارف شمار اور نیویگیشن سکھاتا ہے۔',
+        body: 'تسبیح، روزانہ مقاصد، اور ذکر کے بصری سفر کے لیے ایک پرسکون شمار کنندہ۔ یہ مختصر تعارف براؤزنگ، شمار، اور منصوبہ بندی سکھاتا ہے۔',
+      },
+      categories: {
+        title: 'زمرے کے لحاظ سے براؤز کریں',
+        body: 'تسبیح میں زمرے کی ٹائل پر ٹیپ کریں — قرآنی، صبح و شام کے اذکار، نماز، اور مزید — اس کی دعاؤں کی فہرست کھولنے کے لیے۔',
       },
       expand: {
         title: 'دعا کھولیں',
-        body: 'تسبیح میں دعا کے پاس والے تیر پر ٹیپ کر کے اسے کھولیں۔ شمار صرف کھلی ہوئی صف پر ہوتا ہے۔',
+        body: 'زمرے کے اندر، دعا کے پاس والے تیر پر ٹیپ کر کے اسے کھولیں۔ شمار صرف کھلی ہوئی صف پر ہوتا ہے۔',
       },
-      doubleTap: {
-        title: 'شمار کے لیے دو بار ٹیپ',
-        body: 'کھلی دعا پر کہیں بھی دو بار ٹیپ کریں۔ ہر شمار پر بارش کی بوند کا نشان دکھائی دیتا ہے۔',
+      count: {
+        title: 'اپنے ہدف کی طرف شمار',
+        body: 'کھلی دعا پر دو بار ٹیپ کر کے شمار بڑھائیں۔ ہدف کی طرف ترقی کی پٹی بھرتی ہے — باقی ایک ساتھ مکمل کرنے کے لیے 3 سیکنڈ دبائے رکھیں۔',
+      },
+      search: {
+        title: 'کوئی بھی دعا تلاش کریں',
+        body: 'تسبیح یا مقاصد میں تلاش بار سے حرفی نقل یا عربی سے دعا ڈھونڈیں، پھر سیدھے اس پر جائیں۔',
       },
       duaDetail: {
         title: 'مکمل دعا اسکرین',
-        body: 'مکمل منظر کے لیے دعا کھولیں۔ کہیں بھی ٹیپ، دو بار ٹیپ، یا دبا کر رکھیں — ہر اشارہ آپ کی فی ٹیپ ترتیب شامل کرتا ہے۔',
+        body: 'حوالوں کے ساتھ مکمل منظر کے لیے دعا کھولیں۔ شمار کے لیے کہیں بھی ٹیپ، دو بار ٹیپ، یا دبائیں — باقی بھرنے کے لیے 3 سیکنڈ دبائے رکھیں۔',
       },
       goals: {
         title: 'مقاصد اور منصوبے',
-        body: 'مقاصد میں تجویز شدہ منصوبے شروع کریں یا حیرت انگیز نیا مقصد سے 1–30 دن کا بے ترتیب منصوبہ بنائیں۔',
+        body: 'مقاصد میں تجویز شدہ منصوبہ شروع کریں، حیرت انگیز نیا مقصد سے بے ترتیب راستہ بنائیں، یا نیا مقصد بنائیں سے اپنی دعائیں اور مدت منتخب کریں۔',
       },
       goalDetail: {
         title: 'مقصد میں شمار',
-        body: 'مقصد کی تفصیل میں آج کی دعا پر دو بار ٹیپ کریں۔ مقاصد پر واپس جانے کے لیے دائیں سوائپ کریں۔',
+        body: 'مقصد کے صفحے پر آج کی دعا پر دو بار ٹیپ کر کے اس دن کا شمار بڑھائیں۔ روزانہ ہدف مکمل کرنے کے لیے 3 سیکنڈ دبائیں۔ مقاصد پر واپس جانے کے لیے دائیں سوائپ کریں۔',
       },
       today: {
         title: 'آج کا ڈیش بورڈ',

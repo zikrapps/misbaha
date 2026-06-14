@@ -20,6 +20,7 @@ export type IconName =
   | 'prayerMat'
   | 'quran'
   | 'reset'
+  | 'search'
   | 'shuffle'
   | 'sound'
   | 'sprout'
@@ -93,6 +94,12 @@ export function Icon({ name, color, size = 24, strokeWidth = 2.15 }: IconProps) 
         <G {...strokeProps}>
           <Path d="M7.2 7.1A7 7 0 1 1 5.7 15" />
           <Path d="M7.2 7.1H3.8V3.7" />
+        </G>
+      ) : null}
+      {name === 'search' ? (
+        <G {...strokeProps}>
+          <Circle cx={11} cy={11} r={6.5} />
+          <Path d="M16 16l4 4" />
         </G>
       ) : null}
       {name === 'link' ? (

@@ -6,8 +6,10 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import Svg, { Defs, LinearGradient as SvgLinearGradient, Rect, Stop } from 'react-native-svg';
 
 import { IconButton } from '@/src/components/IconButton';
-import { duas, prayerOrder } from '@/src/data/duas';
+import { duas, duasById, prayerOrder } from '@/src/data/duas';
+import { DuaSearchBar } from '@/src/features/duas/DuaSearchBar';
 import { DuaCounterRow } from '@/src/features/duas/DuaCounterRow';
+import { remainingCount } from '@/src/features/duas/countRemaining';
 import { DuaTapFeedback } from '@/src/features/duas/DuaTapFeedback';
 import { useDuaCountBump } from '@/src/features/duas/useDuaCountBump';
 import { useDuaCountGestures } from '@/src/features/duas/useDuaCountGestures';
@@ -185,6 +187,7 @@ export default function DuasScreen() {
 
   const [expandedCategory, setExpandedCategory] = useState<CategoryId | null>(null);
   const [expandedDuaId, setExpandedDuaId] = useState<string | null>(null);
+  const [completeAnimation, setCompleteAnimation] = useState({ duaId: '', key: 0 });
   const countingActive = expandedDuaId != null;
   const scrollRef = useRef<ScrollView>(null);
 
@@ -224,15 +227,31 @@ export default function DuasScreen() {
     [expandedDuaId, incrementDua, tapWeight],
   );
 
-  const { feedback, showFeedback, bumpAt, onFeedbackFinish } = useDuaCountBump({
+  const { feedback, showFeedback, bumpAt, completeAt, onFeedbackFinish } = useDuaCountBump({
     hapticsEnabled,
     onIncrement,
   });
+
+  const onHoldComplete = useCallback(
+    (x: number, y: number) => {
+      if (!expandedDuaId) return;
+      const dua = duasById[expandedDuaId];
+      if (!dua) return;
+      const current = counts[expandedDuaId] ?? 0;
+      const remaining = remainingCount(current, dua.target);
+      if (remaining <= 0) return;
+      incrementDua(expandedDuaId, remaining);
+      completeAt(x, y);
+      setCompleteAnimation({ duaId: expandedDuaId, key: Date.now() });
+    },
+    [completeAt, counts, expandedDuaId, incrementDua],
+  );
 
   const { gesture: countGesture, resetTapWindow } = useDuaCountGestures({
     onBump: bumpAt,
     enabled: countingActive,
     doubleTapOnly: true,
+    onHoldComplete,
   });
 
   const listGesture = useMemo(
@@ -255,13 +274,18 @@ export default function DuasScreen() {
   }, []);
 
   const toggleDuaExpanded = useCallback((duaId: string) => {
-    setExpandedDuaId((current) => (current === duaId ? null : duaId));
+    setExpandedDuaId((current) => {
+      const next = current === duaId ? null : duaId;
+      if (next !== duaId) setCompleteAnimation({ duaId: '', key: 0 });
+      return next;
+    });
   }, []);
 
   const renderRow = (dua: DuaRecord) => (
     <DuaCounterRow
       key={dua.id}
       count={counts[dua.id] ?? 0}
+      completeAnimationKey={completeAnimation.duaId === dua.id ? completeAnimation.key : 0}
       countingActive={countingActive}
       dua={dua}
       expanded={expandedDuaId === dua.id}
@@ -488,13 +512,14 @@ export default function DuasScreen() {
           <Rect fill={`url(#${gradientId})`} height="100%" width="100%" />
         </Svg>
 
-        <Image
-          pointerEvents="none"
-          resizeMode="contain"
-          source={MOTIFS[id]}
-          style={styles.tileGraphic}
-          tintColor={palette.fg}
-        />
+        <View pointerEvents="none">
+          <Image
+            resizeMode="contain"
+            source={MOTIFS[id]}
+            style={styles.tileGraphic}
+            tintColor={palette.fg}
+          />
+        </View>
 
         <View style={styles.tileInner}>
           <View style={styles.tileTopGroup}>
@@ -577,6 +602,10 @@ export default function DuasScreen() {
       <View pointerEvents={passThrough} style={styles.totalRow}>
         <Text style={styles.totalLabel}>{t.duas.totalTaps}</Text>
         <Text style={styles.totalValue}>{formatNumber(total)}</Text>
+      </View>
+
+      <View pointerEvents={passContainer}>
+        <DuaSearchBar onSelect={(dua) => router.push(`/duas/${dua.id}`)} />
       </View>
 
       <View pointerEvents={passContainer} style={styles.grid}>

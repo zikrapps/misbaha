@@ -33,6 +33,7 @@ export function Screen({ title, subtitle, action, showSettingsAction, children }
           { paddingBottom: scrollPastTabBar(language, insets.bottom) },
           theme.proseContainerLayout,
         ]}
+        keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
         <View style={[styles.header, theme.mirrorRow]}>

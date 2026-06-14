@@ -1,5 +1,5 @@
-import { act, fireEvent, render, screen } from '@testing-library/react-native';
-import { StyleSheet } from 'react-native';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
+import { Linking, StyleSheet } from 'react-native';
 
 import { findGestureCallback, resetGestureCallbacks } from '@/__tests__/helpers/gestureCallbacks';
 import { resetStore } from '@/__tests__/helpers/store';
@@ -9,6 +9,7 @@ import { GoalTodayDuaCard } from '@/src/features/goals/GoalTodayDuaCard';
 
 const subhanAllah = duas.find((dua) => dua.id === 'fajr-subhanallah')!;
 const salawat = duas.find((dua) => dua.id === 'isha-salat-nabi')!;
+const zakariyaDua = duas.find((dua) => dua.id === 'rabbi-hab-li-dhurriyyah')!;
 
 const styles = {
   todayCard: {},
@@ -32,6 +33,7 @@ describe('GoalTodayDuaCard', () => {
   beforeEach(() => {
     resetStore();
     resetGestureCallbacks();
+    jest.clearAllMocks();
   });
 
   it('renders progress, reference link, and opens the counter', () => {
@@ -96,6 +98,27 @@ describe('GoalTodayDuaCard', () => {
     expect(fill).toBeTruthy();
   });
 
+  it('opens the quran reference in the browser', async () => {
+    jest.spyOn(Linking, 'canOpenURL').mockResolvedValue(true);
+    jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined);
+
+    render(
+      <GoalTodayDuaCard
+        dua={zakariyaDua}
+        todayProgress={0}
+        todayTarget={10}
+        tapWeight={1}
+        language="en"
+        onCount={jest.fn()}
+        openCounterLabel="Open counter"
+        styles={styles}
+      />,
+    );
+
+    fireEvent.press(screen.getByText(/Quran 3:38 on Quran/i));
+    await waitFor(() => expect(Linking.openURL).toHaveBeenCalledWith(zakariyaDua.quranUrl));
+  });
+
   it('counts via the double-tap gesture layer', () => {
     jest.useFakeTimers();
     const onCount = jest.fn();
@@ -118,5 +141,45 @@ describe('GoalTodayDuaCard', () => {
     act(() => onEnd?.({ x: 42, y: 42 }));
     expect(onCount).toHaveBeenCalledTimes(1);
     jest.useRealTimers();
+  });
+
+  it('fills remaining counts after a 3s hold', () => {
+    const onCount = jest.fn();
+    render(
+      <GoalTodayDuaCard
+        dua={subhanAllah}
+        todayProgress={5}
+        todayTarget={10}
+        tapWeight={1}
+        language="en"
+        onCount={onCount}
+        openCounterLabel="Open counter"
+        styles={styles}
+      />,
+    );
+
+    const onStart = findGestureCallback('long', 'onStart');
+    act(() => onStart?.({ x: 20, y: 30 }));
+    expect(onCount).toHaveBeenCalledWith(5);
+  });
+
+  it('does not hold-complete when already at target', () => {
+    const onCount = jest.fn();
+    render(
+      <GoalTodayDuaCard
+        dua={subhanAllah}
+        todayProgress={10}
+        todayTarget={10}
+        tapWeight={1}
+        language="en"
+        onCount={onCount}
+        openCounterLabel="Open counter"
+        styles={styles}
+      />,
+    );
+
+    const onStart = findGestureCallback('long', 'onStart');
+    act(() => onStart?.({ x: 20, y: 30 }));
+    expect(onCount).not.toHaveBeenCalled();
   });
 });

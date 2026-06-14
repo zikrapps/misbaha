@@ -70,7 +70,9 @@ jest.mock('@react-native-async-storage/async-storage', () =>
 
 jest.mock('expo-haptics', () => ({
   impactAsync: jest.fn().mockResolvedValue(undefined),
+  notificationAsync: jest.fn().mockResolvedValue(undefined),
   ImpactFeedbackStyle: { Light: 'light', Medium: 'medium' },
+  NotificationFeedbackType: { Success: 'success' },
 }));
 
 jest.mock('expo-audio', () => ({

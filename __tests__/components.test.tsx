@@ -35,6 +35,7 @@ const iconNames: IconName[] = [
   'open',
   'plus',
   'reset',
+  'search',
   'shuffle',
   'sound',
   'sprout',

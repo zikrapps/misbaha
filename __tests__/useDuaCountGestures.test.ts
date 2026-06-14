@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native';
 
-import { getGestureCallback, resetGestureCallbacks } from '@/__tests__/helpers/gestureCallbacks';
+import { getGestureCallback, findGestureCallback, findGestureCallbacks, resetGestureCallbacks } from '@/__tests__/helpers/gestureCallbacks';
 import {
   DUA_COUNT_DOUBLE_TAP_DELAY_MS,
   DUA_COUNT_GHOST_PRESS_GUARD_MS,
@@ -60,7 +60,7 @@ describe('useDuaCountGestures', () => {
       const onBump = jest.fn();
       renderHook(() => useDuaCountGestures({ onBump }));
 
-      act(() => getGestureCallback('long-2', 'onStart')?.({ x: 3, y: 4 }));
+      act(() => findGestureCallback('long', 'onStart')?.({ x: 3, y: 4 }));
       expect(onBump).toHaveBeenCalledWith(3, 4, 1);
     });
 
@@ -69,7 +69,7 @@ describe('useDuaCountGestures', () => {
       const onBump = jest.fn();
       renderHook(() => useDuaCountGestures({ onBump }));
 
-      act(() => getGestureCallback('long-2', 'onStart')?.({ x: 0, y: 0 }));
+      act(() => findGestureCallback('long', 'onStart')?.({ x: 0, y: 0 }));
       act(() => getGestureCallback('tap-1', 'onEnd')?.({ x: 9, y: 9 }));
       expect(onBump).toHaveBeenCalledTimes(1);
 
@@ -77,6 +77,27 @@ describe('useDuaCountGestures', () => {
       act(() => getGestureCallback('tap-1', 'onEnd')?.({ x: 1, y: 1 }));
       act(() => jest.advanceTimersByTime(DUA_COUNT_DOUBLE_TAP_DELAY_MS));
       expect(onBump).toHaveBeenCalledTimes(2);
+    });
+
+    it('calls onHoldComplete after a 3s hold without bumping', () => {
+      const onBump = jest.fn();
+      const onHoldComplete = jest.fn();
+      renderHook(() => useDuaCountGestures({ onBump, onHoldComplete }));
+
+      act(() => findGestureCallback('long', 'onStart')?.({ x: 8, y: 9 }));
+      expect(onHoldComplete).toHaveBeenCalledWith(8, 9);
+      expect(onBump).not.toHaveBeenCalled();
+    });
+
+    it('still bumps on a quick long press when hold-to-complete is enabled', () => {
+      const onBump = jest.fn();
+      const onHoldComplete = jest.fn();
+      renderHook(() => useDuaCountGestures({ onBump, onHoldComplete }));
+
+      const longPressHandlers = findGestureCallbacks('long', 'onStart');
+      act(() => longPressHandlers[1]?.({ x: 1, y: 2 }));
+      expect(onBump).toHaveBeenCalledWith(1, 2, 1);
+      expect(onHoldComplete).not.toHaveBeenCalled();
     });
   });
 

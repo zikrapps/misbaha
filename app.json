@@ -3,7 +3,7 @@
     "name": "Misbaha",
     "slug": "misbaha",
     "scheme": "misbaha",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -16,7 +16,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.zikrapps.misbaha",
-      "buildNumber": "2",
+      "buildNumber": "3",
       "infoPlist": {
         "CFBundleDisplayName": "Misbaha",
         "NSHumanReadableCopyright": "© Zikr Apps",
@@ -25,7 +25,7 @@
     },
     "android": {
       "package": "com.zikrapps.misbaha",
-      "versionCode": 2,
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#f8e6bd"

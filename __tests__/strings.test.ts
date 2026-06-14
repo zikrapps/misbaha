@@ -24,7 +24,7 @@ function exerciseStrings(s: ReturnType<typeof getStrings>, language: 'en' | 'ur'
   expect(s.settings.tapStatement(5)).toContain('5');
   expect(s.duas.tileDuaCount(3)).toContain('3');
   expect(s.duas.doubleTapHint(2)).toContain('2');
-  expect(s.tutorial.stepOf(2, 9)).toContain('2');
+  expect(s.tutorial.stepOf(2, 11)).toContain('2');
   expect(s.journey.reached('Madinah')).toContain('Madinah');
   expect(s.journey.remainingTo('12 km', 'Istanbul')).toContain('Istanbul');
   expect(s.journey.inDhikr('2 hours')).toContain('2');

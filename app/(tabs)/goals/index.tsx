@@ -5,6 +5,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Icon } from '@/src/components/Icon';
 import { Screen, SectionTitle } from '@/src/components/Screen';
 import { buildRandomSurpriseGoal } from '@/src/data/presetGoals';
+import { DuaSearchBar } from '@/src/features/duas/DuaSearchBar';
 import { GoalCard } from '@/src/features/goals/GoalCard';
 import { GoalGrid, GoalGridItem } from '@/src/features/goals/GoalGrid';
 import { GoalLibrarySection } from '@/src/features/goals/GoalLibrarySection';
@@ -85,6 +86,8 @@ export default function GoalsScreen() {
       subtitle={t.goals.subtitle}
       showSettingsAction
     >
+      <DuaSearchBar onSelect={(dua) => router.push(`/duas/${dua.id}`)} />
+
       <SectionTitle>{t.goals.yourPlans}</SectionTitle>
       {activeGoals.length > 0 ? (
         <GoalGrid>
@@ -113,6 +116,8 @@ export default function GoalsScreen() {
         </View>
       </Pressable>
 
+      <PlanNewGoalRow onPress={() => router.push('/goals/create')} />
+
       {suggested.length > 0 ? (
         <>
           <SectionTitle>{t.goals.suggested}</SectionTitle>
@@ -132,8 +137,6 @@ export default function GoalsScreen() {
           </GoalGrid>
         </>
       ) : null}
-
-      <PlanNewGoalRow onPress={() => router.push('/goals/create')} />
 
       <GoalLibrarySection />
     </Screen>

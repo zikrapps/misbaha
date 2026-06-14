@@ -17,10 +17,14 @@ export function TutorialStepAnimation({ stepId }: TutorialStepAnimationProps) {
   switch (stepId) {
     case 'welcome':
       return <WelcomeAnimation colors={colors} />;
+    case 'categories':
+      return <CategoriesAnimation colors={colors} />;
     case 'expand':
       return <ExpandAnimation colors={colors} />;
-    case 'doubleTap':
-      return <DoubleTapAnimation colors={colors} />;
+    case 'count':
+      return <CountAnimation colors={colors} />;
+    case 'search':
+      return <SearchAnimation colors={colors} />;
     case 'duaDetail':
       return <DuaDetailAnimation colors={colors} />;
     case 'goals':
@@ -152,7 +156,63 @@ function ExpandAnimation({ colors }: { colors: ThemeColors }) {
   );
 }
 
-function DoubleTapAnimation({ colors }: { colors: ThemeColors }) {
+function CategoriesAnimation({ colors }: { colors: ThemeColors }) {
+  const progress = useLoop(
+    (value) =>
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(value, { toValue: 1, duration: 1200, easing: Easing.out(Easing.cubic), useNativeDriver: true }),
+          Animated.delay(600),
+          Animated.timing(value, { toValue: 0, duration: 500, useNativeDriver: true }),
+          Animated.delay(300),
+        ]),
+      ),
+  );
+
+  const tileScales = [0, 1, 2, 3].map((index) =>
+    progress.interpolate({
+      inputRange: [0, 0.3 + index * 0.08, 0.55 + index * 0.08, 1],
+      outputRange: [1, 1, index === 0 ? 1.06 : 1, 1],
+      extrapolate: 'clamp',
+    }),
+  );
+  const highlightOpacity = progress.interpolate({
+    inputRange: [0, 0.35, 0.65, 1],
+    outputRange: [0, 1, 1, 0],
+    extrapolate: 'clamp',
+  });
+
+  const tileColors = [colors.oliveDeep, colors.olive, colors.oliveDark, colors.olive];
+
+  return (
+    <DemoStage colors={colors}>
+      <View style={styles.categoryGrid}>
+        {[0, 1, 2, 3].map((index) => (
+          <Animated.View
+            key={index}
+            style={[
+              styles.categoryTile,
+              {
+                backgroundColor: tileColors[index],
+                transform: [{ scale: tileScales[index] }],
+              },
+            ]}
+          >
+            {index === 0 ? (
+              <Animated.View
+                style={[StyleSheet.absoluteFillObject, { backgroundColor: colors.sand, opacity: highlightOpacity, borderRadius: radii.md }]}
+              />
+            ) : null}
+            <View style={[styles.line, { backgroundColor: colors.card, width: '60%', opacity: 0.7 }]} />
+            <View style={[styles.line, { backgroundColor: colors.card, width: '40%', opacity: 0.5 }]} />
+          </Animated.View>
+        ))}
+      </View>
+    </DemoStage>
+  );
+}
+
+function CountAnimation({ colors }: { colors: ThemeColors }) {
   const progress = useLoop(
     (value) =>
       Animated.loop(
@@ -173,22 +233,74 @@ function DoubleTapAnimation({ colors }: { colors: ThemeColors }) {
   };
   const dropY = progress.interpolate({ inputRange: [0.28, 0.55], outputRange: [-28, 18], extrapolate: 'clamp' });
   const dropOpacity = progress.interpolate({ inputRange: [0.28, 0.4, 0.58, 0.7], outputRange: [0, 1, 1, 0], extrapolate: 'clamp' });
+  const holdRing = {
+    opacity: progress.interpolate({ inputRange: [0.62, 0.68, 0.88, 0.96], outputRange: [0, 0.55, 0.55, 0], extrapolate: 'clamp' }),
+    transform: [{ scale: progress.interpolate({ inputRange: [0.62, 0.96], outputRange: [0.5, 1.35], extrapolate: 'clamp' }) }],
+  };
 
   return (
     <DemoStage colors={colors}>
       <View style={[styles.miniCard, styles.doubleTapCard, { backgroundColor: colors.sand, borderColor: colors.olive }]}>
         <View style={[styles.line, { backgroundColor: colors.line, width: '80%', alignSelf: 'center' }]} />
         <View style={[styles.line, { backgroundColor: colors.line, width: '60%', alignSelf: 'center' }]} />
+        <View style={[styles.progressTrack, { backgroundColor: colors.line, width: '88%', alignSelf: 'center' }]}>
+          <View style={[styles.progressFill, { backgroundColor: colors.olive, width: '58%' }]} />
+        </View>
       </View>
       <View style={styles.tapCenter} pointerEvents="none">
         <Animated.View style={[styles.ripple, { borderColor: colors.olive }, firstRipple]} />
         <Animated.View style={[styles.ripple, { borderColor: colors.olive }, secondRipple]} />
+        <Animated.View style={[styles.holdRing, { backgroundColor: colors.olive }, holdRing]} />
         <Animated.View style={{ opacity: dropOpacity, transform: [{ translateY: dropY }] }}>
           <Svg width={22} height={28} viewBox="0 0 28 34">
             <Path d="M14 1C8 9 4 15 4 21c0 7 4.8 12 10 12s10-5 10-12C24 15 20 9 14 1Z" fill={colors.sand} />
           </Svg>
         </Animated.View>
       </View>
+    </DemoStage>
+  );
+}
+
+function SearchAnimation({ colors }: { colors: ThemeColors }) {
+  const progress = useLoop(
+    (value) =>
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(value, { toValue: 1, duration: 2200, easing: Easing.inOut(Easing.quad), useNativeDriver: true }),
+          Animated.delay(500),
+        ]),
+      ),
+  );
+
+  const cursorOpacity = progress.interpolate({
+    inputRange: [0, 0.08, 0.16, 0.24, 0.32, 0.4, 1],
+    outputRange: [1, 0, 1, 0, 1, 0, 0],
+    extrapolate: 'clamp',
+  });
+  const resultOpacity = progress.interpolate({ inputRange: [0.42, 0.52, 0.9, 1], outputRange: [0, 1, 1, 0], extrapolate: 'clamp' });
+  const resultShift = progress.interpolate({ inputRange: [0.42, 0.58], outputRange: [8, 0], extrapolate: 'clamp' });
+
+  return (
+    <DemoStage colors={colors}>
+      <View style={[styles.searchField, { backgroundColor: colors.card, borderColor: colors.line }]}>
+        <Icon name="search" color={colors.muted} size={16} />
+        <View style={[styles.line, { backgroundColor: colors.line, flex: 1 }]} />
+        <Animated.View style={[styles.searchCursor, { backgroundColor: colors.olive, opacity: cursorOpacity }]} />
+      </View>
+      <Animated.View
+        style={[
+          styles.searchResult,
+          {
+            backgroundColor: colors.card,
+            borderColor: colors.line,
+            opacity: resultOpacity,
+            transform: [{ translateY: resultShift }],
+          },
+        ]}
+      >
+        <View style={[styles.line, { backgroundColor: colors.line, width: '75%' }]} />
+        <View style={[styles.line, { backgroundColor: colors.line, width: '55%' }]} />
+      </Animated.View>
     </DemoStage>
   );
 }
@@ -746,5 +858,53 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '800',
     marginTop: 18,
+  },
+  categoryGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    width: '88%',
+  },
+  categoryTile: {
+    borderRadius: radii.md,
+    gap: spacing.xs,
+    height: 52,
+    justifyContent: 'center',
+    overflow: 'hidden',
+    padding: spacing.sm,
+    width: '47%',
+  },
+  progressTrack: {
+    borderRadius: radii.pill,
+    height: 6,
+    marginTop: spacing.xs,
+    overflow: 'hidden',
+  },
+  progressFill: {
+    borderRadius: radii.pill,
+    height: '100%',
+  },
+  searchField: {
+    alignItems: 'center',
+    borderRadius: radii.md,
+    borderWidth: 1,
+    flexDirection: 'row',
+    gap: spacing.sm,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.sm,
+    width: '88%',
+  },
+  searchCursor: {
+    borderRadius: 1,
+    height: 14,
+    width: 2,
+  },
+  searchResult: {
+    borderRadius: radii.md,
+    borderWidth: 1,
+    gap: spacing.xs,
+    marginTop: spacing.sm,
+    padding: spacing.sm,
+    width: '88%',
   },
 });

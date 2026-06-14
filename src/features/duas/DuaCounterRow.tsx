@@ -5,6 +5,7 @@ import { Card } from '@/src/components/Card';
 import { Icon } from '@/src/components/Icon';
 import { countStateColor } from '@/src/features/duas/countStateColor';
 import { DuaContentBody } from '@/src/features/duas/DuaContentBody';
+import { DuaTargetProgress } from '@/src/features/duas/DuaTargetProgress';
 import { duaArabic, duaPreview, duaTitle } from '@/src/i18n/duaText';
 import { arabicBlockLayout, lineHeightFor, proseFontStyle } from '@/src/i18n/textLayout';
 import { formatNumber } from '@/src/i18n/format';
@@ -19,6 +20,7 @@ type DuaCounterRowProps = {
   expanded: boolean;
   /** True when any row on the screen is expanded and screen-wide counting is active. */
   countingActive: boolean;
+  completeAnimationKey?: number;
   onToggleExpanded: () => void;
   onIncrement: () => void;
   onOpen: () => void;
@@ -35,6 +37,7 @@ export function DuaCounterRow({
   tapWeight,
   expanded,
   countingActive,
+  completeAnimationKey = 0,
   onToggleExpanded,
   onOpen,
   onReset,
@@ -124,16 +127,26 @@ export function DuaCounterRow({
         </View>
       </View>
 
-      <View pointerEvents={passThrough ? 'box-none' : 'auto'} style={[styles.footer, mirrorRow, { borderTopColor: colors.line }]}>
-        <View style={styles.hintWrap}>
-          <Text
-            pointerEvents={passThrough ? 'none' : 'auto'}
-            style={[styles.hint, proseLayout, { color: colors.muted, fontFamily: labelFont }]}
-          >
-            {expanded ? t.duas.doubleTapHint(tapWeight) : t.duas.expandToCount}
-          </Text>
-        </View>
-        <View pointerEvents={passThrough ? 'box-none' : 'auto'} style={[styles.actions, mirrorRow]}>
+      <View pointerEvents={passThrough ? 'box-none' : 'auto'} style={[styles.footer, { borderTopColor: colors.line }]}>
+        {expanded ? (
+          <DuaTargetProgress
+            completeAnimationKey={completeAnimationKey}
+            fillStyle={[styles.progressFill, { backgroundColor: colors.olive }]}
+            progress={count}
+            target={dua.target}
+            trackStyle={[styles.progressTrack, { backgroundColor: colors.line }]}
+          />
+        ) : null}
+        <View style={[styles.footerRow, mirrorRow]}>
+          <View style={styles.hintWrap}>
+            <Text
+              pointerEvents={passThrough ? 'none' : 'auto'}
+              style={[styles.hint, proseLayout, { color: colors.muted, fontFamily: labelFont }]}
+            >
+              {expanded ? t.duas.expandedCountHint(tapWeight) : t.duas.expandToCount}
+            </Text>
+          </View>
+          <View pointerEvents={passThrough ? 'box-none' : 'auto'} style={[styles.actions, mirrorRow]}>
           <Pressable onPress={onOpen} style={[styles.actionButton, mirrorRow, { backgroundColor: colors.oliveDeep }]}>
             <Icon name="open" color={colors.card} size={13} />
             <Text style={[styles.actionText, proseInlineLayout, { color: colors.card, fontFamily: labelFont }]}>
@@ -146,6 +159,7 @@ export function DuaCounterRow({
               {t.common.reset}
             </Text>
           </Pressable>
+        </View>
         </View>
       </View>
     </Card>
@@ -237,11 +251,24 @@ function createStyles(typo: AppTypography, language: 'en' | 'ur') {
       fontSize: typo.micro,
     },
     footer: {
-      alignItems: 'center',
       borderTopWidth: StyleSheet.hairlineWidth,
       gap: spacing.sm,
-      justifyContent: 'space-between',
       paddingTop: spacing.sm,
+    },
+    footerRow: {
+      alignItems: 'center',
+      gap: spacing.sm,
+      justifyContent: 'space-between',
+    },
+    progressTrack: {
+      borderRadius: radii.pill,
+      flex: 1,
+      height: 6,
+      overflow: 'hidden',
+      width: '100%',
+    },
+    progressFill: {
+      height: 6,
     },
     hintWrap: {
       flex: 1,

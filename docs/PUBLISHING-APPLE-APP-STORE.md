@@ -19,7 +19,7 @@ Step-by-step guide for shipping **Misbaha** (bundle ID `com.zikrapps.misbaha`) f
 | App name | Misbaha |
 | Publisher / legal entity | Zikr Apps |
 | Bundle identifier | `com.zikrapps.misbaha` |
-| Current version | `1.1.0` (`app.json`) |
+| Current version | `1.2.0` (`app.json`) |
 | EAS project ID | `0fabcd69-4005-4188-bed2-fb53d6f65b9d` |
 | Support email | salam@zikrapps.com |
 | Privacy policy URL | https://zikrapps.com/privacy |

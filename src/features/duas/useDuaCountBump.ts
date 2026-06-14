@@ -26,10 +26,22 @@ export function useDuaCountBump({ hapticsEnabled, onIncrement }: UseDuaCountBump
     [hapticsEnabled, onIncrement],
   );
 
+  const completeAt = useCallback(
+    (x: number, y: number) => {
+      setFeedback({ key: Date.now(), x, y });
+      setShowFeedback(true);
+      if (hapticsEnabled) {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => undefined);
+      }
+    },
+    [hapticsEnabled],
+  );
+
   return {
     feedback,
     showFeedback,
     bumpAt,
+    completeAt,
     onFeedbackFinish: () => setShowFeedback(false),
   };
 }

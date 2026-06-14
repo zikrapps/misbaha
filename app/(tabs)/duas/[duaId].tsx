@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Circle, G, Path } from 'react-native-svg';
@@ -12,6 +12,8 @@ import { duasById } from '@/src/data/duas';
 import { countStateColor } from '@/src/features/duas/countStateColor';
 import { DuaContentBody } from '@/src/features/duas/DuaContentBody';
 import { DuaCountTapLayer } from '@/src/features/duas/DuaCountTapLayer';
+import { remainingCount } from '@/src/features/duas/countRemaining';
+import { DuaTargetProgress } from '@/src/features/duas/DuaTargetProgress';
 import { isNightDetailHours, nightDetailPalette, NightDetailPalette } from '@/src/features/duas/nightDetail';
 import { useDuaCountBump } from '@/src/features/duas/useDuaCountBump';
 import { useDuaCountGestures } from '@/src/features/duas/useDuaCountGestures';
@@ -41,6 +43,7 @@ export default function DuaDetailScreen() {
   const tapWeight = useMisbahaStore((state) => state.tapWeight);
   const hapticsEnabled = useMisbahaStore((state) => state.hapticsEnabled);
   const incrementDua = useMisbahaStore((state) => state.incrementDua);
+  const [completeAnimationKey, setCompleteAnimationKey] = useState(0);
 
   const onIncrement = useCallback(
     (times = 1) => {
@@ -50,12 +53,24 @@ export default function DuaDetailScreen() {
     [duaId, incrementDua, tapWeight],
   );
 
-  const { feedback, showFeedback, bumpAt, onFeedbackFinish } = useDuaCountBump({
+  const { feedback, showFeedback, bumpAt, completeAt, onFeedbackFinish } = useDuaCountBump({
     hapticsEnabled,
     onIncrement,
   });
 
-  const countGesture = useDuaCountGestures({ onBump: bumpAt }).gesture;
+  const onHoldComplete = useCallback(
+    (x: number, y: number) => {
+      if (!duaId || !dua) return;
+      const remaining = remainingCount(count, dua.target);
+      if (remaining <= 0) return;
+      incrementDua(duaId, remaining);
+      setCompleteAnimationKey((value) => value + 1);
+      completeAt(x, y);
+    },
+    [completeAt, count, dua, duaId, incrementDua],
+  );
+
+  const countGesture = useDuaCountGestures({ onBump: bumpAt, onHoldComplete }).gesture;
 
   if (!dua || !duaId) {
     return (
@@ -129,7 +144,7 @@ export default function DuaDetailScreen() {
         <View style={styles.tapZone}>
           <View style={styles.titleBlock}>
             <Text style={styles.title}>{duaTitle(dua, language)}</Text>
-            <Text style={styles.subtitle}>{t.duas.tapHint(tapWeight)}</Text>
+            <Text style={styles.subtitle}>{t.duas.expandedCountHint(tapWeight)}</Text>
           </View>
 
           <Card style={styles.duaCard}>
@@ -154,6 +169,14 @@ export default function DuaDetailScreen() {
             <Text style={[styles.count, { color: countColor }]}>{formatNumber(count)}</Text>
             <Text style={styles.target}>/ {formatNumber(dua.target)}</Text>
           </View>
+
+          <DuaTargetProgress
+            completeAnimationKey={completeAnimationKey}
+            fillStyle={[styles.progressFill, { backgroundColor: colors.olive }]}
+            progress={count}
+            target={dua.target}
+            trackStyle={[styles.progressTrack, { backgroundColor: night?.line ?? colors.line }]}
+          />
         </View>
       </DuaCountTapLayer>
     </SafeAreaView>
@@ -328,6 +351,16 @@ function createStyles(
     color: muted,
     fontFamily: displayFont,
     fontSize: typo.subtitle,
+  },
+  progressTrack: {
+    alignSelf: 'stretch',
+    borderRadius: radii.pill,
+    height: 8,
+    overflow: 'hidden',
+    width: '100%',
+  },
+  progressFill: {
+    height: 8,
   },
 });
 }

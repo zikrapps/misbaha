@@ -12,8 +12,10 @@ export function getTutorialSteps(t: Strings): TutorialStep[] {
   const { steps } = t.tutorial;
   return [
     { id: 'welcome', icon: 'sprout', title: steps.welcome.title, body: steps.welcome.body },
+    { id: 'categories', icon: 'quran', title: steps.categories.title, body: steps.categories.body },
     { id: 'expand', icon: 'chevronDown', title: steps.expand.title, body: steps.expand.body },
-    { id: 'doubleTap', icon: 'beads', title: steps.doubleTap.title, body: steps.doubleTap.body },
+    { id: 'count', icon: 'beads', title: steps.count.title, body: steps.count.body },
+    { id: 'search', icon: 'search', title: steps.search.title, body: steps.search.body },
     { id: 'duaDetail', icon: 'open', title: steps.duaDetail.title, body: steps.duaDetail.body },
     { id: 'goals', icon: 'goal', title: steps.goals.title, body: steps.goals.body },
     { id: 'goalDetail', icon: 'back', title: steps.goalDetail.title, body: steps.goalDetail.body },

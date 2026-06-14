@@ -13,16 +13,18 @@ describe('tutorial', () => {
 
   it('builds localized tutorial steps', () => {
     const steps = getTutorialSteps(getStrings('en'));
-    expect(steps).toHaveLength(9);
+    expect(steps).toHaveLength(11);
     expect(steps[0]?.id).toBe('welcome');
-    expect(steps[8]?.id).toBe('settings');
+    expect(steps[10]?.id).toBe('settings');
   });
 
   it('renders each tutorial animation step', () => {
     const stepIds = [
       'welcome',
+      'categories',
       'expand',
-      'doubleTap',
+      'count',
+      'search',
       'duaDetail',
       'goals',
       'goalDetail',
@@ -48,7 +50,7 @@ describe('tutorial', () => {
     expect(screen.getByText(/Step 1/i)).toBeTruthy();
     expect(screen.getByText(getStrings('en').tutorial.steps.welcome.title)).toBeTruthy();
 
-    for (let step = 0; step < 8; step += 1) {
+    for (let step = 0; step < 10; step += 1) {
       fireEvent.press(screen.getByText(getStrings('en').tutorial.next));
     }
 

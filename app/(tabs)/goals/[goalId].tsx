@@ -11,6 +11,7 @@ import { LEGAL_ENTITY } from '@/src/constants/legal';
 import { exportGoalPdf, computeGoalPdfLayout, goalPdfDayColumns, goalPdfPreviewArabicSize, PdfOrientation } from '@/src/features/goals/exportGoalPdf';
 import { getGoalTodayState } from '@/src/features/goals/goalProgress';
 import { GoalTodayDuaCard } from '@/src/features/goals/GoalTodayDuaCard';
+import { getDuaReference } from '@/src/features/duas/DuaContentBody';
 import { SwipeBack } from '@/src/features/goals/SwipeBack';
 import { duaArabic, duaPlanLabel, duaPreview, duaTranslation } from '@/src/i18n/duaText';
 import { formatNumber } from '@/src/i18n/format';
@@ -25,10 +26,6 @@ import { openExternalUrl } from '@/src/utils/openExternalUrl';
 const emptyProgress: Record<number, number> = {};
 const APP_ICON = require('@/assets/icon.png');
 const ZIKR_MARK = require('@/assets/brand/zikr-mark-primary.png');
-
-function isSahihReference(reference?: string) {
-  return Boolean(reference?.includes('Sahih Muslim') || reference?.includes('Sahih al-Bukhari'));
-}
 
 type GoalDetailStyles = ReturnType<typeof createGoalDetailStyles>;
 
@@ -189,13 +186,19 @@ export default function GoalDetailScreen() {
   }
   const references = goal.days
     .map((day) => duasById[day.duaId])
-    .filter((dua) => isSahihReference(dua?.hadithReference) && dua?.hadithUrl)
-    .filter((dua, index, all) => all.findIndex((item) => item?.hadithUrl === dua?.hadithUrl) === index);
+    .filter((dua): dua is NonNullable<typeof dua> => Boolean(dua))
+    .map((dua) => ({
+      dua,
+      ...getDuaReference(dua, t.duas.onQuran, t.duas.onSunnah),
+    }))
+    .filter((entry) => entry.url)
+    .filter((entry, index, all) => all.findIndex((item) => item.url === entry.url) === index);
   const isCustomGoal = goal.id.startsWith('custom-');
 
-  const countToday = () => {
-    incrementGoalDay(goal.id, today.day, tapWeight);
-    incrementDua(today.duaId, tapWeight);
+  const countToday = (amount?: number) => {
+    const delta = amount ?? tapWeight;
+    incrementGoalDay(goal.id, today.day, delta);
+    incrementDua(today.duaId, delta);
   };
 
   const share = async (orientation: PdfOrientation) => {
@@ -281,16 +284,17 @@ export default function GoalDetailScreen() {
       <SectionTitle>{t.goalDetail.references}</SectionTitle>
       <Card style={styles.references}>
         {references.length > 0 ? (
-          references.map((dua) => (
+          references.map((entry) => (
             <Pressable
-              key={dua.id}
-              onPress={() => dua.hadithUrl && openExternalUrl(dua.hadithUrl, t.common.linkUnavailable)}
+              key={entry.dua.id}
+              accessibilityRole="link"
+              onPress={() => entry.url && openExternalUrl(entry.url, t.common.linkUnavailable)}
               style={styles.referenceRow}
             >
               <Icon name="link" color={colors.oliveDark} size={17} />
               <View style={styles.referenceCopy}>
-                <Text style={styles.referenceTitle}>{dua.hadithReference}</Text>
-                <Text style={styles.referenceMeta}>{dua ? duaPlanLabel(dua, language) : ''}</Text>
+                <Text style={styles.referenceTitle}>{entry.label}</Text>
+                <Text style={styles.referenceMeta}>{duaPlanLabel(entry.dua, language)}</Text>
               </View>
             </Pressable>
           ))
