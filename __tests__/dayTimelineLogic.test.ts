@@ -21,14 +21,19 @@ describe('dayTimeline logic', () => {
 
   it('selects primary supplications by slot', () => {
     expect(dayTimelinePrimaryBySlot.fajr).toBe('morning-remembrance');
-    expect(dayTimelinePrimaryBySlot.maghrib).toBe('victory-tahlil');
-    expect(dayTimelinePrimaryBySlot.night).toBe('tahajjud-opening');
+    expect(dayTimelinePrimaryBySlot.maghrib).toBe('after-prayer-praise');
+    expect(dayTimelinePrimaryBySlot.night).toBe('last-two-ayahs');
   });
 
   it('auto-selects supplications from the clock', () => {
-    expect(dayTimelineAutoSupplicationId(new Date('2026-06-14T05:30:00'))).toBe('morning-remembrance');
-    expect(dayTimelineAutoSupplicationId(new Date('2026-06-14T08:00:00'))).toBe('master-istighfar');
+    expect(dayTimelineAutoSupplicationId(new Date('2026-06-14T04:30:00'))).toBe('morning-remembrance');
+    expect(dayTimelineAutoSupplicationId(new Date('2026-06-14T05:30:00'))).toBe('morning-wake-praise');
+    expect(dayTimelineAutoSupplicationId(new Date('2026-06-14T07:00:00'))).toBe('comprehensive-tasbih');
+    expect(dayTimelineAutoSupplicationId(new Date('2026-06-14T10:00:00'))).toBe('master-istighfar');
     expect(dayTimelineAutoSupplicationId(new Date('2026-06-14T17:00:00'))).toBe('evening-remembrance');
+    expect(dayTimelineAutoSupplicationId(new Date('2026-06-14T19:00:00'))).toBe('after-prayer-praise');
+    expect(dayTimelineAutoSupplicationId(new Date('2026-06-14T20:30:00'))).toBe('before-sleep');
+    expect(dayTimelineAutoSupplicationId(new Date('2026-06-14T21:30:00'))).toBe('bedtime-surrender');
     expect(dayTimelineAutoSupplicationId(new Date('2026-06-14T23:30:00'))).toBe('last-two-ayahs');
     expect(dayTimelineAutoSupplicationId(new Date('2026-06-14T03:00:00'))).toBe('tahajjud-opening');
   });

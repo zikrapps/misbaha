@@ -2,15 +2,37 @@ import { DayTimelineSlotId, DayTimelineSupplication } from '@/src/types/misbaha'
 
 export const dayTimelineSlotOrder: DayTimelineSlotId[] = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'night'];
 
-/** Timeline supplications — Arabic may come from `duaId` (see dayTimelineText). */
+/**
+ * Timeline supplications — each entry is tied to a time of day in Sahih al-Bukhari or Sahih Muslim.
+ * No general-purpose dhikr (e.g. “any time of day” or “100 times daily”).
+ */
 export const dayTimelineSupplications: DayTimelineSupplication[] = [
   {
     id: 'morning-remembrance',
     slot: 'fajr',
     duaId: 'timeline-morning-remembrance',
     arabicSnippet: 'morning-remembrance',
-    hadithReference: 'Sahih Muslim 2723b',
-    hadithUrl: 'https://sunnah.com/muslim:2723b',
+    transliteration: 'Asbahna wa asbahal-mulku lillah',
+    hadithReference: 'Sahih Muslim 2723a',
+    hadithUrl: 'https://sunnah.com/muslim:2723a',
+  },
+  {
+    id: 'morning-wake-praise',
+    slot: 'fajr',
+    duaId: 'timeline-morning-wake-praise',
+    arabicSnippet: 'morning-wake-praise',
+    transliteration: 'Alhamdu lillahil-ladhi ahyana',
+    hadithReference: 'Sahih al-Bukhari 6325',
+    hadithUrl: 'https://sunnah.com/bukhari:6325',
+  },
+  {
+    id: 'comprehensive-tasbih',
+    slot: 'fajr',
+    duaId: 'timeline-comprehensive-tasbih',
+    arabicSnippet: 'comprehensive-tasbih',
+    transliteration: 'Subhan Allahi wa bihamdihi',
+    hadithReference: 'Sahih Muslim 2726a',
+    hadithUrl: 'https://sunnah.com/muslim:2726a',
   },
   {
     id: 'master-istighfar',
@@ -22,44 +44,20 @@ export const dayTimelineSupplications: DayTimelineSupplication[] = [
     hadithUrl: 'https://sunnah.com/bukhari:6306',
   },
   {
-    id: 'glory-and-praise',
-    slot: 'dhuhr',
-    duaId: 'timeline-glory-praise',
-    arabicSnippet: 'glory-and-praise',
-    transliteration: 'Subhan Allahi wa bihamdih',
-    hadithReference: 'Sahih al-Bukhari 6405',
-    hadithUrl: 'https://sunnah.com/bukhari:6405',
-  },
-  {
-    id: 'comprehensive-tasbih',
-    slot: 'dhuhr',
-    duaId: 'timeline-comprehensive-tasbih',
-    arabicSnippet: 'comprehensive-tasbih',
-    hadithReference: 'Sahih Muslim 2726a',
-    hadithUrl: 'https://sunnah.com/muslim:2726a',
-  },
-  {
     id: 'evening-remembrance',
     slot: 'asr',
     duaId: 'timeline-evening-remembrance',
     arabicSnippet: 'evening-remembrance',
+    transliteration: 'Amsayna wa amsal-mulku lillah',
     hadithReference: 'Sahih Muslim 2723a',
     hadithUrl: 'https://sunnah.com/muslim:2723a',
   },
   {
-    id: 'victory-tahlil',
-    slot: 'maghrib',
-    duaId: 'timeline-victory-tahlil',
-    arabicSnippet: 'victory-tahlil',
-    transliteration: 'La ilaha illallahu wahdahu',
-    hadithReference: 'Sahih Muslim 2724',
-    hadithUrl: 'https://sunnah.com/muslim:2724',
-  },
-  {
     id: 'after-prayer-praise',
-    slot: 'isha',
+    slot: 'maghrib',
     duaId: 'timeline-after-prayer',
     arabicSnippet: 'after-prayer-praise',
+    transliteration: 'Astaghfirullah',
     hadithReference: 'Sahih Muslim 591',
     hadithUrl: 'https://sunnah.com/muslim:591',
   },
@@ -71,6 +69,15 @@ export const dayTimelineSupplications: DayTimelineSupplication[] = [
     transliteration: 'Bismika Allahumma amutu wa ahya',
     hadithReference: 'Sahih al-Bukhari 6314',
     hadithUrl: 'https://sunnah.com/bukhari:6314',
+  },
+  {
+    id: 'bedtime-surrender',
+    slot: 'isha',
+    duaId: 'timeline-bedtime-surrender',
+    arabicSnippet: 'bedtime-surrender',
+    transliteration: 'Allahumma aslamtu wajhi ilayk',
+    hadithReference: 'Sahih al-Bukhari 6311',
+    hadithUrl: 'https://sunnah.com/bukhari:6311',
   },
   {
     id: 'last-two-ayahs',
@@ -105,26 +112,32 @@ export const dayTimelinePrimaryBySlot: Record<DayTimelineSlotId, string> = {
   fajr: 'morning-remembrance',
   dhuhr: 'master-istighfar',
   asr: 'evening-remembrance',
-  maghrib: 'victory-tahlil',
+  maghrib: 'after-prayer-praise',
   isha: 'before-sleep',
-  night: 'tahajjud-opening',
+  night: 'last-two-ayahs',
 };
 
 /** Auto-selected supplication id from clock time (follows the day). */
 export function dayTimelineAutoSupplicationId(now: Date): string {
   const minutes = now.getHours() * 60 + now.getMinutes();
 
+  // Night: last two ayahs at bedtime; tahajjud in the last third of the night.
   if (minutes >= 22 * 60 || minutes < 4 * 60) {
     return minutes >= 2 * 60 && minutes < 4 * 60 ? 'tahajjud-opening' : 'last-two-ayahs';
   }
-  if (minutes < 6 * 60) return 'morning-remembrance';
-  if (minutes < 9 * 60) return 'master-istighfar';
-  if (minutes < 12 * 60) return 'comprehensive-tasbih';
-  if (minutes < 15 * 60) return 'glory-and-praise';
+  // Fajr: morning adhkar, then upon waking, then post-Fajr tasbih (Muslim 2726a).
+  if (minutes < 5 * 60) return 'morning-remembrance';
+  if (minutes < 6 * 60) return 'morning-wake-praise';
+  if (minutes < 9 * 60) return 'comprehensive-tasbih';
+  // Daytime: master istighfar before evening (Bukhari 6306).
+  if (minutes < 15 * 60) return 'master-istighfar';
+  // Asr–sunset: evening adhkar (Muslim 2723a, when he entered the evening).
   if (minutes < 18 * 60) return 'evening-remembrance';
-  if (minutes < 20 * 60) return 'victory-tahlil';
-  if (minutes < 21 * 60) return 'after-prayer-praise';
-  return 'before-sleep';
+  // Maghrib: after salah remembrance (Muslim 591).
+  if (minutes < 20 * 60) return 'after-prayer-praise';
+  // Isha: bedtime adhkar (Bukhari 6314, 6311).
+  if (minutes < 21 * 60) return 'before-sleep';
+  return 'bedtime-surrender';
 }
 
 export function dayTimelineActiveSlot(now: Date): DayTimelineSlotId {

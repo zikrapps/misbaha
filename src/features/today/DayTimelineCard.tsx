@@ -1,9 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import Svg, { Circle, Defs, LinearGradient, Stop } from 'react-native-svg';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { Card } from '@/src/components/Card';
-import { Icon } from '@/src/components/Icon';
 import { resolveTimelineDua, truncateArabic } from '@/src/data/dayTimelineResolve';
 import {
   dayTimelineActiveSlot,
@@ -11,61 +9,17 @@ import {
   dayTimelinePrimaryBySlot,
   dayTimelineProgress,
   dayTimelineReferenceShort,
-  dayTimelineSkyPhase,
   dayTimelineSlotOrder,
   dayTimelineSupplicationById,
 } from '@/src/data/dayTimelineSupplications';
 import { DayTimelineDuaSheet } from '@/src/features/today/DayTimelineDuaSheet';
+import { DayTimelineSlotIcon } from '@/src/features/today/DayTimelineSlotIcon';
 import { dayTimelineSlotLabel, dayTimelineSupplicationTitle } from '@/src/i18n/dayTimelineText';
 import { duaArabic } from '@/src/i18n/duaText';
 import { useLanguage, useT } from '@/src/i18n/strings';
 import { arabicLayout } from '@/src/i18n/textLayout';
 import { radii, spacing, useTheme } from '@/src/theme/theme';
 import { DayTimelineSlotId } from '@/src/types/misbaha';
-
-const SKY_SIZE = 44;
-
-const skyGradients: Record<
-  ReturnType<typeof dayTimelineSkyPhase>,
-  { top: string; bottom: string; accent: string }
-> = {
-  dawn: { top: '#f7c978', bottom: '#6b8fc7', accent: '#f5e6a8' },
-  day: { top: '#87ceeb', bottom: '#4a90c2', accent: '#ffe066' },
-  afternoon: { top: '#e8a857', bottom: '#5b7fa8', accent: '#ffd166' },
-  sunset: { top: '#e07a5f', bottom: '#3d5a80', accent: '#f4a261' },
-  night: { top: '#1a2744', bottom: '#0d1526', accent: '#c9d6ff' },
-};
-
-function SkyCircle({ phase }: { phase: ReturnType<typeof dayTimelineSkyPhase> }) {
-  const palette = skyGradients[phase];
-  const isNight = phase === 'night' || phase === 'sunset';
-
-  return (
-    <View style={styles.skyWrap}>
-      <Svg width={SKY_SIZE} height={SKY_SIZE} viewBox={`0 0 ${SKY_SIZE} ${SKY_SIZE}`}>
-        <Defs>
-          <LinearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-            <Stop offset="0" stopColor={palette.top} />
-            <Stop offset="1" stopColor={palette.bottom} />
-          </LinearGradient>
-        </Defs>
-        <Circle cx={SKY_SIZE / 2} cy={SKY_SIZE / 2} r={SKY_SIZE / 2 - 1} fill="url(#skyGrad)" />
-        {isNight ? (
-          <Circle cx={SKY_SIZE * 0.62} cy={SKY_SIZE * 0.38} r={7} fill={palette.accent} opacity={0.92} />
-        ) : (
-          <Circle cx={SKY_SIZE * 0.68} cy={SKY_SIZE * 0.32} r={8} fill={palette.accent} />
-        )}
-      </Svg>
-      <View style={styles.skyIcon}>
-        {isNight ? (
-          <Icon name="moonStars" color={palette.accent} size={16} strokeWidth={1.8} />
-        ) : (
-          <Icon name="sunrise" color={palette.accent} size={16} strokeWidth={1.8} />
-        )}
-      </View>
-    </View>
-  );
-}
 
 export function DayTimelineCard() {
   const theme = useTheme();
@@ -89,7 +43,6 @@ export function DayTimelineCard() {
     : dayTimelineAutoSupplicationId(now);
   const supplication = dayTimelineSupplicationById(supplicationId);
   const progress = dayTimelineProgress(now);
-  const skyPhase = dayTimelineSkyPhase(activeSlot);
 
   const dua = useMemo(() => (supplication ? resolveTimelineDua(supplication) : undefined), [supplication]);
   const arabicPreview = dua ? truncateArabic(duaArabic(dua, language)) : '';
@@ -105,38 +58,32 @@ export function DayTimelineCard() {
   return (
     <>
       <Card style={styles.card}>
-        <View style={[styles.headerRow, mirrorRow]}>
-          <View style={styles.headerCopy}>
-            <Text
-              style={[
-                styles.eyebrow,
-                proseLayout,
-                labelDecoration,
-                { color: colors.oliveDark, fontSize: typo.micro },
-              ]}
-            >
-              {t.dayTimeline.timeOfDay}
+        <View style={styles.headerCopy}>
+          <Text
+            style={[
+              styles.eyebrow,
+              proseLayout,
+              labelDecoration,
+              { color: colors.oliveDark, fontSize: typo.micro },
+            ]}
+          >
+            {t.dayTimeline.timeOfDay}
+          </Text>
+          {!slotOverride ? (
+            <Text style={[styles.followHint, proseLayout, { color: colors.muted, fontSize: typo.micro }]}>
+              {t.dayTimeline.followsClock}
             </Text>
-            {!slotOverride ? (
-              <Text style={[styles.followHint, proseLayout, { color: colors.muted, fontSize: typo.micro }]}>
-                {t.dayTimeline.followsClock}
-              </Text>
-            ) : null}
-          </View>
-          <SkyCircle phase={skyPhase} />
+          ) : null}
         </View>
 
-        <ScrollView
-          horizontal
-          contentContainerStyle={styles.chipsRow}
-          showsHorizontalScrollIndicator={false}
-        >
+        <View style={styles.chipsRow}>
           {dayTimelineSlotOrder.map((slot) => {
             const selected = slot === activeSlot;
             return (
               <Pressable
                 key={slot}
                 accessibilityRole="button"
+                accessibilityLabel={dayTimelineSlotLabel(slot, language)}
                 accessibilityState={{ selected }}
                 onPress={() => setSlotOverride((current) => (current === slot ? null : slot))}
                 style={[
@@ -147,22 +94,11 @@ export function DayTimelineCard() {
                   },
                 ]}
               >
-                <Text
-                  style={[
-                    styles.chipText,
-                    {
-                      color: selected ? colors.white : colors.oliveDeep,
-                      fontFamily: labelFont,
-                      fontSize: typo.micro,
-                    },
-                  ]}
-                >
-                  {dayTimelineSlotLabel(slot, language)}
-                </Text>
+                <DayTimelineSlotIcon slot={slot} color={selected ? colors.white : colors.oliveDeep} size={26} />
               </Pressable>
             );
           })}
-        </ScrollView>
+        </View>
 
         <View style={styles.progressTrack}>
           <View style={[styles.progressFill, { backgroundColor: colors.oliveDeep, width: `${Math.round(progress * 100)}%` }]} />
@@ -216,13 +152,7 @@ const styles = StyleSheet.create({
     gap: spacing.md,
     paddingVertical: spacing.md,
   },
-  headerRow: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   headerCopy: {
-    flex: 1,
     gap: 2,
   },
   eyebrow: {
@@ -233,27 +163,20 @@ const styles = StyleSheet.create({
   followHint: {
     marginTop: 2,
   },
-  skyWrap: {
-    height: SKY_SIZE,
-    width: SKY_SIZE,
-  },
-  skyIcon: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   chipsRow: {
-    gap: spacing.xs,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingVertical: 2,
   },
   chip: {
+    alignItems: 'center',
     borderRadius: radii.pill,
     borderWidth: 1,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs,
-  },
-  chipText: {
-    fontWeight: '700',
+    height: 44,
+    justifyContent: 'center',
+    overflow: 'visible',
+    width: 44,
   },
   progressTrack: {
     backgroundColor: 'rgba(33, 58, 24, 0.12)',
