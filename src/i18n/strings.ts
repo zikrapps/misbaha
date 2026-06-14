@@ -35,6 +35,7 @@ export type Strings = {
     tasbeeh: string;
     goals: string;
     visualize: string;
+    mood: string;
   };
   today: {
     title: string;
@@ -117,6 +118,35 @@ export type Strings = {
       ramadan: string;
     };
     tileDuaCount: (count: number) => string;
+  };
+  mood: {
+    title: string;
+    subtitle: string;
+    notFound: string;
+    hadith: string;
+    emotions: Record<
+      | 'happy'
+      | 'sad'
+      | 'thankful'
+      | 'stressed'
+      | 'grateful'
+      | 'amazed'
+      | 'ecstatic'
+      | 'hopeful'
+      | 'anxious'
+      | 'fearful'
+      | 'angry'
+      | 'lonely'
+      | 'overwhelmed'
+      | 'regretful'
+      | 'patient'
+      | 'peaceful'
+      | 'weary'
+      | 'joyful'
+      | 'loving'
+      | 'humble',
+      string
+    >;
   };
   goals: {
     title: string;
@@ -345,6 +375,7 @@ const enStrings: Strings = {
     tasbeeh: 'Tasbeeh',
     goals: 'Goals',
     visualize: 'Visualize',
+    mood: 'Mood',
   },
   today: {
     title: 'Today',
@@ -429,6 +460,34 @@ const enStrings: Strings = {
       ramadan: 'Fasting and the blessed month',
     },
     tileDuaCount: (count) => `${formatNumber(count)} duas`,
+  },
+  mood: {
+    title: 'Mood',
+    subtitle: 'duas for how you feel',
+    notFound: 'Emotion not found.',
+    hadith: 'Hadith',
+    emotions: {
+      happy: 'Happy',
+      sad: 'Sad',
+      thankful: 'Thankful',
+      stressed: 'Stressed',
+      grateful: 'Grateful',
+      amazed: 'Amazed',
+      ecstatic: 'Ecstatic',
+      hopeful: 'Hopeful',
+      anxious: 'Anxious',
+      fearful: 'Fearful',
+      angry: 'Angry',
+      lonely: 'Lonely',
+      overwhelmed: 'Overwhelmed',
+      regretful: 'Regretful',
+      patient: 'Patient',
+      peaceful: 'Peaceful',
+      weary: 'Weary',
+      joyful: 'Joyful',
+      loving: 'Loving',
+      humble: 'Humble',
+    },
   },
   goals: {
     title: 'Goals',
@@ -751,6 +810,7 @@ const urStrings: Strings = {
     tasbeeh: 'تسبیح',
     goals: 'مقاصد',
     visualize: 'تصور',
+    mood: 'جذبات',
   },
   today: {
     title: 'آج',
@@ -835,6 +895,34 @@ const urStrings: Strings = {
       ramadan: 'روزہ اور بابرکت مہینہ',
     },
     tileDuaCount: (count) => `${formatNumber(count)} دعائیں`,
+  },
+  mood: {
+    title: 'جذبات',
+    subtitle: 'آپ کے احساس کے مطابق دعائیں',
+    notFound: 'جذبہ نہیں ملا۔',
+    hadith: 'حدیث',
+    emotions: {
+      happy: 'خوش',
+      sad: 'اداس',
+      thankful: 'شاکر',
+      stressed: 'پریشان',
+      grateful: 'ممنون',
+      amazed: 'حیران',
+      ecstatic: 'مسرور',
+      hopeful: 'مطمئن',
+      anxious: 'بے چین',
+      fearful: 'خائف',
+      angry: 'ناراض',
+      lonely: 'تنہا',
+      overwhelmed: 'بے بس',
+      regretful: 'پشیمان',
+      patient: 'صابر',
+      peaceful: 'پر سکون',
+      weary: 'تھکا ہوا',
+      joyful: 'مسرور',
+      loving: 'محبت بھرا',
+      humble: 'عاجز',
+    },
   },
   goals: {
     title: 'مقاصد',

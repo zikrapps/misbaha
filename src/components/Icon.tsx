@@ -25,7 +25,8 @@ export type IconName =
   | 'sound'
   | 'sprout'
   | 'sunrise'
-  | 'visualize';
+  | 'visualize'
+  | 'mood';
 
 type IconProps = {
   name: IconName;
@@ -203,6 +204,11 @@ export function Icon({ name, color, size = 24, strokeWidth = 2.15 }: IconProps) 
           <Path d="M8 4.3a8 8 0 1 0 0 15.4 6.2 6.2 0 0 1 0-15.4z" />
           <Path d="M16 4.9 16.7 6.7 18.6 6.7 17.1 7.9 17.7 9.7 16 8.6 14.3 9.7 14.9 7.9 13.4 6.7 15.3 6.7Z" />
           <Path d="M17.4 12.2 17.85 13.4 19.05 13.85 17.85 14.3 17.4 15.5 16.95 14.3 15.75 13.85 16.95 13.4Z" />
+        </G>
+      ) : null}
+      {name === 'mood' ? (
+        <G {...strokeProps}>
+          <Path d="M12 21s-7-4.6-7-10a4 4 0 0 1 7-2.4A4 4 0 0 1 19 11c0 5.4-7 10-7 10Z" />
         </G>
       ) : null}
     </Svg>

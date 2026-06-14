@@ -10,7 +10,8 @@ export type DuaCategory =
   | 'remembrance'
   | 'heart'
   | 'daily'
-  | 'ramadan';
+  | 'ramadan'
+  | 'mood';
 
 export type GoalDuration = 7 | 10 | 30;
 
@@ -42,6 +43,7 @@ export type DuaRecord = {
   speaker?: string;
   hadithReference?: string;
   hadithUrl?: string;
+  hadithNarration?: string;
   quranReference?: string;
   quranUrl?: string;
 };

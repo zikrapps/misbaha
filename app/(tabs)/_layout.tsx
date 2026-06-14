@@ -44,6 +44,7 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen name="index" options={{ title: t.tabs.today, tabBarIcon: tabIcon('sprout') }} />
+      <Tabs.Screen name="mood" options={{ title: t.tabs.mood, tabBarIcon: tabIcon('mood') }} />
       <Tabs.Screen name="duas" options={{ title: t.tabs.tasbeeh, tabBarIcon: tabIcon('beads') }} />
       <Tabs.Screen
         name="goals"
