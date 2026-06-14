@@ -56,6 +56,13 @@ export type Strings = {
     chart6pm: string;
     chart1159pm: string;
   };
+  dayTimeline: {
+    timeOfDay: string;
+    followsClock: string;
+    tapHint: string;
+    duaForThisTime: string;
+    contentUnavailable: string;
+  };
   duaSearch: {
     placeholder: string;
     noResults: string;
@@ -365,6 +372,13 @@ const enStrings: Strings = {
     chart12pm: '12pm',
     chart6pm: '6pm',
     chart1159pm: '11:59pm',
+  },
+  dayTimeline: {
+    timeOfDay: 'Time of day',
+    followsClock: 'Follows your clock',
+    tapHint: 'Tap for full dua and reference',
+    duaForThisTime: 'Dua for this time',
+    contentUnavailable: 'Full text is not available for this supplication.',
   },
   duaSearch: {
     placeholder: 'Search by transliteration or Arabic',
@@ -771,6 +785,13 @@ const urStrings: Strings = {
     chart12pm: '12 بجے دوپہر',
     chart6pm: '6 بجے شام',
     chart1159pm: '11:59 بجے رات',
+  },
+  dayTimeline: {
+    timeOfDay: 'دن کا وقت',
+    followsClock: 'آپ کے وقت کے مطابق',
+    tapHint: 'مکمل دعا اور حوالہ دیکھنے کے لیے ٹیپ کریں',
+    duaForThisTime: 'اس وقت کی دعا',
+    contentUnavailable: 'اس دعا کا مکمل متن دستیاب نہیں۔',
   },
   duaSearch: {
     placeholder: 'حرفی نقل یا عربی سے تلاش کریں',
