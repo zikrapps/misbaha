@@ -1,0 +1,41 @@
+{
+  "routine_id": "start_surprise_goal",
+  "name": "Start surprise goal",
+  "description": "Open Goals tab, tap Surprise new goal, wait for goal detail, return to Goals list. Navigation steps poll screen_changed to survive slow renders under parallel load.",
+  "trigger_hints": "create goal, surprise goal, new goal, start goal plan",
+  "params": "",
+  "reason": "Harden tab-goals navigation with wait_for screen_changed; fixes element_not_found where surprise-goal-button checked before Goals screen rendered",
+  "steps": [
+    {
+      "action": "tap_element",
+      "element": "tab-goals",
+      "x": 252,
+      "y": 834,
+      "wait_for": {
+        "condition": "screen_changed",
+        "timeout_ms": 6000
+      },
+      "wait_ms": 1200
+    },
+    {
+      "action": "tap_element",
+      "element": "surprise-goal-button",
+      "wait_for": {
+        "condition": "screen_changed",
+        "timeout_ms": 6000
+      },
+      "wait_ms": 2000
+    },
+    {
+      "action": "tap_element",
+      "element": "tab-goals",
+      "x": 252,
+      "y": 834,
+      "wait_for": {
+        "condition": "screen_changed",
+        "timeout_ms": 6000
+      },
+      "wait_ms": 1200
+    }
+  ]
+}

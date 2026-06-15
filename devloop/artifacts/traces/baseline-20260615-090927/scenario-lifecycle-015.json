@@ -1,0 +1,181 @@
+{
+  "routines": [
+    {
+      "trace_type": "routine",
+      "status": "passed",
+      "routine_id": "launch_and_dismiss_tutorial_new",
+      "routine": "Launch and reach Today home",
+      "routine_name": "Launch and reach Today home",
+      "routine_version": 7,
+      "app_bundle_id": "com.zikrapps.misbaha",
+      "completed_steps": [
+        "\u2713 step 1/2 (wait): waited 3000ms",
+        "\u2713 step 2/2 (tap_element): tapped 'tab-today' at (50, 834)"
+      ],
+      "steps_remaining": 0,
+      "steps": [
+        {
+          "index": 1,
+          "total": 2,
+          "action": "wait",
+          "label": "wait",
+          "status": "passed",
+          "started_at": "2026-06-15T16:14:03.762Z",
+          "ended_at": "2026-06-15T16:14:06.764Z",
+          "wait_for": null,
+          "duration_ms": 3000
+        },
+        {
+          "index": 2,
+          "total": 2,
+          "action": "tap_element",
+          "label": "tab-today",
+          "status": "passed",
+          "started_at": "2026-06-15T16:14:07.766Z",
+          "ended_at": "2026-06-15T16:14:10.055Z",
+          "wait_for": null,
+          "wait_ms": 1500,
+          "element": "tab-today",
+          "x": 50,
+          "y": 834,
+          "coordinate_replay": false
+        }
+      ],
+      "message": "Routine 'Launch and reach Today home' v7 \u2014 all 2 steps completed.\n\u2713 step 1/2 (wait): waited 3000ms\n\u2713 step 2/2 (tap_element): tapped 'tab-today' at (50, 834)"
+    },
+    {
+      "trace_type": "routine",
+      "status": "passed",
+      "routine_id": "expand_dua_and_count",
+      "routine": "Expand dua and count",
+      "routine_name": "Expand dua and count",
+      "routine_version": 8,
+      "app_bundle_id": "com.zikrapps.misbaha",
+      "completed_steps": [
+        "\u2713 step 1/5 (tap_element): tapped recorded coordinates at (150, 834)",
+        "\u2713 step 2/5 (tap_element): tapped recorded coordinates at (103, 357)",
+        "\u2713 step 3/5 (tap_element): tapped recorded coordinates at (55, 525)",
+        "\u2713 step 4/5 (swipe_coordinates): dragged (200,600) \u2192 (201,600)",
+        "\u2713 step 5/5 (wait): waited 800ms"
+      ],
+      "steps_remaining": 0,
+      "steps": [
+        {
+          "index": 1,
+          "total": 5,
+          "action": "tap_element",
+          "label": "tab-tasbeeh",
+          "status": "passed",
+          "started_at": "2026-06-15T16:14:11.775Z",
+          "ended_at": "2026-06-15T16:14:13.245Z",
+          "wait_for": {
+            "condition": "screen_changed",
+            "timeout_ms": 5000
+          },
+          "wait_ms": 800,
+          "element": "tab-tasbeeh",
+          "x": 150,
+          "y": 834,
+          "coordinate_replay": true
+        },
+        {
+          "index": 2,
+          "total": 5,
+          "action": "tap_element",
+          "label": "Quranic Duas",
+          "status": "passed",
+          "started_at": "2026-06-15T16:14:14.247Z",
+          "ended_at": "2026-06-15T16:14:20.025Z",
+          "wait_for": {
+            "condition": "screen_changed",
+            "timeout_ms": 5000
+          },
+          "wait_ms": 800,
+          "element": "Quranic Duas",
+          "x": 103,
+          "y": 357,
+          "coordinate_replay": true
+        },
+        {
+          "index": 3,
+          "total": 5,
+          "action": "tap_element",
+          "label": "Expand dua",
+          "status": "passed",
+          "started_at": "2026-06-15T16:14:21.027Z",
+          "ended_at": "2026-06-15T16:14:31.065Z",
+          "wait_for": {
+            "condition": "screen_changed",
+            "timeout_ms": 5000
+          },
+          "wait_ms": 800,
+          "element": "Expand dua",
+          "x": 55,
+          "y": 525,
+          "coordinate_replay": true
+        },
+        {
+          "index": 4,
+          "total": 5,
+          "action": "swipe_coordinates",
+          "label": "swipe_coordinates",
+          "status": "passed",
+          "started_at": "2026-06-15T16:14:32.065Z",
+          "ended_at": "2026-06-15T16:14:37.188Z",
+          "wait_for": null,
+          "start_x": 200,
+          "start_y": 600,
+          "end_x": 201,
+          "end_y": 600,
+          "duration_ms": 3200
+        },
+        {
+          "index": 5,
+          "total": 5,
+          "action": "wait",
+          "label": "wait",
+          "status": "passed",
+          "started_at": "2026-06-15T16:14:38.190Z",
+          "ended_at": "2026-06-15T16:14:38.991Z",
+          "wait_for": null,
+          "duration_ms": 800
+        }
+      ],
+      "message": "Routine 'Expand dua and count' v8 \u2014 all 5 steps completed.\n\u2713 step 1/5 (tap_element): tapped recorded coordinates at (150, 834)\n\u2713 step 2/5 (tap_element): tapped recorded coordinates at (103, 357)\n\u2713 step 3/5 (tap_element): tapped recorded coordinates at (55, 525)\n\u2713 step 4/5 (swipe_coordinates): dragged (200,600) \u2192 (201,600)\n\u2713 step 5/5 (wait): waited 800ms"
+    },
+    {
+      "trace_type": "routine",
+      "status": "failed",
+      "routine_id": "dismiss_badge_if_present",
+      "routine": "Dismiss badge unlock modal",
+      "routine_name": "Dismiss badge unlock modal",
+      "routine_version": 2,
+      "app_bundle_id": "com.zikrapps.misbaha",
+      "failed_step": 1,
+      "failure_type": "element_not_found",
+      "failure_detail": "None of ['badge-continue'] found on screen at step 1/1 (tap_element). Visible: 'Misbaha', 'Tasbeeh', 'tap, hold, repeat', 'TOTAL TAPS', '10', 'Search by transliteration or Arabic', 'Quranic Duas', 'Collapse dua', 'A Secure Land', '/10', '\u0631\u064e\u0628\u0651\u0650 \u0671\u062c\u0652\u0639\u064e\u0644\u0652 \u0647\u064e\u0640\u0670\u0630\u064e\u0627 \u0628\u064e\u0644\u064e\u062f\u064b\u0627 \u0621\u064e\u0627\u0645\u0650\u0646\u064b\u0627 \u0648\u064e\u0671\u0631\u0652\u0632\u064f\u0642\u0652 \u0623\u064e\u0647\u0652\u0644\u064e\u0647\u064f\u06e5 \u0645\u0650\u0646\u064e \u0671\u0644\u062b\u0651\u064e\u0645\u064e\u0631\u064e\u0670\u062a\u0650 \u0645\u064e\u0646\u0652 \u0621\u064e\u0627\u0645\u064e\u0646\u064e \u0645\u0650\u0646\u0652\u0647\u064f\u0645 \u0628\u0650\u0671\u0644\u0644\u0651\u064e\u0647\u0650 \u0648\u064e\u0671\u0644\u0652\u064a\u064e\u0648\u0652\u0645\u0650 \u0671\u0644\u0652\u0640\u0654\u064e\u0627\u062e\u0650\u0631\u0650', 'My Lord, make this a secure city and provide its people with fruits - whoever of them believes in Allah and the Last Day.', 'Speaker: Ibrahim', 'Quran 2:126 on Quran.com', 'double-tap to count \u2022 hold 3s to complete \u2022 +1 each', 'Open', 'Reset', 'Expand dua', 'Accept From Us', '0'. The routine steps may be out of date \u2014 call update_routine to correct them.",
+      "completed_steps": [],
+      "steps_remaining": 0,
+      "steps": [
+        {
+          "index": 1,
+          "total": 1,
+          "action": "tap_element",
+          "label": "badge-continue",
+          "status": "failed",
+          "started_at": "2026-06-15T16:14:40.839Z",
+          "ended_at": "2026-06-15T16:14:45.260Z",
+          "wait_for": {
+            "condition": "not_visible",
+            "timeout_ms": 3000
+          },
+          "wait_ms": 500,
+          "element": "badge-continue",
+          "failure_type": "element_not_found",
+          "failure_detail": "None of ['badge-continue'] found on screen at step 1/1 (tap_element). Visible: 'Misbaha', 'Tasbeeh', 'tap, hold, repeat', 'TOTAL TAPS', '10', 'Search by transliteration or Arabic', 'Quranic Duas', 'Collapse dua', 'A Secure Land', '/10', '\u0631\u064e\u0628\u0651\u0650 \u0671\u062c\u0652\u0639\u064e\u0644\u0652 \u0647\u064e\u0640\u0670\u0630\u064e\u0627 \u0628\u064e\u0644\u064e\u062f\u064b\u0627 \u0621\u064e\u0627\u0645\u0650\u0646\u064b\u0627 \u0648\u064e\u0671\u0631\u0652\u0632\u064f\u0642\u0652 \u0623\u064e\u0647\u0652\u0644\u064e\u0647\u064f\u06e5 \u0645\u0650\u0646\u064e \u0671\u0644\u062b\u0651\u064e\u0645\u064e\u0631\u064e\u0670\u062a\u0650 \u0645\u064e\u0646\u0652 \u0621\u064e\u0627\u0645\u064e\u0646\u064e \u0645\u0650\u0646\u0652\u0647\u064f\u0645 \u0628\u0650\u0671\u0644\u0644\u0651\u064e\u0647\u0650 \u0648\u064e\u0671\u0644\u0652\u064a\u064e\u0648\u0652\u0645\u0650 \u0671\u0644\u0652\u0640\u0654\u064e\u0627\u062e\u0650\u0631\u0650', 'My Lord, make this a secure city and provide its people with fruits - whoever of them believes in Allah and the Last Day.', 'Speaker: Ibrahim', 'Quran 2:126 on Quran.com', 'double-tap to count \u2022 hold 3s to complete \u2022 +1 each', 'Open', 'Reset', 'Expand dua', 'Accept From Us', '0'. The routine steps may be out of date \u2014 call update_routine to correct them."
+        }
+      ],
+      "message": "Routine 'Dismiss badge unlock modal' v2 failed at step 1/1.\nFailure type: element_not_found\nFailure detail: None of ['badge-continue'] found on screen at step 1/1 (tap_element). Visible: 'Misbaha', 'Tasbeeh', 'tap, hold, repeat', 'TOTAL TAPS', '10', 'Search by transliteration or Arabic', 'Quranic Duas', 'Collapse dua', 'A Secure Land', '/10', '\u0631\u064e\u0628\u0651\u0650 \u0671\u062c\u0652\u0639\u064e\u0644\u0652 \u0647\u064e\u0640\u0670\u0630\u064e\u0627 \u0628\u064e\u0644\u064e\u062f\u064b\u0627 \u0621\u064e\u0627\u0645\u0650\u0646\u064b\u0627 \u0648\u064e\u0671\u0631\u0652\u0632\u064f\u0642\u0652 \u0623\u064e\u0647\u0652\u0644\u064e\u0647\u064f\u06e5 \u0645\u0650\u0646\u064e \u0671\u0644\u062b\u0651\u064e\u0645\u064e\u0631\u064e\u0670\u062a\u0650 \u0645\u064e\u0646\u0652 \u0621\u064e\u0627\u0645\u064e\u0646\u064e \u0645\u0650\u0646\u0652\u0647\u064f\u0645 \u0628\u0650\u0671\u0644\u0644\u0651\u064e\u0647\u0650 \u0648\u064e\u0671\u0644\u0652\u064a\u064e\u0648\u0652\u0645\u0650 \u0671\u0644\u0652\u0640\u0654\u064e\u0627\u062e\u0650\u0631\u0650', 'My Lord, make this a secure city and provide its people with fruits - whoever of them believes in Allah and the Last Day.', 'Speaker: Ibrahim', 'Quran 2:126 on Quran.com', 'double-tap to count \u2022 hold 3s to complete \u2022 +1 each', 'Open', 'Reset', 'Expand dua', 'Accept From Us', '0'. The routine steps may be out of date \u2014 call update_routine to correct them."
+    }
+  ]
+}

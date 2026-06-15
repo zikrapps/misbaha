@@ -1,6 +1,6 @@
 # Reset Strategy — Strategy C (App-Side Testability)
 
-**Status:** Planned for Phase 6 (app patch). Documented now so flows and routines assume deterministic resets from the start.
+**Status:** Partially implemented (E2E flag, reset/seed/go deep links, testIDs on tabs and key controls).
 
 ## Why Strategy C
 
@@ -75,6 +75,10 @@ URL scheme (already registered): `misbaha`
 |-------|----------|
 | `misbaha://test/reset` | Clear store → clean E2E baseline (no goals/counts) |
 | `misbaha://test/seed` | Deterministic seed (see below) → navigate to Today |
+| `misbaha://test/go/today` | Navigate to Today tab |
+| `misbaha://test/go/tasbeeh` | Navigate to Tasbeeh tab |
+| `misbaha://test/go/goals` | Navigate to Goals tab |
+| `misbaha://test/go/visualize` | Navigate to Visualize tab |
 
 Both routes only apply when `EXPO_PUBLIC_E2E=1`. Otherwise they no-op and return home.
 
@@ -161,7 +165,9 @@ npm run ios
 
 Strategy C is complete when:
 
-- [ ] Two consecutive runs of the same scenario produce the same starting screen without manual steps.
-- [ ] Tutorial never blocks E2E runs.
-- [ ] Badge modals do not interrupt counting scenarios in E2E mode.
-- [ ] Reset deep link completes in under 3 seconds on iPhone 17 Pro Simulator.
+- [x] Two consecutive runs of the same scenario produce the same starting screen without manual steps.
+- [x] Tutorial never blocks E2E runs.
+- [x] Badge modals do not interrupt counting scenarios in E2E mode.
+- [x] Reset deep link completes in under 3 seconds on iPhone 17 Pro Simulator.
+- [x] Tab navigation uses deterministic deep links (`misbaha://test/go/{tab}`) instead of ambiguous labels.
+- [x] Stable testIDs on tab bar, search input, tutorial, badge modal, and surprise goal.

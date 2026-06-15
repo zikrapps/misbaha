@@ -1,0 +1,15 @@
+{
+  "routine_id": "navigate_to_today",
+  "name": "Navigate to Today tab",
+  "description": "Open Today via E2E deep link (misbaha://test/go/today). Requires EXPO_PUBLIC_E2E=1.",
+  "trigger_hints": "open today, go to today tab, switch to today, home tab",
+  "params": "",
+  "reason": "Avoids DevLoop {{tab}} param substitution bug and tab label ambiguity",
+  "steps": [
+    {
+      "action": "open_url",
+      "url": "misbaha://test/go/today",
+      "wait_ms": 1500
+    }
+  ]
+}

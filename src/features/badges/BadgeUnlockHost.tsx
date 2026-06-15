@@ -62,6 +62,7 @@ export function BadgeUnlockHost() {
               accessibilityRole="button"
               onPress={dismiss}
               style={[styles.cta, { backgroundColor: colors.oliveDeep, borderColor: colors.oliveDark }]}
+              testID="badge-continue"
             >
               <Text style={[styles.ctaText, { color: colors.white, fontFamily: labelFont, fontSize: typo.body }]}>
                 {t.badges.unlockCta}

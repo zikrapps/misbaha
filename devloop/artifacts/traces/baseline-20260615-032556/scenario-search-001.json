@@ -1,0 +1,95 @@
+{
+  "routines": [
+    {
+      "trace_type": "routine",
+      "status": "passed",
+      "routine_id": "launch_and_dismiss_tutorial_new",
+      "routine": "Launch and reach Today home",
+      "routine_name": "Launch and reach Today home",
+      "routine_version": 7,
+      "app_bundle_id": "com.zikrapps.misbaha",
+      "completed_steps": [
+        "\u2713 step 1/2 (wait): waited 3000ms",
+        "\u2713 step 2/2 (tap_element): tapped 'tab-today' at (50, 834)"
+      ],
+      "steps_remaining": 0,
+      "steps": [
+        {
+          "index": 1,
+          "total": 2,
+          "action": "wait",
+          "label": "wait",
+          "status": "passed",
+          "started_at": "2026-06-15T08:41:15.387Z",
+          "ended_at": "2026-06-15T08:41:18.389Z",
+          "wait_for": null,
+          "duration_ms": 3000
+        },
+        {
+          "index": 2,
+          "total": 2,
+          "action": "tap_element",
+          "label": "tab-today",
+          "status": "passed",
+          "started_at": "2026-06-15T08:41:19.391Z",
+          "ended_at": "2026-06-15T08:41:21.692Z",
+          "wait_for": null,
+          "wait_ms": 1500,
+          "element": "tab-today",
+          "x": 50,
+          "y": 834,
+          "coordinate_replay": false
+        }
+      ],
+      "message": "Routine 'Launch and reach Today home' v7 \u2014 all 2 steps completed.\n\u2713 step 1/2 (wait): waited 3000ms\n\u2713 step 2/2 (tap_element): tapped 'tab-today' at (50, 834)"
+    },
+    {
+      "trace_type": "routine",
+      "status": "failed",
+      "routine_id": "search_dua",
+      "routine": "Search and open dua",
+      "routine_name": "Search and open dua",
+      "routine_version": 3,
+      "app_bundle_id": "com.zikrapps.misbaha",
+      "failed_step": 2,
+      "failure_type": "element_not_found",
+      "failure_detail": "None of ['dua-search-input'] found on screen at step 2/5 (tap_element). Visible: 'Misbaha', 'Today', 'Dhu\u02bbl-Hijjah 30, 1447 \u2022 Monday, June 15, 2026', 'TODAY\u2019S TAPS', 'LIFETIME', '0', 'GOAL FOCUS', '0%, DAILY GOAL, Daily Tasbeeh, Subhan Allah \u2022 0/33 today', '0%, WEEKLY GOAL, Tasbih Fatimah, 7 days \u2022 Subhan Allah \u2022 0% complete', '0%, PRESET GOAL, Path of Repentance, 10 days \u2022 Astaghfirullah \u2022 0% complete', '0%, PRESET GOAL, First Ten Days of Dhul Hijjah, 10 days \u2022 Subhan Allah \u2022 0% complete', 'DAILY ACTIVITY', 'Today\u2019s Taps', 'Hourly activity from 12:00am through 11:59pm.', '12am', '6am', '12pm', '6pm', '11:59pm', 'BADGES'. The routine steps may be out of date \u2014 call update_routine to correct them.",
+      "completed_steps": [
+        "\u2713 step 1/5 (tap_element): tapped 'tab-tasbeeh' at (150, 834)"
+      ],
+      "steps_remaining": 3,
+      "steps": [
+        {
+          "index": 1,
+          "total": 5,
+          "action": "tap_element",
+          "label": "tab-tasbeeh",
+          "status": "passed",
+          "started_at": "2026-06-15T08:41:23.233Z",
+          "ended_at": "2026-06-15T08:41:25.544Z",
+          "wait_for": null,
+          "wait_ms": 1500,
+          "element": "tab-tasbeeh",
+          "x": 150,
+          "y": 834,
+          "coordinate_replay": false
+        },
+        {
+          "index": 2,
+          "total": 5,
+          "action": "tap_element",
+          "label": "dua-search-input",
+          "status": "failed",
+          "started_at": "2026-06-15T08:41:26.546Z",
+          "ended_at": "2026-06-15T08:41:27.103Z",
+          "wait_for": null,
+          "wait_ms": 500,
+          "element": "dua-search-input",
+          "failure_type": "element_not_found",
+          "failure_detail": "None of ['dua-search-input'] found on screen at step 2/5 (tap_element). Visible: 'Misbaha', 'Today', 'Dhu\u02bbl-Hijjah 30, 1447 \u2022 Monday, June 15, 2026', 'TODAY\u2019S TAPS', 'LIFETIME', '0', 'GOAL FOCUS', '0%, DAILY GOAL, Daily Tasbeeh, Subhan Allah \u2022 0/33 today', '0%, WEEKLY GOAL, Tasbih Fatimah, 7 days \u2022 Subhan Allah \u2022 0% complete', '0%, PRESET GOAL, Path of Repentance, 10 days \u2022 Astaghfirullah \u2022 0% complete', '0%, PRESET GOAL, First Ten Days of Dhul Hijjah, 10 days \u2022 Subhan Allah \u2022 0% complete', 'DAILY ACTIVITY', 'Today\u2019s Taps', 'Hourly activity from 12:00am through 11:59pm.', '12am', '6am', '12pm', '6pm', '11:59pm', 'BADGES'. The routine steps may be out of date \u2014 call update_routine to correct them."
+        }
+      ],
+      "message": "Routine 'Search and open dua' v3 failed at step 2/5.\nFailure type: element_not_found\nFailure detail: None of ['dua-search-input'] found on screen at step 2/5 (tap_element). Visible: 'Misbaha', 'Today', 'Dhu\u02bbl-Hijjah 30, 1447 \u2022 Monday, June 15, 2026', 'TODAY\u2019S TAPS', 'LIFETIME', '0', 'GOAL FOCUS', '0%, DAILY GOAL, Daily Tasbeeh, Subhan Allah \u2022 0/33 today', '0%, WEEKLY GOAL, Tasbih Fatimah, 7 days \u2022 Subhan Allah \u2022 0% complete', '0%, PRESET GOAL, Path of Repentance, 10 days \u2022 Astaghfirullah \u2022 0% complete', '0%, PRESET GOAL, First Ten Days of Dhul Hijjah, 10 days \u2022 Subhan Allah \u2022 0% complete', 'DAILY ACTIVITY', 'Today\u2019s Taps', 'Hourly activity from 12:00am through 11:59pm.', '12am', '6am', '12pm', '6pm', '11:59pm', 'BADGES'. The routine steps may be out of date \u2014 call update_routine to correct them.\nCompleted steps:\n\u2713 step 1/5 (tap_element): tapped 'tab-tasbeeh' at (150, 834)"
+    }
+  ]
+}

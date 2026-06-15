@@ -1,0 +1,19 @@
+{
+  "routine_id": "launch_and_dismiss_tutorial",
+  "name": "Launch and reach Today home",
+  "description": "Reset app state via E2E deep link, wait for hydration, and verify the Today home screen is interactive. Requires EXPO_PUBLIC_E2E=1 build.",
+  "trigger_hints": "launch misbaha, open app, reach home screen, start from clean state, begin test scenario, reset app",
+  "params": "",
+  "reason": "Verify Today home after the harness cold-launch reset; tap the tab testID instead of a foreground misbaha:// deep link, which triggers the iOS 'Open in Misbaha?' confirmation dialog. The harness hard_reset already cold-launches through misbaha://test/reset before this routine runs.",
+  "steps": [
+    {
+      "action": "wait",
+      "duration_ms": 3000
+    },
+    {
+      "action": "tap_element",
+      "element": "tab-today",
+      "wait_ms": 1500
+    }
+  ]
+}

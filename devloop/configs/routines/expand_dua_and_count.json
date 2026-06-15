@@ -1,0 +1,55 @@
+{
+  "routine_id": "expand_dua_and_count",
+  "name": "Expand dua and count",
+  "description": "Open Tasbeeh tab, open Quranic Duas category, expand the first dua, and hold 3s to complete its count. Uses a long-press (zero-displacement drag) instead of timing-fragile double taps. English UI, requires EXPO_PUBLIC_E2E=1.",
+  "trigger_hints": "count dhikr, expand dua, tasbeeh count, hold to complete, increment counter",
+  "params": "",
+  "reason": "Rebuilt against current Tasbeeh UI; replace stale Through the Day/Prayer of Istikhara double-tap steps with category open + 3s hold-to-complete",
+  "steps": [
+    {
+      "action": "tap_element",
+      "element": "tab-tasbeeh",
+      "x": 150,
+      "y": 834,
+      "wait_for": {
+        "condition": "screen_changed",
+        "timeout_ms": 5000
+      },
+      "wait_ms": 800
+    },
+    {
+      "action": "tap_element",
+      "element": "Quranic Duas",
+      "x": 103,
+      "y": 357,
+      "wait_for": {
+        "condition": "screen_changed",
+        "timeout_ms": 5000
+      },
+      "wait_ms": 800
+    },
+    {
+      "action": "tap_element",
+      "element": "Expand dua",
+      "x": 55,
+      "y": 525,
+      "wait_for": {
+        "condition": "screen_changed",
+        "timeout_ms": 5000
+      },
+      "wait_ms": 800
+    },
+    {
+      "action": "swipe_coordinates",
+      "start_x": 200,
+      "start_y": 600,
+      "end_x": 201,
+      "end_y": 600,
+      "duration_ms": 3200
+    },
+    {
+      "action": "wait",
+      "duration_ms": 800
+    }
+  ]
+}

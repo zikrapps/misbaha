@@ -1,0 +1,101 @@
+{
+  "routines": [
+    {
+      "trace_type": "routine",
+      "status": "passed",
+      "routine_id": "launch_and_dismiss_tutorial_new",
+      "routine": "Launch and reach Today home",
+      "routine_name": "Launch and reach Today home",
+      "routine_version": 7,
+      "app_bundle_id": "com.zikrapps.misbaha",
+      "completed_steps": [
+        "\u2713 step 1/2 (wait): waited 3000ms",
+        "\u2713 step 2/2 (tap_element): tapped 'tab-today' at (50, 834)"
+      ],
+      "steps_remaining": 0,
+      "steps": [
+        {
+          "index": 1,
+          "total": 2,
+          "action": "wait",
+          "label": "wait",
+          "status": "passed",
+          "started_at": "2026-06-15T08:49:37.921Z",
+          "ended_at": "2026-06-15T08:49:40.922Z",
+          "wait_for": null,
+          "duration_ms": 3000
+        },
+        {
+          "index": 2,
+          "total": 2,
+          "action": "tap_element",
+          "label": "tab-today",
+          "status": "passed",
+          "started_at": "2026-06-15T08:49:41.924Z",
+          "ended_at": "2026-06-15T08:49:44.204Z",
+          "wait_for": null,
+          "wait_ms": 1500,
+          "element": "tab-today",
+          "x": 50,
+          "y": 834,
+          "coordinate_replay": false
+        }
+      ],
+      "message": "Routine 'Launch and reach Today home' v7 \u2014 all 2 steps completed.\n\u2713 step 1/2 (wait): waited 3000ms\n\u2713 step 2/2 (tap_element): tapped 'tab-today' at (50, 834)"
+    },
+    {
+      "trace_type": "routine",
+      "status": "failed",
+      "routine_id": "start_surprise_goal",
+      "routine": "Start surprise goal",
+      "routine_name": "Start surprise goal",
+      "routine_version": 4,
+      "app_bundle_id": "com.zikrapps.misbaha",
+      "failed_step": 2,
+      "failure_type": "element_not_found",
+      "failure_detail": "None of ['surprise-goal-button'] found on screen at step 2/3 (tap_element). Visible: 'Misbaha'. The routine steps may be out of date \u2014 call update_routine to correct them.",
+      "completed_steps": [
+        "\u2713 step 1/3 (tap_element): tapped recorded coordinates at (252, 834)"
+      ],
+      "steps_remaining": 1,
+      "steps": [
+        {
+          "index": 1,
+          "total": 3,
+          "action": "tap_element",
+          "label": "tab-goals",
+          "status": "passed",
+          "started_at": "2026-06-15T08:49:45.921Z",
+          "ended_at": "2026-06-15T08:49:49.897Z",
+          "wait_for": {
+            "condition": "screen_changed",
+            "timeout_ms": 6000
+          },
+          "wait_ms": 1200,
+          "element": "tab-goals",
+          "x": 252,
+          "y": 834,
+          "coordinate_replay": true
+        },
+        {
+          "index": 2,
+          "total": 3,
+          "action": "tap_element",
+          "label": "surprise-goal-button",
+          "status": "failed",
+          "started_at": "2026-06-15T08:49:50.899Z",
+          "ended_at": "2026-06-15T08:49:51.681Z",
+          "wait_for": {
+            "condition": "screen_changed",
+            "timeout_ms": 6000
+          },
+          "wait_ms": 2000,
+          "element": "surprise-goal-button",
+          "failure_type": "element_not_found",
+          "failure_detail": "None of ['surprise-goal-button'] found on screen at step 2/3 (tap_element). Visible: 'Misbaha'. The routine steps may be out of date \u2014 call update_routine to correct them."
+        }
+      ],
+      "message": "Routine 'Start surprise goal' v4 failed at step 2/3.\nFailure type: element_not_found\nFailure detail: None of ['surprise-goal-button'] found on screen at step 2/3 (tap_element). Visible: 'Misbaha'. The routine steps may be out of date \u2014 call update_routine to correct them.\nCompleted steps:\n\u2713 step 1/3 (tap_element): tapped recorded coordinates at (252, 834)"
+    }
+  ]
+}

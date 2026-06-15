@@ -1,0 +1,21 @@
+{
+  "app_bundle_id": "com.zikrapps.misbaha",
+  "os": "ios",
+  "qualgent_aliases": {
+    "launch_and_dismiss_tutorial": "launch_and_dismiss_tutorial_new"
+  },
+  "routines": [
+    "launch_and_dismiss_tutorial.json",
+    "navigate_to_today.json",
+    "navigate_to_tasbeeh.json",
+    "navigate_to_goals.json",
+    "navigate_to_visualize.json",
+    "navigate_to_tab.json",
+    "expand_dua_and_count.json",
+    "search_dua.json",
+    "start_surprise_goal.json",
+    "apply_test_seed.json",
+    "dismiss_badge_if_present.json",
+    "recover_to_today.json"
+  ]
+}

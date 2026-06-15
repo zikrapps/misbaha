@@ -1,0 +1,50 @@
+{
+  "run_id": "scenario-count-014",
+  "batch_id": "baseline-20260615-032556",
+  "scenario_id": "scenario-count",
+  "scenario_name": "Tasbeeh count",
+  "flow_id": "flow-b-tasbeeh-count",
+  "iteration": 14,
+  "phase": "baseline",
+  "status": "passed",
+  "started_at": "2026-06-15T08:36:07Z",
+  "ended_at": "2026-06-15T08:36:07Z",
+  "device_udid": null,
+  "git_commit": "fcbd0042ffffbc244d2746d00101bf5278694fc6",
+  "app_bundle_id": "com.zikrapps.misbaha",
+  "routines": [
+    {
+      "routine_id": "launch_and_dismiss_tutorial_new",
+      "status": "passed",
+      "routine_version": 7,
+      "failed_step": null,
+      "failure_type": null,
+      "failure_detail": null,
+      "duration_ms": null,
+      "optional": false
+    },
+    {
+      "routine_id": "expand_dua_and_count",
+      "status": "passed",
+      "routine_version": 8,
+      "failed_step": null,
+      "failure_type": null,
+      "failure_detail": null,
+      "duration_ms": null,
+      "optional": false
+    },
+    {
+      "routine_id": "dismiss_badge_if_present",
+      "status": "skipped",
+      "routine_version": 2,
+      "failed_step": 1,
+      "failure_type": "element_not_found",
+      "failure_detail": "None of ['badge-continue'] found on screen at step 1/1 (tap_element). Visible: 'Misbaha', 'Today', 'Dhu\u02bbl-Hijjah 30, 1447 \u2022 Monday, June 15, 2026', 'TODAY\u2019S TAPS', 'LIFETIME', '0', 'GOAL FOCUS', '0%, DAILY GOAL, Daily Tasbeeh, Subhan Allah \u2022 0/33 today', '0%, WEEKLY GOAL, Tasbih Fatimah, 7 days \u2022 Subhan Allah \u2022 0% complete', '0%, PRESET GOAL, Path of Repentance, 10 days \u2022 Astaghfirullah \u2022 0% complete', '0%, PRESET GOAL, First Ten Days of Dhul Hijjah, 10 days \u2022 Subhan Allah \u2022 0% complete', 'DAILY ACTIVITY', 'Today\u2019s Taps', 'Hourly activity from 12:00am through 11:59pm.', '12am', '6am', '12pm', '6pm', '11:59pm', 'BADGES'. The routine steps may be out of date \u2014 call update_routine to correct them.",
+      "duration_ms": null,
+      "optional": true
+    }
+  ],
+  "post_actions": [],
+  "recording_path": null,
+  "notes": ""
+}

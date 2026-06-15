@@ -1,0 +1,40 @@
+{
+  "run_id": "scenario-search-013",
+  "batch_id": "baseline-20260615-032556",
+  "scenario_id": "scenario-search",
+  "scenario_name": "Dua search",
+  "flow_id": "flow-c-dua-search",
+  "iteration": 13,
+  "phase": "baseline",
+  "status": "passed",
+  "started_at": "2026-06-15T08:48:51Z",
+  "ended_at": "2026-06-15T08:48:51Z",
+  "device_udid": null,
+  "git_commit": "fcbd0042ffffbc244d2746d00101bf5278694fc6",
+  "app_bundle_id": "com.zikrapps.misbaha",
+  "routines": [
+    {
+      "routine_id": "launch_and_dismiss_tutorial_new",
+      "status": "passed",
+      "routine_version": 7,
+      "failed_step": null,
+      "failure_type": null,
+      "failure_detail": null,
+      "duration_ms": null,
+      "optional": false
+    },
+    {
+      "routine_id": "search_dua",
+      "status": "passed",
+      "routine_version": 3,
+      "failed_step": null,
+      "failure_type": null,
+      "failure_detail": null,
+      "duration_ms": null,
+      "optional": false
+    }
+  ],
+  "post_actions": [],
+  "recording_path": null,
+  "notes": ""
+}

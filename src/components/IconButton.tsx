@@ -6,9 +6,10 @@ import { Icon, IconName } from './Icon';
 type IconButtonProps = {
   name: IconName;
   onPress: () => void;
+  testID?: string;
 };
 
-export function IconButton({ name, onPress }: IconButtonProps) {
+export function IconButton({ name, onPress, testID }: IconButtonProps) {
   const theme = useTheme();
   const colors = theme.colors;
 
@@ -16,6 +17,7 @@ export function IconButton({ name, onPress }: IconButtonProps) {
     <Pressable
       accessibilityRole="button"
       onPress={onPress}
+      testID={testID}
       style={[styles.button, { backgroundColor: colors.oliveDeep, borderColor: colors.oliveDark }]}
     >
       <Icon name={name} color={colors.white} size={20} strokeWidth={2.35} />

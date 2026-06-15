@@ -1,0 +1,46 @@
+{
+  "batchId": "smoke-20260615-014703",
+  "phase": "smoke",
+  "generatedAt": "2026-06-15T06:49:32Z",
+  "gitCommit": "fcbd0042ffffbc244d2746d00101bf5278694fc6",
+  "deviceUdid": null,
+  "totals": {
+    "planned": 5,
+    "completed": 4,
+    "pending": 1,
+    "passed": 2,
+    "failed": 2,
+    "passRate": 0.5
+  },
+  "byScenario": {
+    "scenario-count": {
+      "failed": 1
+    },
+    "scenario-goal": {
+      "passed": 1
+    },
+    "scenario-home": {
+      "passed": 1
+    },
+    "scenario-search": {
+      "failed": 1
+    }
+  },
+  "byRoutine": {
+    "expand_dua_and_count": {
+      "failed": 1
+    },
+    "launch_and_dismiss_tutorial_new": {
+      "passed": 4
+    },
+    "search_dua": {
+      "failed": 1
+    },
+    "start_surprise_goal": {
+      "passed": 1
+    }
+  },
+  "failureTypes": {
+    "element_not_found": 2
+  }
+}

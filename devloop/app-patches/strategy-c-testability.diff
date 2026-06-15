@@ -1,0 +1,579 @@
+# Strategy C testability patch — Misbaha
+# Base: 1e06007 (Release 1.2.0) -> working tree
+# Scope: app/, src/e2e/, src/components/, src/features/ (E2E hooks, test routes, testIDs, ErrorBoundary logging)
+#
+diff --git a/app/(tabs)/_layout.tsx b/app/(tabs)/_layout.tsx
+index 086641c..fea6877 100644
+--- a/app/(tabs)/_layout.tsx
++++ b/app/(tabs)/_layout.tsx
+@@ -1,6 +1,7 @@
+ import { Tabs, router } from 'expo-router';
+ 
+ import { Icon, IconName } from '@/src/components/Icon';
++import { TabBarButton } from '@/src/components/TabBarButton';
+ import { useT } from '@/src/i18n/strings';
+ import { TAB_BAR_HEIGHT_EN, TAB_BAR_HEIGHT_UR } from '@/src/theme/tabBar';
+ import { useTheme } from '@/src/theme/theme';
+@@ -43,18 +44,43 @@ export default function TabsLayout() {
+         tabBarIconStyle: isUrdu ? { marginBottom: 2 } : undefined,
+       }}
+     >
+-      <Tabs.Screen name="index" options={{ title: t.tabs.today, tabBarIcon: tabIcon('sprout') }} />
+-      <Tabs.Screen name="duas" options={{ title: t.tabs.tasbeeh, tabBarIcon: tabIcon('beads') }} />
++      <Tabs.Screen
++        name="index"
++        options={{
++          title: t.tabs.today,
++          tabBarIcon: tabIcon('sprout'),
++          tabBarButton: (props) => <TabBarButton {...props} testID="tab-today" />,
++        }}
++      />
++      <Tabs.Screen
++        name="duas"
++        options={{
++          title: t.tabs.tasbeeh,
++          tabBarIcon: tabIcon('beads'),
++          tabBarButton: (props) => <TabBarButton {...props} testID="tab-tasbeeh" />,
++        }}
++      />
+       <Tabs.Screen
+         name="goals"
+-        options={{ title: t.tabs.goals, tabBarIcon: tabIcon('goal') }}
++        options={{
++          title: t.tabs.goals,
++          tabBarIcon: tabIcon('goal'),
++          tabBarButton: (props) => <TabBarButton {...props} testID="tab-goals" />,
++        }}
+         listeners={{
+           tabPress: () => {
+             router.replace('/goals');
+           },
+         }}
+       />
+-      <Tabs.Screen name="insights" options={{ title: t.tabs.visualize, tabBarIcon: tabIcon('visualize') }} />
++      <Tabs.Screen
++        name="insights"
++        options={{
++          title: t.tabs.visualize,
++          tabBarIcon: tabIcon('visualize'),
++          tabBarButton: (props) => <TabBarButton {...props} testID="tab-visualize" />,
++        }}
++      />
+       <Tabs.Screen name="settings" options={{ href: null }} />
+     </Tabs>
+   );
+diff --git a/app/(tabs)/duas/index.tsx b/app/(tabs)/duas/index.tsx
+index 3d54e0b..9ace7f6 100644
+--- a/app/(tabs)/duas/index.tsx
++++ b/app/(tabs)/duas/index.tsx
+@@ -596,7 +596,7 @@ export default function DuasScreen() {
+           <Text style={styles.title}>{t.duas.title}</Text>
+           <Text style={styles.subtitle}>{t.duas.subtitle}</Text>
+         </View>
+-        <IconButton name="gear" onPress={() => router.push('/settings')} />
++        <IconButton name="gear" testID="settings-button" onPress={() => router.push('/settings')} />
+       </View>
+ 
+       <View pointerEvents={passThrough} style={styles.totalRow}>
+diff --git a/app/(tabs)/goals/index.tsx b/app/(tabs)/goals/index.tsx
+index 280a402..29f165f 100644
+--- a/app/(tabs)/goals/index.tsx
++++ b/app/(tabs)/goals/index.tsx
+@@ -106,7 +106,13 @@ export default function GoalsScreen() {
+         <Text style={[styles.empty, { color: colors.muted }]}>{t.goals.empty}</Text>
+       )}
+ 
+-      <Pressable style={styles.surpriseGoal} onPress={handleSurpriseGoal}>
++      <Pressable
++        accessibilityLabel={t.goals.surpriseNewGoal}
++        accessibilityRole="button"
++        style={styles.surpriseGoal}
++        testID="surprise-goal-button"
++        onPress={handleSurpriseGoal}
++      >
+         <View style={styles.surpriseGoalContent}>
+           <Icon name="shuffle" color={colors.card} size={26} strokeWidth={2.2} />
+           <View style={styles.surpriseGoalCopy}>
+diff --git a/app/_layout.tsx b/app/_layout.tsx
+index fbc1cf5..261808e 100644
+--- a/app/_layout.tsx
++++ b/app/_layout.tsx
+@@ -11,6 +11,7 @@ import { StatusBar } from 'expo-status-bar';
+ import { ErrorBoundary } from '@/src/components/ErrorBoundary';
+ import { BadgeUnlockHost } from '@/src/features/badges/BadgeUnlockHost';
+ import { TutorialHost } from '@/src/features/tutorial/TutorialHost';
++import { isE2eEnabled } from '@/src/e2e/config';
+ import { syncLayoutDirection, reloadApp } from '@/src/i18n/rtl';
+ import { useT } from '@/src/i18n/strings';
+ import { useStoreHydrated } from '@/src/store/hydration';
+@@ -59,7 +60,7 @@ function RootLayoutInner() {
+ 
+   // Clear stale native RTL from older builds, then prompt for one full restart.
+   useEffect(() => {
+-    if (!hydrated || rtlPromptShown.current) return;
++    if (!hydrated || rtlPromptShown.current || isE2eEnabled()) return;
+     if (syncLayoutDirection(language)) {
+       rtlPromptShown.current = true;
+       Alert.alert(t.settings.restartTitle, t.settings.restartBody, [
+@@ -70,13 +71,13 @@ function RootLayoutInner() {
+   }, [hydrated, language, t]);
+ 
+   return (
+-    <GestureHandlerRootView style={{ flex: 1 }}>
++    <GestureHandlerRootView style={{ flex: 1 }} testID={hydrated && isE2eEnabled() ? 'app-ready' : undefined}>
+       <StatusBar style="dark" />
+       <Stack screenOptions={{ headerShown: false }}>
+         <Stack.Screen name="(tabs)" />
+       </Stack>
+       <TutorialHost ready={hydrated} />
+-      {hydrated ? <BadgeUnlockHost /> : null}
++      {hydrated && !isE2eEnabled() ? <BadgeUnlockHost /> : null}
+     </GestureHandlerRootView>
+   );
+ }
+diff --git a/app/test/_layout.tsx b/app/test/_layout.tsx
+new file mode 100644
+index 0000000..6b49cd0
+--- /dev/null
++++ b/app/test/_layout.tsx
+@@ -0,0 +1,5 @@
++import { Stack } from 'expo-router';
++
++export default function TestLayout() {
++  return <Stack screenOptions={{ headerShown: false }} />;
++}
+diff --git a/app/test/reset.tsx b/app/test/reset.tsx
+new file mode 100644
+index 0000000..bd1cefb
+--- /dev/null
++++ b/app/test/reset.tsx
+@@ -0,0 +1,25 @@
++import { router, useRootNavigationState } from 'expo-router';
++import { useEffect, useRef } from 'react';
++
++import { applyE2eReset } from '@/src/e2e/actions';
++import { isE2eEnabled } from '@/src/e2e/config';
++
++export default function TestResetRoute() {
++  const navigationState = useRootNavigationState();
++  const appliedRef = useRef(false);
++
++  useEffect(() => {
++    if (!navigationState?.key || appliedRef.current) return;
++    appliedRef.current = true;
++    if (isE2eEnabled()) {
++      applyE2eReset();
++    }
++    // Defer one frame so the root navigator is fully mounted before we
++    // navigate — a cold launch straight into this deep link can otherwise
++    // fire router.replace before the Root Layout commits.
++    const id = requestAnimationFrame(() => router.replace('/'));
++    return () => cancelAnimationFrame(id);
++  }, [navigationState?.key]);
++
++  return null;
++}
+diff --git a/app/test/seed.tsx b/app/test/seed.tsx
+new file mode 100644
+index 0000000..0a9f77f
+--- /dev/null
++++ b/app/test/seed.tsx
+@@ -0,0 +1,21 @@
++import { router, useRootNavigationState } from 'expo-router';
++import { useEffect, useRef } from 'react';
++
++import { applyE2eSeed } from '@/src/e2e/actions';
++import { isE2eEnabled } from '@/src/e2e/config';
++
++export default function TestSeedRoute() {
++  const navigationState = useRootNavigationState();
++  const appliedRef = useRef(false);
++
++  useEffect(() => {
++    if (!navigationState?.key || appliedRef.current) return;
++    appliedRef.current = true;
++    if (isE2eEnabled()) {
++      applyE2eSeed();
++    }
++    router.replace('/');
++  }, [navigationState?.key]);
++
++  return null;
++}
+diff --git a/src/components/ErrorBoundary.tsx b/src/components/ErrorBoundary.tsx
+index 3b68340..b5d0f6c 100644
+--- a/src/components/ErrorBoundary.tsx
++++ b/src/components/ErrorBoundary.tsx
+@@ -1,4 +1,4 @@
+-import { Component, PropsWithChildren } from 'react';
++import { Component, type ErrorInfo, PropsWithChildren } from 'react';
+ import { Pressable, StyleSheet, Text, View } from 'react-native';
+ 
+ import { spacing } from '@/src/theme/palette';
+@@ -18,6 +18,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
+     return { hasError: true };
+   }
+ 
++  componentDidCatch(error: Error, info: ErrorInfo) {
++    console.error('[ErrorBoundary]', error?.message, error?.stack, info?.componentStack);
++  }
++
+   private reset = () => {
+     this.setState({ hasError: false });
+     this.props.onReset?.();
+diff --git a/src/components/IconButton.tsx b/src/components/IconButton.tsx
+index fa3f902..a31b107 100644
+--- a/src/components/IconButton.tsx
++++ b/src/components/IconButton.tsx
+@@ -6,9 +6,10 @@ import { Icon, IconName } from './Icon';
+ type IconButtonProps = {
+   name: IconName;
+   onPress: () => void;
++  testID?: string;
+ };
+ 
+-export function IconButton({ name, onPress }: IconButtonProps) {
++export function IconButton({ name, onPress, testID }: IconButtonProps) {
+   const theme = useTheme();
+   const colors = theme.colors;
+ 
+@@ -16,6 +17,7 @@ export function IconButton({ name, onPress }: IconButtonProps) {
+     <Pressable
+       accessibilityRole="button"
+       onPress={onPress}
++      testID={testID}
+       style={[styles.button, { backgroundColor: colors.oliveDeep, borderColor: colors.oliveDark }]}
+     >
+       <Icon name={name} color={colors.white} size={20} strokeWidth={2.35} />
+diff --git a/src/components/Screen.tsx b/src/components/Screen.tsx
+index 24c86f9..d169bef 100644
+--- a/src/components/Screen.tsx
++++ b/src/components/Screen.tsx
+@@ -23,7 +23,10 @@ export function Screen({ title, subtitle, action, showSettingsAction, children }
+   const { typo, language } = theme;
+   const insets = useSafeAreaInsets();
+   const headerAction =
+-    action ?? (showSettingsAction ? <IconButton name="gear" onPress={() => router.push('/settings')} /> : undefined);
++    action ??
++    (showSettingsAction ? (
++      <IconButton name="gear" testID="settings-button" onPress={() => router.push('/settings')} />
++    ) : undefined);
+ 
+   return (
+     <SafeAreaView edges={['top', 'left', 'right']} style={[styles.safe, { backgroundColor: colors.cream }]}>
+diff --git a/src/e2e/actions.ts b/src/e2e/actions.ts
+new file mode 100644
+index 0000000..c5ea3a5
+--- /dev/null
++++ b/src/e2e/actions.ts
+@@ -0,0 +1,37 @@
++import { presetGoals } from '@/src/data/presetGoals';
++import { useMisbahaStore } from '@/src/store/useMisbahaStore';
++import { ThemeId } from '@/src/types/misbaha';
++
++import { buildE2eTestSeed } from './testSeed';
++
++const e2eDefaults = {
++  tapWeight: 1,
++  themeId: 'garden' as ThemeId,
++  language: 'en' as const,
++  visualization: 'garden' as const,
++  clickSoundEnabled: true,
++  hapticsEnabled: true,
++  tutorialCompleted: true,
++  tutorialVisible: false,
++  tutorialSession: 0,
++};
++
++/** Reset persisted app state to a clean E2E baseline (no seed data). */
++export function applyE2eReset(): void {
++  useMisbahaStore.setState({
++    ...e2eDefaults,
++    counts: {},
++    dailyCounts: {},
++    events: [],
++    goals: presetGoals,
++    goalProgress: {},
++  });
++}
++
++/** Apply the deterministic DevLoop test seed (2 badges, 1 complete goal, 1 in-progress goal). */
++export function applyE2eSeed(): void {
++  useMisbahaStore.setState({
++    ...e2eDefaults,
++    ...buildE2eTestSeed(),
++  });
++}
+diff --git a/src/e2e/config.ts b/src/e2e/config.ts
+new file mode 100644
+index 0000000..fca6ef4
+--- /dev/null
++++ b/src/e2e/config.ts
+@@ -0,0 +1,4 @@
++/** True when the app is built or run with EXPO_PUBLIC_E2E=1. */
++export function isE2eEnabled(): boolean {
++  return process.env.EXPO_PUBLIC_E2E === '1';
++}
+diff --git a/src/e2e/testSeed.ts b/src/e2e/testSeed.ts
+new file mode 100644
+index 0000000..770521c
+--- /dev/null
++++ b/src/e2e/testSeed.ts
+@@ -0,0 +1,159 @@
++import { badges, TASBEEH_CYCLE } from '@/src/data/badges';
++import { buildGoalDays, presetGoals } from '@/src/data/presetGoals';
++import {
++  BadgeMetrics,
++  buildBadgeBoard,
++  computeBadgeMetrics,
++} from '@/src/features/badges/badgeProgress';
++import { getGoalTodayState } from '@/src/features/goals/goalProgress';
++import { todayKey } from '@/src/store/date';
++import { CountEvent, GoalPlan, GoalProgress } from '@/src/types/misbaha';
++
++export const E2E_SEED_BADGE_COUNT = 2;
++/** Minimum dhikr-derived badges the seed must include (reveal order). */
++export const E2E_SEED_REQUIRED_BADGE_IDS = ['bead-1', 'bead-2'] as const;
++export const E2E_SEED_GOAL_COMPLETE_ID = 'e2e-seed-goal-complete';
++export const E2E_SEED_GOAL_IN_PROGRESS_ID = 'e2e-seed-goal-in-progress';
++export const E2E_SEED_COUNT_DUA_ID = 'fajr-subhanallah';
++
++/** Fixed start date so seeded goal timelines stay reproducible across runs. */
++export const E2E_SEED_GOAL_STARTED_AT = '2026-06-01';
++
++const emptyMetrics: BadgeMetrics = {
++  tasbeehs: 0,
++  bestDay: 0,
++  activeDays: 0,
++  bestStreak: 0,
++  goalsCompleted: 0,
++  goalDays: 0,
++  morningDays: 0,
++  eveningDays: 0,
++  lifetime: 0,
++  distinctDuas: 0,
++};
++
++/** Metrics tuned to earn the first `count` badges in reveal order. */
++export function metricsForEarnedBadgeCount(count: number): BadgeMetrics {
++  const metrics = { ...emptyMetrics };
++  badges.slice(0, count).forEach((badge) => {
++    metrics[badge.metric] = Math.max(metrics[badge.metric], badge.threshold);
++  });
++  return metrics;
++}
++
++/** Minimum lifetime count on one dua to satisfy the first N earned badges. */
++export function lifetimeCountForEarnedBadgeCount(count: number): number {
++  const required = metricsForEarnedBadgeCount(count);
++  return Math.max(required.lifetime, required.tasbeehs * TASBEEH_CYCLE);
++}
++
++function buildCompleteGoal(): GoalPlan {
++  return {
++    id: E2E_SEED_GOAL_COMPLETE_ID,
++    title: 'Tasbih Fatimah',
++    description: 'E2E seed — fully completed seven-day plan.',
++    duration: 7,
++    days: buildGoalDays(7),
++    createdAt: Date.parse(`${E2E_SEED_GOAL_STARTED_AT}T12:00:00Z`),
++    startedAt: E2E_SEED_GOAL_STARTED_AT,
++    preset: false,
++  };
++}
++
++function buildInProgressGoal(): GoalPlan {
++  return {
++    id: E2E_SEED_GOAL_IN_PROGRESS_ID,
++    title: 'Path of Repentance',
++    description: 'E2E seed — three days complete, fourth day in progress.',
++    duration: 10,
++    days: buildGoalDays(10, 4),
++    createdAt: Date.parse(`${E2E_SEED_GOAL_STARTED_AT}T12:00:00Z`),
++    startedAt: E2E_SEED_GOAL_STARTED_AT,
++    preset: false,
++  };
++}
++
++function buildGoalProgress(completeGoal: GoalPlan, inProgressGoal: GoalPlan): GoalProgress {
++  const completeProgress = Object.fromEntries(
++    completeGoal.days.map((day) => [day.day, day.target]),
++  ) as Record<number, number>;
++
++  const inProgressProgress: Record<number, number> = {};
++  inProgressGoal.days.forEach((day, index) => {
++    if (index < 3) {
++      inProgressProgress[day.day] = day.target;
++      return;
++    }
++    if (index === 3) {
++      inProgressProgress[day.day] = Math.max(1, Math.floor(day.target / 3));
++    }
++  });
++
++  return {
++    [completeGoal.id]: completeProgress,
++    [inProgressGoal.id]: inProgressProgress,
++  };
++}
++
++export type E2eTestSeedState = {
++  counts: Record<string, number>;
++  dailyCounts: Record<string, Record<string, number>>;
++  events: CountEvent[];
++  goals: GoalPlan[];
++  goalProgress: GoalProgress;
++};
++
++/** Deterministic store slice: 2 badges, 1 completed goal, 1 in-progress goal. */
++export function buildE2eTestSeed(date = todayKey()): E2eTestSeedState {
++  const completeGoal = buildCompleteGoal();
++  const inProgressGoal = buildInProgressGoal();
++  const goalProgress = buildGoalProgress(completeGoal, inProgressGoal);
++  const lifetime = lifetimeCountForEarnedBadgeCount(E2E_SEED_BADGE_COUNT);
++
++  return {
++    counts: { [E2E_SEED_COUNT_DUA_ID]: lifetime },
++    dailyCounts: {
++      [date]: { [E2E_SEED_COUNT_DUA_ID]: lifetime },
++      [E2E_SEED_GOAL_STARTED_AT]: { [E2E_SEED_COUNT_DUA_ID]: lifetime },
++    },
++    events: [
++      {
++        id: 'e2e-seed-event',
++        duaId: E2E_SEED_COUNT_DUA_ID,
++        amount: lifetime,
++        date,
++        createdAt: Date.parse(`${date}T12:00:00Z`),
++      },
++    ],
++    goals: [...presetGoals, completeGoal, inProgressGoal],
++    goalProgress,
++  };
++}
++
++export type E2eSeedValidation = {
++  earnedBadgeCount: number;
++  earnedBadgeIds: string[];
++  goalsCompleted: number;
++  completeGoalDaysDone: number;
++  inProgressGoalDaysDone: number;
++  inProgressGoalComplete: boolean;
++};
++
++/** Validates the seeded slice matches the DevLoop contract. */
++export function validateE2eTestSeed(seed: E2eTestSeedState): E2eSeedValidation {
++  const metrics = computeBadgeMetrics(seed);
++  const board = buildBadgeBoard(metrics);
++  const completeGoal = seed.goals.find((goal) => goal.id === E2E_SEED_GOAL_COMPLETE_ID)!;
++  const inProgressGoal = seed.goals.find((goal) => goal.id === E2E_SEED_GOAL_IN_PROGRESS_ID)!;
++  const completeState = getGoalTodayState(completeGoal, seed.goalProgress[completeGoal.id] ?? {});
++  const inProgressState = getGoalTodayState(inProgressGoal, seed.goalProgress[inProgressGoal.id] ?? {});
++
++  return {
++    earnedBadgeCount: board.earnedCount,
++    earnedBadgeIds: board.earnedIds,
++    goalsCompleted: metrics.goalsCompleted,
++    completeGoalDaysDone: completeState.completed,
++    inProgressGoalDaysDone: inProgressState.completed,
++    inProgressGoalComplete: inProgressState.completed === inProgressGoal.days.length,
++  };
++}
+diff --git a/src/features/badges/BadgeUnlockHost.tsx b/src/features/badges/BadgeUnlockHost.tsx
+index d29ce3a..0eb2833 100644
+--- a/src/features/badges/BadgeUnlockHost.tsx
++++ b/src/features/badges/BadgeUnlockHost.tsx
+@@ -62,6 +62,7 @@ export function BadgeUnlockHost() {
+               accessibilityRole="button"
+               onPress={dismiss}
+               style={[styles.cta, { backgroundColor: colors.oliveDeep, borderColor: colors.oliveDark }]}
++              testID="badge-continue"
+             >
+               <Text style={[styles.ctaText, { color: colors.white, fontFamily: labelFont, fontSize: typo.body }]}>
+                 {t.badges.unlockCta}
+diff --git a/src/features/duas/DuaSearchBar.tsx b/src/features/duas/DuaSearchBar.tsx
+index a90c252..a8c2e6d 100644
+--- a/src/features/duas/DuaSearchBar.tsx
++++ b/src/features/duas/DuaSearchBar.tsx
+@@ -158,6 +158,7 @@ export function DuaSearchBar({ onSelect, addHint }: DuaSearchBarProps) {
+           placeholder={t.duaSearch.placeholder}
+           placeholderTextColor={colors.muted}
+           style={styles.input}
++          testID="dua-search-input"
+           value={query}
+           onChangeText={setQuery}
+         />
+diff --git a/src/features/tutorial/GestureTutorial.tsx b/src/features/tutorial/GestureTutorial.tsx
+index 2ff0690..b1c8620 100644
+--- a/src/features/tutorial/GestureTutorial.tsx
++++ b/src/features/tutorial/GestureTutorial.tsx
+@@ -91,6 +91,7 @@ export function GestureTutorial() {
+                 hitSlop={8}
+                 onPress={closeTutorial}
+                 style={({ pressed }) => [styles.skipButton, pressed && styles.pressed]}
++                testID="tutorial-skip"
+               >
+                 <Text style={[styles.skipText, proseInlineLayout, { color: colors.muted, fontFamily: labelFont }]}>
+                   {t.tutorial.skip}
+@@ -105,6 +106,7 @@ export function GestureTutorial() {
+                   { backgroundColor: colors.oliveDeep },
+                   pressed && styles.pressed,
+                 ]}
++                testID="tutorial-next"
+               >
+                 <Text style={[styles.nextText, proseInlineLayout, { color: colors.card, fontFamily: labelFont }]}>
+                   {isLast ? t.tutorial.finish : t.tutorial.next}
+diff --git a/src/features/tutorial/TutorialHost.tsx b/src/features/tutorial/TutorialHost.tsx
+index 804d0dc..eb844bc 100644
+--- a/src/features/tutorial/TutorialHost.tsx
++++ b/src/features/tutorial/TutorialHost.tsx
+@@ -1,6 +1,7 @@
+ import { useEffect, useRef } from 'react';
+ 
+ import { GestureTutorial } from '@/src/features/tutorial/GestureTutorial';
++import { isE2eEnabled } from '@/src/e2e/config';
+ import { useMisbahaStore } from '@/src/store/useMisbahaStore';
+ 
+ type TutorialHostProps = {
+@@ -14,7 +15,7 @@ export function TutorialHost({ ready }: TutorialHostProps) {
+   const autoStarted = useRef(false);
+ 
+   useEffect(() => {
+-    if (!ready || autoStarted.current || tutorialCompleted || tutorialVisible) {
++    if (!ready || autoStarted.current || tutorialCompleted || tutorialVisible || isE2eEnabled()) {
+       return;
+     }
+     autoStarted.current = true;
+diff --git a/app/test/go/[tab].tsx b/app/test/go/[tab].tsx
+new file mode 100644
+index 0000000..5988dbb
+--- /dev/null
++++ b/app/test/go/[tab].tsx
+@@ -0,0 +1,27 @@
++import { router, useLocalSearchParams, useRootNavigationState } from 'expo-router';
++import { useEffect, useRef } from 'react';
++
++import { isE2eEnabled } from '@/src/e2e/config';
++import { E2E_TAB_ROUTES, parseE2eTab } from '@/src/e2e/navigation';
++
++export default function TestGoRoute() {
++  const { tab } = useLocalSearchParams<{ tab: string }>();
++  const navigationState = useRootNavigationState();
++  const appliedRef = useRef(false);
++
++  useEffect(() => {
++    if (!navigationState?.key || appliedRef.current) return;
++    appliedRef.current = true;
++
++    const target = isE2eEnabled() ? parseE2eTab(typeof tab === 'string' ? tab : undefined) : null;
++    const href = target ? E2E_TAB_ROUTES[target] : '/';
++
++    // Defer one frame so the root navigator is fully mounted before we
++    // navigate — a cold launch straight into this deep link can otherwise
++    // fire router.replace before the Root Layout commits.
++    const id = requestAnimationFrame(() => router.replace(href));
++    return () => cancelAnimationFrame(id);
++  }, [navigationState?.key, tab]);
++
++  return null;
++}

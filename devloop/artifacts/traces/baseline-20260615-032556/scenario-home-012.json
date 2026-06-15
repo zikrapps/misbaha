@@ -1,0 +1,47 @@
+{
+  "routines": [
+    {
+      "trace_type": "routine",
+      "status": "passed",
+      "routine_id": "launch_and_dismiss_tutorial_new",
+      "routine": "Launch and reach Today home",
+      "routine_name": "Launch and reach Today home",
+      "routine_version": 7,
+      "app_bundle_id": "com.zikrapps.misbaha",
+      "completed_steps": [
+        "\u2713 step 1/2 (wait): waited 3000ms",
+        "\u2713 step 2/2 (tap_element): tapped 'tab-today' at (50, 834)"
+      ],
+      "steps_remaining": 0,
+      "steps": [
+        {
+          "index": 1,
+          "total": 2,
+          "action": "wait",
+          "label": "wait",
+          "status": "passed",
+          "started_at": "2026-06-15T08:31:41.335Z",
+          "ended_at": "2026-06-15T08:31:44.350Z",
+          "wait_for": null,
+          "duration_ms": 3000
+        },
+        {
+          "index": 2,
+          "total": 2,
+          "action": "tap_element",
+          "label": "tab-today",
+          "status": "passed",
+          "started_at": "2026-06-15T08:31:45.352Z",
+          "ended_at": "2026-06-15T08:31:47.693Z",
+          "wait_for": null,
+          "wait_ms": 1500,
+          "element": "tab-today",
+          "x": 50,
+          "y": 834,
+          "coordinate_replay": false
+        }
+      ],
+      "message": "Routine 'Launch and reach Today home' v7 \u2014 all 2 steps completed.\n\u2713 step 1/2 (wait): waited 3000ms\n\u2713 step 2/2 (tap_element): tapped 'tab-today' at (50, 834)"
+    }
+  ]
+}

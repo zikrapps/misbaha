@@ -1,0 +1,19 @@
+{
+  "routine_id": "dismiss_badge_if_present",
+  "name": "Dismiss badge unlock modal",
+  "description": "Tap badge-continue on a badge unlock modal. Only call when modal is visible; badge modals are disabled in E2E builds.",
+  "trigger_hints": "dismiss badge, close badge modal, badge earned continue",
+  "params": "",
+  "reason": "Uses stable testID instead of Continue label",
+  "steps": [
+    {
+      "action": "tap_element",
+      "element": "badge-continue",
+      "wait_for": {
+        "condition": "not_visible",
+        "timeout_ms": 3000
+      },
+      "wait_ms": 500
+    }
+  ]
+}

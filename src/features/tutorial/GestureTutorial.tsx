@@ -91,6 +91,7 @@ export function GestureTutorial() {
                 hitSlop={8}
                 onPress={closeTutorial}
                 style={({ pressed }) => [styles.skipButton, pressed && styles.pressed]}
+                testID="tutorial-skip"
               >
                 <Text style={[styles.skipText, proseInlineLayout, { color: colors.muted, fontFamily: labelFont }]}>
                   {t.tutorial.skip}
@@ -105,6 +106,7 @@ export function GestureTutorial() {
                   { backgroundColor: colors.oliveDeep },
                   pressed && styles.pressed,
                 ]}
+                testID="tutorial-next"
               >
                 <Text style={[styles.nextText, proseInlineLayout, { color: colors.card, fontFamily: labelFont }]}>
                   {isLast ? t.tutorial.finish : t.tutorial.next}

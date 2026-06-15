@@ -1,0 +1,38 @@
+{
+  "routine_id": "search_dua",
+  "name": "Search and open dua",
+  "description": "On Tasbeeh: search for subhan (default) and open the first matching result. Uses set_field_value instead of {{query}} params. Requires EXPO_PUBLIC_E2E=1.",
+  "trigger_hints": "search dua, find dua, search tasbeeh, lookup dhikr, search subhan",
+  "params": "",
+  "reason": "Avoids DevLoop {{query}} param substitution bug; fixed query for baseline runs",
+  "steps": [
+    {
+      "action": "tap_element",
+      "element": "tab-tasbeeh",
+      "wait_ms": 1500
+    },
+    {
+      "action": "tap_element",
+      "element": "dua-search-input",
+      "wait_ms": 500
+    },
+    {
+      "action": "set_field_value",
+      "value": "subhan",
+      "wait_ms": 500
+    },
+    {
+      "action": "wait",
+      "duration_ms": 1500
+    },
+    {
+      "action": "tap_element",
+      "element": "Subhan Allah|Glory be to Allah",
+      "wait_for": {
+        "condition": "screen_changed",
+        "timeout_ms": 4000
+      },
+      "wait_ms": 1000
+    }
+  ]
+}

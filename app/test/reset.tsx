@@ -14,7 +14,11 @@ export default function TestResetRoute() {
     if (isE2eEnabled()) {
       applyE2eReset();
     }
-    router.replace('/');
+    // Defer one frame so the root navigator is fully mounted before we
+    // navigate — a cold launch straight into this deep link can otherwise
+    // fire router.replace before the Root Layout commits.
+    const id = requestAnimationFrame(() => router.replace('/'));
+    return () => cancelAnimationFrame(id);
   }, [navigationState?.key]);
 
   return null;

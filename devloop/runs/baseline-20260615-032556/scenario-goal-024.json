@@ -1,0 +1,40 @@
+{
+  "run_id": "scenario-goal-024",
+  "batch_id": "baseline-20260615-032556",
+  "scenario_id": "scenario-goal",
+  "scenario_name": "Start surprise goal",
+  "flow_id": "flow-d-surprise-goal",
+  "iteration": 24,
+  "phase": "baseline",
+  "status": "passed",
+  "started_at": "2026-06-15T09:05:55Z",
+  "ended_at": "2026-06-15T09:05:55Z",
+  "device_udid": null,
+  "git_commit": "fcbd0042ffffbc244d2746d00101bf5278694fc6",
+  "app_bundle_id": "com.zikrapps.misbaha",
+  "routines": [
+    {
+      "routine_id": "launch_and_dismiss_tutorial_new",
+      "status": "passed",
+      "routine_version": 7,
+      "failed_step": null,
+      "failure_type": null,
+      "failure_detail": null,
+      "duration_ms": null,
+      "optional": false
+    },
+    {
+      "routine_id": "start_surprise_goal",
+      "status": "passed",
+      "routine_version": 4,
+      "failed_step": null,
+      "failure_type": null,
+      "failure_detail": null,
+      "duration_ms": null,
+      "optional": false
+    }
+  ],
+  "post_actions": [],
+  "recording_path": null,
+  "notes": ""
+}

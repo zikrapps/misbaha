@@ -1,0 +1,23 @@
+{
+  "routine_id": "recover_to_today",
+  "name": "Recover to Today home",
+  "description": "Reset app via E2E deep link and return to Today tab. Use after drift or failed scenario.",
+  "trigger_hints": "recover, reset state, return home, back to today, fix state drift",
+  "params": "",
+  "reason": "Imported from devloop/configs/routines for QualGent challenge",
+  "steps": [
+    {
+      "action": "open_url",
+      "url": "misbaha://test/reset",
+      "wait_ms": 3000
+    },
+    {
+      "action": "wait",
+      "duration_ms": 2000
+    },
+    {
+      "action": "wait",
+      "duration_ms": 1000
+    }
+  ]
+}

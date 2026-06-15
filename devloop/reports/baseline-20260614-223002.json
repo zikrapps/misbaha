@@ -1,0 +1,50 @@
+{
+  "batchId": "baseline-20260614-223002",
+  "phase": "baseline",
+  "generatedAt": "2026-06-15T04:01:43Z",
+  "gitCommit": "fcbd0042ffffbc244d2746d00101bf5278694fc6",
+  "deviceUdid": null,
+  "totals": {
+    "planned": 50,
+    "completed": 50,
+    "pending": 0,
+    "passed": 10,
+    "failed": 40,
+    "passRate": 0.2
+  },
+  "byScenario": {
+    "scenario-count": {
+      "failed": 10
+    },
+    "scenario-goal": {
+      "failed": 10
+    },
+    "scenario-home": {
+      "passed": 10
+    },
+    "scenario-lifecycle": {
+      "failed": 10
+    },
+    "scenario-search": {
+      "failed": 10
+    }
+  },
+  "byRoutine": {
+    "expand_dua_and_count": {
+      "failed": 20
+    },
+    "launch_and_dismiss_tutorial_new": {
+      "passed": 48
+    },
+    "search_dua": {
+      "failed": 10
+    },
+    "start_surprise_goal": {
+      "failed": 10
+    }
+  },
+  "failureTypes": {
+    "postcondition_timeout": 20,
+    "element_not_found": 20
+  }
+}

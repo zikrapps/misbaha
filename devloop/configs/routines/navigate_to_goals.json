@@ -1,0 +1,15 @@
+{
+  "routine_id": "navigate_to_goals",
+  "name": "Navigate to Goals tab",
+  "description": "Open Goals via E2E deep link (misbaha://test/go/goals). Requires EXPO_PUBLIC_E2E=1.",
+  "trigger_hints": "open goals, go to goals tab, switch to goals",
+  "params": "",
+  "reason": "Avoids DevLoop {{tab}} param substitution bug and tab label ambiguity",
+  "steps": [
+    {
+      "action": "open_url",
+      "url": "misbaha://test/go/goals",
+      "wait_ms": 1500
+    }
+  ]
+}

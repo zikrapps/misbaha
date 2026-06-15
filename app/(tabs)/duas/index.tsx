@@ -596,7 +596,7 @@ export default function DuasScreen() {
           <Text style={styles.title}>{t.duas.title}</Text>
           <Text style={styles.subtitle}>{t.duas.subtitle}</Text>
         </View>
-        <IconButton name="gear" onPress={() => router.push('/settings')} />
+        <IconButton name="gear" testID="settings-button" onPress={() => router.push('/settings')} />
       </View>
 
       <View pointerEvents={passThrough} style={styles.totalRow}>

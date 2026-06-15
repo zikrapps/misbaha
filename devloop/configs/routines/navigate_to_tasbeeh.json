@@ -1,0 +1,15 @@
+{
+  "routine_id": "navigate_to_tasbeeh",
+  "name": "Navigate to Tasbeeh tab",
+  "description": "Open Tasbeeh via E2E deep link (misbaha://test/go/tasbeeh). Requires EXPO_PUBLIC_E2E=1.",
+  "trigger_hints": "open tasbeeh, go to tasbeeh tab, switch to tasbeeh",
+  "params": "",
+  "reason": "Avoids DevLoop {{tab}} param substitution bug and tab label ambiguity",
+  "steps": [
+    {
+      "action": "open_url",
+      "url": "misbaha://test/go/tasbeeh",
+      "wait_ms": 1500
+    }
+  ]
+}
