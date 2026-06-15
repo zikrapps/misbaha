@@ -1,0 +1,30 @@
+{
+  "run_id": "scenario-home-005",
+  "batch_id": "baseline-20260615-032556",
+  "scenario_id": "scenario-home",
+  "scenario_name": "Launch and stable home",
+  "flow_id": "flow-a-launch-home",
+  "iteration": 5,
+  "phase": "baseline",
+  "status": "failed",
+  "started_at": "2026-06-15T08:28:46Z",
+  "ended_at": "2026-06-15T08:28:46Z",
+  "device_udid": null,
+  "git_commit": "fcbd0042ffffbc244d2746d00101bf5278694fc6",
+  "app_bundle_id": "com.zikrapps.misbaha",
+  "routines": [
+    {
+      "routine_id": "launch_and_dismiss_tutorial_new",
+      "status": "failed",
+      "routine_version": 7,
+      "failed_step": 2,
+      "failure_type": "element_not_found",
+      "failure_detail": "None of ['tab-today'] found on screen at step 2/2 (tap_element). Visible: 'Misbaha'. The routine steps may be out of date \u2014 call update_routine to correct them.",
+      "duration_ms": null,
+      "optional": false
+    }
+  ],
+  "post_actions": [],
+  "recording_path": null,
+  "notes": ""
+}

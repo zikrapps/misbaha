@@ -158,6 +158,7 @@ export function DuaSearchBar({ onSelect, addHint }: DuaSearchBarProps) {
           placeholder={t.duaSearch.placeholder}
           placeholderTextColor={colors.muted}
           style={styles.input}
+          testID="dua-search-input"
           value={query}
           onChangeText={setQuery}
         />

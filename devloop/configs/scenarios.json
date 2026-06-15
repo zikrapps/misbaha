@@ -24,7 +24,7 @@
       "id": "scenario-home",
       "name": "Launch and stable home",
       "flowId": "flow-a-launch-home",
-      "routines": ["launch_and_dismiss_tutorial"],
+      "routines": ["launch_and_dismiss_tutorial_new"],
       "tags": ["smoke", "baseline", "hardened"]
     },
     {
@@ -32,15 +32,11 @@
       "name": "Tasbeeh count",
       "flowId": "flow-b-tasbeeh-count",
       "routines": [
-        "launch_and_dismiss_tutorial",
-        "navigate_to_tab",
+        "launch_and_dismiss_tutorial_new",
         "expand_dua_and_count",
         "dismiss_badge_if_present"
       ],
-      "parameters": {
-        "navigate_to_tab": { "tab": "tasbeeh" },
-        "expand_dua_and_count": { "category": "daily", "duaIndex": 0, "tapCount": 3 }
-      },
+      "optionalRoutines": ["dismiss_badge_if_present"],
       "tags": ["baseline", "hardened"]
     },
     {
@@ -48,14 +44,9 @@
       "name": "Dua search",
       "flowId": "flow-c-dua-search",
       "routines": [
-        "launch_and_dismiss_tutorial",
-        "navigate_to_tab",
+        "launch_and_dismiss_tutorial_new",
         "search_dua"
       ],
-      "parameters": {
-        "navigate_to_tab": { "tab": "tasbeeh" },
-        "search_dua": { "query": "subhan" }
-      },
       "tags": ["baseline", "hardened"]
     },
     {
@@ -63,7 +54,7 @@
       "name": "Start surprise goal",
       "flowId": "flow-d-surprise-goal",
       "routines": [
-        "launch_and_dismiss_tutorial",
+        "launch_and_dismiss_tutorial_new",
         "start_surprise_goal"
       ],
       "tags": ["baseline", "hardened"]
@@ -73,15 +64,11 @@
       "name": "Background and resume count",
       "flowId": "flow-e-background-resume",
       "routines": [
-        "launch_and_dismiss_tutorial",
-        "navigate_to_tab",
+        "launch_and_dismiss_tutorial_new",
         "expand_dua_and_count",
         "dismiss_badge_if_present"
       ],
-      "parameters": {
-        "navigate_to_tab": { "tab": "tasbeeh" },
-        "expand_dua_and_count": { "category": "daily", "duaIndex": 0, "tapCount": 3 }
-      },
+      "optionalRoutines": ["dismiss_badge_if_present"],
       "postRoutineActions": [
         { "type": "background", "waitSeconds": 2 },
         { "type": "foreground" },

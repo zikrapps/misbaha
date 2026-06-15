@@ -1,0 +1,41 @@
+{
+  "run_id": "scenario-lifecycle-003",
+  "batch_id": "baseline-20260615-032556",
+  "scenario_id": "scenario-lifecycle",
+  "scenario_name": "Background and resume count",
+  "flow_id": "flow-e-background-resume",
+  "iteration": 3,
+  "phase": "baseline",
+  "status": "failed",
+  "started_at": "2026-06-15T09:04:58Z",
+  "ended_at": "2026-06-15T09:04:58Z",
+  "device_udid": null,
+  "git_commit": "fcbd0042ffffbc244d2746d00101bf5278694fc6",
+  "app_bundle_id": "com.zikrapps.misbaha",
+  "routines": [
+    {
+      "routine_id": "launch_and_dismiss_tutorial_new",
+      "status": "failed",
+      "routine_version": 7,
+      "failed_step": 2,
+      "failure_type": "element_not_found",
+      "failure_detail": "None of ['tab-today'] found on screen at step 2/2 (tap_element). Visible: 'Misbaha'. The routine steps may be out of date \u2014 call update_routine to correct them.",
+      "duration_ms": null,
+      "optional": false
+    }
+  ],
+  "post_actions": [
+    {
+      "type": "background",
+      "waitSeconds": 2
+    },
+    {
+      "type": "foreground"
+    },
+    {
+      "type": "assertCounterUnchanged"
+    }
+  ],
+  "recording_path": null,
+  "notes": ""
+}

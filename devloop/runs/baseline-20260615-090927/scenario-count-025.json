@@ -1,0 +1,50 @@
+{
+  "run_id": "scenario-count-025",
+  "batch_id": "baseline-20260615-090927",
+  "scenario_id": "scenario-count",
+  "scenario_name": "Tasbeeh count",
+  "flow_id": "flow-b-tasbeeh-count",
+  "iteration": 25,
+  "phase": "baseline",
+  "status": "passed",
+  "started_at": "2026-06-15T15:10:22Z",
+  "ended_at": "2026-06-15T15:10:22Z",
+  "device_udid": null,
+  "git_commit": "fcbd0042ffffbc244d2746d00101bf5278694fc6",
+  "app_bundle_id": "com.zikrapps.misbaha",
+  "routines": [
+    {
+      "routine_id": "launch_and_dismiss_tutorial_new",
+      "status": "passed",
+      "routine_version": 7,
+      "failed_step": null,
+      "failure_type": null,
+      "failure_detail": null,
+      "duration_ms": null,
+      "optional": false
+    },
+    {
+      "routine_id": "expand_dua_and_count",
+      "status": "passed",
+      "routine_version": 8,
+      "failed_step": null,
+      "failure_type": null,
+      "failure_detail": null,
+      "duration_ms": null,
+      "optional": false
+    },
+    {
+      "routine_id": "dismiss_badge_if_present",
+      "status": "skipped",
+      "routine_version": 2,
+      "failed_step": 1,
+      "failure_type": "element_not_found",
+      "failure_detail": "None of ['badge-continue'] found on screen at step 1/1 (tap_element). Visible: 'Misbaha', 'Tasbeeh', 'tap, hold, repeat', 'TOTAL TAPS', '10', 'Search by transliteration or Arabic', 'Quranic Duas', 'Collapse dua', 'A Secure Land', '/10', '\u0631\u064e\u0628\u0651\u0650 \u0671\u062c\u0652\u0639\u064e\u0644\u0652 \u0647\u064e\u0640\u0670\u0630\u064e\u0627 \u0628\u064e\u0644\u064e\u062f\u064b\u0627 \u0621\u064e\u0627\u0645\u0650\u0646\u064b\u0627 \u0648\u064e\u0671\u0631\u0652\u0632\u064f\u0642\u0652 \u0623\u064e\u0647\u0652\u0644\u064e\u0647\u064f\u06e5 \u0645\u0650\u0646\u064e \u0671\u0644\u062b\u0651\u064e\u0645\u064e\u0631\u064e\u0670\u062a\u0650 \u0645\u064e\u0646\u0652 \u0621\u064e\u0627\u0645\u064e\u0646\u064e \u0645\u0650\u0646\u0652\u0647\u064f\u0645 \u0628\u0650\u0671\u0644\u0644\u0651\u064e\u0647\u0650 \u0648\u064e\u0671\u0644\u0652\u064a\u064e\u0648\u0652\u0645\u0650 \u0671\u0644\u0652\u0640\u0654\u064e\u0627\u062e\u0650\u0631\u0650', 'My Lord, make this a secure city and provide its people with fruits - whoever of them believes in Allah and the Last Day.', 'Speaker: Ibrahim', 'Quran 2:126 on Quran.com', 'double-tap to count \u2022 hold 3s to complete \u2022 +1 each', 'Open', 'Reset', 'Expand dua', 'Accept From Us', '0'. The routine steps may be out of date \u2014 call update_routine to correct them.",
+      "duration_ms": null,
+      "optional": true
+    }
+  ],
+  "post_actions": [],
+  "recording_path": null,
+  "notes": ""
+}

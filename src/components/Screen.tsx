@@ -23,7 +23,10 @@ export function Screen({ title, subtitle, action, showSettingsAction, children }
   const { typo, language } = theme;
   const insets = useSafeAreaInsets();
   const headerAction =
-    action ?? (showSettingsAction ? <IconButton name="gear" onPress={() => router.push('/settings')} /> : undefined);
+    action ??
+    (showSettingsAction ? (
+      <IconButton name="gear" testID="settings-button" onPress={() => router.push('/settings')} />
+    ) : undefined);
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={[styles.safe, { backgroundColor: colors.cream }]}>

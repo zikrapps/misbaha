@@ -65,5 +65,19 @@ Thumbs.db
 # DevLoop run outputs (keep specs/docs, ignore generated artifacts)
 devloop/runs/*
 !devloop/runs/.gitkeep
+# ...but keep the two benchmark batches as raw-run EVIDENCE for the report
+!devloop/runs/baseline-20260615-032556/
+!devloop/runs/baseline-20260615-032556/**
+!devloop/runs/baseline-20260615-032556.json
+!devloop/runs/baseline-20260615-090927/
+!devloop/runs/baseline-20260615-090927/**
+!devloop/runs/baseline-20260615-090927.json
 devloop/artifacts/*
 !devloop/artifacts/.gitkeep
+# Keep the captured MCP traces for the same two batches as failure evidence
+!devloop/artifacts/traces/
+devloop/artifacts/traces/*
+!devloop/artifacts/traces/baseline-20260615-032556/
+!devloop/artifacts/traces/baseline-20260615-032556/**
+!devloop/artifacts/traces/baseline-20260615-090927/
+!devloop/artifacts/traces/baseline-20260615-090927/**

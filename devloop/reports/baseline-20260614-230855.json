@@ -1,0 +1,18 @@
+{
+  "batchId": "baseline-20260614-230855",
+  "phase": "baseline",
+  "generatedAt": "2026-06-15T04:16:41Z",
+  "gitCommit": "fcbd0042ffffbc244d2746d00101bf5278694fc6",
+  "deviceUdid": null,
+  "totals": {
+    "planned": 150,
+    "completed": 0,
+    "pending": 150,
+    "passed": 0,
+    "failed": 0,
+    "passRate": 0.0
+  },
+  "byScenario": {},
+  "byRoutine": {},
+  "failureTypes": {}
+}

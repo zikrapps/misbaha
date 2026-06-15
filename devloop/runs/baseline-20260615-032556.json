@@ -1,0 +1,2743 @@
+{
+  "batchId": "baseline-20260615-032556",
+  "phase": "baseline",
+  "tag": "baseline",
+  "iterations": 30,
+  "deviceUdid": null,
+  "appBundleId": "com.zikrapps.misbaha",
+  "gitCommit": "fcbd0042ffffbc244d2746d00101bf5278694fc6",
+  "createdAt": "2026-06-15T08:25:56Z",
+  "configPath": "devloop/configs/scenarios.json",
+  "runs": [
+    {
+      "runId": "scenario-home-001",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 1,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-001.json"
+    },
+    {
+      "runId": "scenario-home-002",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 2,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-002.json"
+    },
+    {
+      "runId": "scenario-home-003",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 3,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-003.json"
+    },
+    {
+      "runId": "scenario-home-004",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 4,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-004.json"
+    },
+    {
+      "runId": "scenario-home-005",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 5,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-005.json"
+    },
+    {
+      "runId": "scenario-home-006",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 6,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-006.json"
+    },
+    {
+      "runId": "scenario-home-007",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 7,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-007.json"
+    },
+    {
+      "runId": "scenario-home-008",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 8,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-008.json"
+    },
+    {
+      "runId": "scenario-home-009",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 9,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-009.json"
+    },
+    {
+      "runId": "scenario-home-010",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 10,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-010.json"
+    },
+    {
+      "runId": "scenario-home-011",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 11,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-011.json"
+    },
+    {
+      "runId": "scenario-home-012",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 12,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-012.json"
+    },
+    {
+      "runId": "scenario-home-013",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 13,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-013.json"
+    },
+    {
+      "runId": "scenario-home-014",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 14,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-014.json"
+    },
+    {
+      "runId": "scenario-home-015",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 15,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-015.json"
+    },
+    {
+      "runId": "scenario-home-016",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 16,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-016.json"
+    },
+    {
+      "runId": "scenario-home-017",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 17,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-017.json"
+    },
+    {
+      "runId": "scenario-home-018",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 18,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-018.json"
+    },
+    {
+      "runId": "scenario-home-019",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 19,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-019.json"
+    },
+    {
+      "runId": "scenario-home-020",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 20,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-020.json"
+    },
+    {
+      "runId": "scenario-home-021",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 21,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-021.json"
+    },
+    {
+      "runId": "scenario-home-022",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 22,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-022.json"
+    },
+    {
+      "runId": "scenario-home-023",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 23,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-023.json"
+    },
+    {
+      "runId": "scenario-home-024",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 24,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-024.json"
+    },
+    {
+      "runId": "scenario-home-025",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 25,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-025.json"
+    },
+    {
+      "runId": "scenario-home-026",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 26,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-026.json"
+    },
+    {
+      "runId": "scenario-home-027",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 27,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-027.json"
+    },
+    {
+      "runId": "scenario-home-028",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 28,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-028.json"
+    },
+    {
+      "runId": "scenario-home-029",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 29,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-029.json"
+    },
+    {
+      "runId": "scenario-home-030",
+      "scenarioId": "scenario-home",
+      "scenarioName": "Launch and stable home",
+      "flowId": "flow-a-launch-home",
+      "iteration": 30,
+      "routines": [
+        "launch_and_dismiss_tutorial_new"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-home-030.json"
+    },
+    {
+      "runId": "scenario-count-001",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 1,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-001.json"
+    },
+    {
+      "runId": "scenario-count-002",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 2,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-002.json"
+    },
+    {
+      "runId": "scenario-count-003",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 3,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-003.json"
+    },
+    {
+      "runId": "scenario-count-004",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 4,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-004.json"
+    },
+    {
+      "runId": "scenario-count-005",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 5,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-005.json"
+    },
+    {
+      "runId": "scenario-count-006",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 6,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-006.json"
+    },
+    {
+      "runId": "scenario-count-007",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 7,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-007.json"
+    },
+    {
+      "runId": "scenario-count-008",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 8,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-008.json"
+    },
+    {
+      "runId": "scenario-count-009",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 9,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-009.json"
+    },
+    {
+      "runId": "scenario-count-010",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 10,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-010.json"
+    },
+    {
+      "runId": "scenario-count-011",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 11,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-011.json"
+    },
+    {
+      "runId": "scenario-count-012",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 12,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-012.json"
+    },
+    {
+      "runId": "scenario-count-013",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 13,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-013.json"
+    },
+    {
+      "runId": "scenario-count-014",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 14,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-014.json"
+    },
+    {
+      "runId": "scenario-count-015",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 15,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-015.json"
+    },
+    {
+      "runId": "scenario-count-016",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 16,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-016.json"
+    },
+    {
+      "runId": "scenario-count-017",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 17,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-017.json"
+    },
+    {
+      "runId": "scenario-count-018",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 18,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-018.json"
+    },
+    {
+      "runId": "scenario-count-019",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 19,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-019.json"
+    },
+    {
+      "runId": "scenario-count-020",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 20,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-020.json"
+    },
+    {
+      "runId": "scenario-count-021",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 21,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-021.json"
+    },
+    {
+      "runId": "scenario-count-022",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 22,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-022.json"
+    },
+    {
+      "runId": "scenario-count-023",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 23,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-023.json"
+    },
+    {
+      "runId": "scenario-count-024",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 24,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-024.json"
+    },
+    {
+      "runId": "scenario-count-025",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 25,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-025.json"
+    },
+    {
+      "runId": "scenario-count-026",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 26,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-026.json"
+    },
+    {
+      "runId": "scenario-count-027",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 27,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-027.json"
+    },
+    {
+      "runId": "scenario-count-028",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 28,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-028.json"
+    },
+    {
+      "runId": "scenario-count-029",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 29,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "pending",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-029.json"
+    },
+    {
+      "runId": "scenario-count-030",
+      "scenarioId": "scenario-count",
+      "scenarioName": "Tasbeeh count",
+      "flowId": "flow-b-tasbeeh-count",
+      "iteration": 30,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-count-030.json"
+    },
+    {
+      "runId": "scenario-search-001",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 1,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-001.json"
+    },
+    {
+      "runId": "scenario-search-002",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 2,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-002.json"
+    },
+    {
+      "runId": "scenario-search-003",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 3,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-003.json"
+    },
+    {
+      "runId": "scenario-search-004",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 4,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-004.json"
+    },
+    {
+      "runId": "scenario-search-005",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 5,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-005.json"
+    },
+    {
+      "runId": "scenario-search-006",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 6,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-006.json"
+    },
+    {
+      "runId": "scenario-search-007",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 7,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-007.json"
+    },
+    {
+      "runId": "scenario-search-008",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 8,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-008.json"
+    },
+    {
+      "runId": "scenario-search-009",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 9,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-009.json"
+    },
+    {
+      "runId": "scenario-search-010",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 10,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-010.json"
+    },
+    {
+      "runId": "scenario-search-011",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 11,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-011.json"
+    },
+    {
+      "runId": "scenario-search-012",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 12,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-012.json"
+    },
+    {
+      "runId": "scenario-search-013",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 13,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-013.json"
+    },
+    {
+      "runId": "scenario-search-014",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 14,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-014.json"
+    },
+    {
+      "runId": "scenario-search-015",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 15,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-015.json"
+    },
+    {
+      "runId": "scenario-search-016",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 16,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-016.json"
+    },
+    {
+      "runId": "scenario-search-017",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 17,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-017.json"
+    },
+    {
+      "runId": "scenario-search-018",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 18,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-018.json"
+    },
+    {
+      "runId": "scenario-search-019",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 19,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-019.json"
+    },
+    {
+      "runId": "scenario-search-020",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 20,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-020.json"
+    },
+    {
+      "runId": "scenario-search-021",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 21,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-021.json"
+    },
+    {
+      "runId": "scenario-search-022",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 22,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-022.json"
+    },
+    {
+      "runId": "scenario-search-023",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 23,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-023.json"
+    },
+    {
+      "runId": "scenario-search-024",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 24,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-024.json"
+    },
+    {
+      "runId": "scenario-search-025",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 25,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-025.json"
+    },
+    {
+      "runId": "scenario-search-026",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 26,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-026.json"
+    },
+    {
+      "runId": "scenario-search-027",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 27,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-027.json"
+    },
+    {
+      "runId": "scenario-search-028",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 28,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-028.json"
+    },
+    {
+      "runId": "scenario-search-029",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 29,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-029.json"
+    },
+    {
+      "runId": "scenario-search-030",
+      "scenarioId": "scenario-search",
+      "scenarioName": "Dua search",
+      "flowId": "flow-c-dua-search",
+      "iteration": 30,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "search_dua"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-search-030.json"
+    },
+    {
+      "runId": "scenario-goal-001",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 1,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-001.json"
+    },
+    {
+      "runId": "scenario-goal-002",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 2,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-002.json"
+    },
+    {
+      "runId": "scenario-goal-003",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 3,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-003.json"
+    },
+    {
+      "runId": "scenario-goal-004",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 4,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-004.json"
+    },
+    {
+      "runId": "scenario-goal-005",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 5,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-005.json"
+    },
+    {
+      "runId": "scenario-goal-006",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 6,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-006.json"
+    },
+    {
+      "runId": "scenario-goal-007",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 7,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-007.json"
+    },
+    {
+      "runId": "scenario-goal-008",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 8,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-008.json"
+    },
+    {
+      "runId": "scenario-goal-009",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 9,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-009.json"
+    },
+    {
+      "runId": "scenario-goal-010",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 10,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-010.json"
+    },
+    {
+      "runId": "scenario-goal-011",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 11,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-011.json"
+    },
+    {
+      "runId": "scenario-goal-012",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 12,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-012.json"
+    },
+    {
+      "runId": "scenario-goal-013",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 13,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-013.json"
+    },
+    {
+      "runId": "scenario-goal-014",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 14,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-014.json"
+    },
+    {
+      "runId": "scenario-goal-015",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 15,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-015.json"
+    },
+    {
+      "runId": "scenario-goal-016",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 16,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-016.json"
+    },
+    {
+      "runId": "scenario-goal-017",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 17,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-017.json"
+    },
+    {
+      "runId": "scenario-goal-018",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 18,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-018.json"
+    },
+    {
+      "runId": "scenario-goal-019",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 19,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-019.json"
+    },
+    {
+      "runId": "scenario-goal-020",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 20,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-020.json"
+    },
+    {
+      "runId": "scenario-goal-021",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 21,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-021.json"
+    },
+    {
+      "runId": "scenario-goal-022",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 22,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-022.json"
+    },
+    {
+      "runId": "scenario-goal-023",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 23,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-023.json"
+    },
+    {
+      "runId": "scenario-goal-024",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 24,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-024.json"
+    },
+    {
+      "runId": "scenario-goal-025",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 25,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-025.json"
+    },
+    {
+      "runId": "scenario-goal-026",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 26,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-026.json"
+    },
+    {
+      "runId": "scenario-goal-027",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 27,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-027.json"
+    },
+    {
+      "runId": "scenario-goal-028",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 28,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-028.json"
+    },
+    {
+      "runId": "scenario-goal-029",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 29,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-029.json"
+    },
+    {
+      "runId": "scenario-goal-030",
+      "scenarioId": "scenario-goal",
+      "scenarioName": "Start surprise goal",
+      "flowId": "flow-d-surprise-goal",
+      "iteration": 30,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "start_surprise_goal"
+      ],
+      "optionalRoutines": [],
+      "postRoutineActions": [],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-goal-030.json"
+    },
+    {
+      "runId": "scenario-lifecycle-001",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 1,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-001.json"
+    },
+    {
+      "runId": "scenario-lifecycle-002",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 2,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-002.json"
+    },
+    {
+      "runId": "scenario-lifecycle-003",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 3,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "failed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-003.json"
+    },
+    {
+      "runId": "scenario-lifecycle-004",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 4,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-004.json"
+    },
+    {
+      "runId": "scenario-lifecycle-005",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 5,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-005.json"
+    },
+    {
+      "runId": "scenario-lifecycle-006",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 6,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-006.json"
+    },
+    {
+      "runId": "scenario-lifecycle-007",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 7,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-007.json"
+    },
+    {
+      "runId": "scenario-lifecycle-008",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 8,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-008.json"
+    },
+    {
+      "runId": "scenario-lifecycle-009",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 9,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-009.json"
+    },
+    {
+      "runId": "scenario-lifecycle-010",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 10,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-010.json"
+    },
+    {
+      "runId": "scenario-lifecycle-011",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 11,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-011.json"
+    },
+    {
+      "runId": "scenario-lifecycle-012",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 12,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-012.json"
+    },
+    {
+      "runId": "scenario-lifecycle-013",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 13,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-013.json"
+    },
+    {
+      "runId": "scenario-lifecycle-014",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 14,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-014.json"
+    },
+    {
+      "runId": "scenario-lifecycle-015",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 15,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-015.json"
+    },
+    {
+      "runId": "scenario-lifecycle-016",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 16,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-016.json"
+    },
+    {
+      "runId": "scenario-lifecycle-017",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 17,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-017.json"
+    },
+    {
+      "runId": "scenario-lifecycle-018",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 18,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-018.json"
+    },
+    {
+      "runId": "scenario-lifecycle-019",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 19,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-019.json"
+    },
+    {
+      "runId": "scenario-lifecycle-020",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 20,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-020.json"
+    },
+    {
+      "runId": "scenario-lifecycle-021",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 21,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-021.json"
+    },
+    {
+      "runId": "scenario-lifecycle-022",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 22,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-022.json"
+    },
+    {
+      "runId": "scenario-lifecycle-023",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 23,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-023.json"
+    },
+    {
+      "runId": "scenario-lifecycle-024",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 24,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-024.json"
+    },
+    {
+      "runId": "scenario-lifecycle-025",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 25,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-025.json"
+    },
+    {
+      "runId": "scenario-lifecycle-026",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 26,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-026.json"
+    },
+    {
+      "runId": "scenario-lifecycle-027",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 27,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-027.json"
+    },
+    {
+      "runId": "scenario-lifecycle-028",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 28,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-028.json"
+    },
+    {
+      "runId": "scenario-lifecycle-029",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 29,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-029.json"
+    },
+    {
+      "runId": "scenario-lifecycle-030",
+      "scenarioId": "scenario-lifecycle",
+      "scenarioName": "Background and resume count",
+      "flowId": "flow-e-background-resume",
+      "iteration": 30,
+      "routines": [
+        "launch_and_dismiss_tutorial_new",
+        "expand_dua_and_count",
+        "dismiss_badge_if_present"
+      ],
+      "optionalRoutines": [
+        "dismiss_badge_if_present"
+      ],
+      "postRoutineActions": [
+        {
+          "type": "background",
+          "waitSeconds": 2
+        },
+        {
+          "type": "foreground"
+        },
+        {
+          "type": "assertCounterUnchanged"
+        }
+      ],
+      "status": "passed",
+      "resultPath": "devloop/runs/baseline-20260615-032556/scenario-lifecycle-030.json"
+    }
+  ]
+}

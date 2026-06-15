@@ -1,0 +1,24 @@
+{
+  "routine_id": "apply_test_seed",
+  "name": "Apply deterministic test seed",
+  "description": "Load the E2E test seed: 2+ badges, one completed goal, one in-progress goal. Requires EXPO_PUBLIC_E2E=1.",
+  "trigger_hints": "seed test data, load seed state, apply test seed, preset badges and goals",
+  "params": "",
+  "reason": "Imported from devloop/configs/routines for QualGent challenge",
+  "steps": [
+    {
+      "action": "open_url",
+      "url": "misbaha://test/seed",
+      "wait_ms": 3000
+    },
+    {
+      "action": "wait",
+      "duration_ms": 2000
+    },
+    {
+      "action": "tap_element",
+      "element": "Today",
+      "wait_ms": 1000
+    }
+  ]
+}

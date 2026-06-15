@@ -1,6 +1,7 @@
 import { Tabs, router } from 'expo-router';
 
 import { Icon, IconName } from '@/src/components/Icon';
+import { TabBarButton } from '@/src/components/TabBarButton';
 import { useT } from '@/src/i18n/strings';
 import { TAB_BAR_HEIGHT_EN, TAB_BAR_HEIGHT_UR } from '@/src/theme/tabBar';
 import { useTheme } from '@/src/theme/theme';
@@ -43,18 +44,43 @@ export default function TabsLayout() {
         tabBarIconStyle: isUrdu ? { marginBottom: 2 } : undefined,
       }}
     >
-      <Tabs.Screen name="index" options={{ title: t.tabs.today, tabBarIcon: tabIcon('sprout') }} />
-      <Tabs.Screen name="duas" options={{ title: t.tabs.tasbeeh, tabBarIcon: tabIcon('beads') }} />
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: t.tabs.today,
+          tabBarIcon: tabIcon('sprout'),
+          tabBarButton: (props) => <TabBarButton {...props} testID="tab-today" />,
+        }}
+      />
+      <Tabs.Screen
+        name="duas"
+        options={{
+          title: t.tabs.tasbeeh,
+          tabBarIcon: tabIcon('beads'),
+          tabBarButton: (props) => <TabBarButton {...props} testID="tab-tasbeeh" />,
+        }}
+      />
       <Tabs.Screen
         name="goals"
-        options={{ title: t.tabs.goals, tabBarIcon: tabIcon('goal') }}
+        options={{
+          title: t.tabs.goals,
+          tabBarIcon: tabIcon('goal'),
+          tabBarButton: (props) => <TabBarButton {...props} testID="tab-goals" />,
+        }}
         listeners={{
           tabPress: () => {
             router.replace('/goals');
           },
         }}
       />
-      <Tabs.Screen name="insights" options={{ title: t.tabs.visualize, tabBarIcon: tabIcon('visualize') }} />
+      <Tabs.Screen
+        name="insights"
+        options={{
+          title: t.tabs.visualize,
+          tabBarIcon: tabIcon('visualize'),
+          tabBarButton: (props) => <TabBarButton {...props} testID="tab-visualize" />,
+        }}
+      />
       <Tabs.Screen name="settings" options={{ href: null }} />
     </Tabs>
   );

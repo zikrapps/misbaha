@@ -1,0 +1,138 @@
+{
+  "routines": [
+    {
+      "trace_type": "routine",
+      "status": "passed",
+      "routine_id": "launch_and_dismiss_tutorial_new",
+      "routine": "Launch and reach Today home",
+      "routine_name": "Launch and reach Today home",
+      "routine_version": 7,
+      "app_bundle_id": "com.zikrapps.misbaha",
+      "completed_steps": [
+        "\u2713 step 1/2 (wait): waited 3000ms",
+        "\u2713 step 2/2 (tap_element): tapped 'tab-today' at (50, 834)"
+      ],
+      "steps_remaining": 0,
+      "steps": [
+        {
+          "index": 1,
+          "total": 2,
+          "action": "wait",
+          "label": "wait",
+          "status": "passed",
+          "started_at": "2026-06-15T15:24:52.377Z",
+          "ended_at": "2026-06-15T15:24:55.379Z",
+          "wait_for": null,
+          "duration_ms": 3000
+        },
+        {
+          "index": 2,
+          "total": 2,
+          "action": "tap_element",
+          "label": "tab-today",
+          "status": "passed",
+          "started_at": "2026-06-15T15:24:56.380Z",
+          "ended_at": "2026-06-15T15:24:58.659Z",
+          "wait_for": null,
+          "wait_ms": 1500,
+          "element": "tab-today",
+          "x": 50,
+          "y": 834,
+          "coordinate_replay": false
+        }
+      ],
+      "message": "Routine 'Launch and reach Today home' v7 \u2014 all 2 steps completed.\n\u2713 step 1/2 (wait): waited 3000ms\n\u2713 step 2/2 (tap_element): tapped 'tab-today' at (50, 834)"
+    },
+    {
+      "trace_type": "routine",
+      "status": "passed",
+      "routine_id": "search_dua",
+      "routine": "Search and open dua",
+      "routine_name": "Search and open dua",
+      "routine_version": 3,
+      "app_bundle_id": "com.zikrapps.misbaha",
+      "completed_steps": [
+        "\u2713 step 1/5 (tap_element): tapped 'tab-tasbeeh' at (150, 834)",
+        "\u2713 step 2/5 (tap_element): tapped 'dua-search-input' at (214, 231)",
+        "\u2713 step 3/5 (set_field_value): set focused field",
+        "\u2713 step 4/5 (wait): waited 1500ms",
+        "\u2713 step 5/5 (tap_element): tapped 'Subhan Allah' at (201, 282)"
+      ],
+      "steps_remaining": 0,
+      "steps": [
+        {
+          "index": 1,
+          "total": 5,
+          "action": "tap_element",
+          "label": "tab-tasbeeh",
+          "status": "passed",
+          "started_at": "2026-06-15T15:25:00.303Z",
+          "ended_at": "2026-06-15T15:25:02.576Z",
+          "wait_for": null,
+          "wait_ms": 1500,
+          "element": "tab-tasbeeh",
+          "x": 150,
+          "y": 834,
+          "coordinate_replay": false
+        },
+        {
+          "index": 2,
+          "total": 5,
+          "action": "tap_element",
+          "label": "dua-search-input",
+          "status": "passed",
+          "started_at": "2026-06-15T15:25:03.577Z",
+          "ended_at": "2026-06-15T15:25:04.798Z",
+          "wait_for": null,
+          "wait_ms": 500,
+          "element": "dua-search-input",
+          "x": 214,
+          "y": 231,
+          "coordinate_replay": false
+        },
+        {
+          "index": 3,
+          "total": 5,
+          "action": "set_field_value",
+          "label": "set_field_value",
+          "status": "passed",
+          "started_at": "2026-06-15T15:25:05.799Z",
+          "ended_at": "2026-06-15T15:25:06.849Z",
+          "wait_for": null,
+          "wait_ms": 500,
+          "value_redacted": true
+        },
+        {
+          "index": 4,
+          "total": 5,
+          "action": "wait",
+          "label": "wait",
+          "status": "passed",
+          "started_at": "2026-06-15T15:25:07.850Z",
+          "ended_at": "2026-06-15T15:25:09.351Z",
+          "wait_for": null,
+          "duration_ms": 1500
+        },
+        {
+          "index": 5,
+          "total": 5,
+          "action": "tap_element",
+          "label": "Subhan Allah",
+          "status": "passed",
+          "started_at": "2026-06-15T15:25:10.352Z",
+          "ended_at": "2026-06-15T15:25:13.329Z",
+          "wait_for": {
+            "condition": "screen_changed",
+            "timeout_ms": 4000
+          },
+          "wait_ms": 1000,
+          "element": "Subhan Allah|Glory be to Allah",
+          "x": 201,
+          "y": 282,
+          "coordinate_replay": false
+        }
+      ],
+      "message": "Routine 'Search and open dua' v3 \u2014 all 5 steps completed.\n\u2713 step 1/5 (tap_element): tapped 'tab-tasbeeh' at (150, 834)\n\u2713 step 2/5 (tap_element): tapped 'dua-search-input' at (214, 231)\n\u2713 step 3/5 (set_field_value): set focused field\n\u2713 step 4/5 (wait): waited 1500ms\n\u2713 step 5/5 (tap_element): tapped 'Subhan Allah' at (201, 282)"
+    }
+  ]
+}

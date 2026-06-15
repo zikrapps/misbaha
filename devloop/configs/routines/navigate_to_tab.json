@@ -1,0 +1,15 @@
+{
+  "routine_id": "navigate_to_tab",
+  "name": "Navigate to tab (deprecated)",
+  "description": "DEPRECATED: DevLoop apply_routine does not substitute {{tab}} params (v0.0.96). Use navigate_to_today | navigate_to_tasbeeh | navigate_to_goals | navigate_to_visualize instead, or misbaha://test/go/{tab} deep links.",
+  "trigger_hints": "go to tab, open tasbeeh, open goals, open visualize, switch tab",
+  "params": "tab",
+  "reason": "Kept for reference only; scenarios use tab-specific routines",
+  "steps": [
+    {
+      "action": "open_url",
+      "url": "misbaha://test/go/tasbeeh",
+      "wait_ms": 1500
+    }
+  ]
+}

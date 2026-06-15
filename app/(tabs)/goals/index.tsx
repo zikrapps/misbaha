@@ -106,7 +106,13 @@ export default function GoalsScreen() {
         <Text style={[styles.empty, { color: colors.muted }]}>{t.goals.empty}</Text>
       )}
 
-      <Pressable style={styles.surpriseGoal} onPress={handleSurpriseGoal}>
+      <Pressable
+        accessibilityLabel={t.goals.surpriseNewGoal}
+        accessibilityRole="button"
+        style={styles.surpriseGoal}
+        testID="surprise-goal-button"
+        onPress={handleSurpriseGoal}
+      >
         <View style={styles.surpriseGoalContent}>
           <Icon name="shuffle" color={colors.card} size={26} strokeWidth={2.2} />
           <View style={styles.surpriseGoalCopy}>

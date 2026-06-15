@@ -1,4 +1,4 @@
-import { Component, PropsWithChildren } from 'react';
+import { Component, type ErrorInfo, PropsWithChildren } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { spacing } from '@/src/theme/palette';
@@ -16,6 +16,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   static getDerivedStateFromError(): ErrorBoundaryState {
     return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error('[ErrorBoundary]', error?.message, error?.stack, info?.componentStack);
   }
 
   private reset = () => {

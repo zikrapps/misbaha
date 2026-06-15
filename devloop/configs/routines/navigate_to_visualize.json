@@ -1,0 +1,15 @@
+{
+  "routine_id": "navigate_to_visualize",
+  "name": "Navigate to Visualize tab",
+  "description": "Open Visualize via E2E deep link (misbaha://test/go/visualize). Requires EXPO_PUBLIC_E2E=1.",
+  "trigger_hints": "open visualize, go to visualize tab, switch to insights",
+  "params": "",
+  "reason": "Avoids DevLoop {{tab}} param substitution bug and tab label ambiguity",
+  "steps": [
+    {
+      "action": "open_url",
+      "url": "misbaha://test/go/visualize",
+      "wait_ms": 1500
+    }
+  ]
+}
