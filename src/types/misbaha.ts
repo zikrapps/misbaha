@@ -1,5 +1,21 @@
 export type PrayerDirection = 'fajr' | 'dhuhr' | 'asr' | 'maghrib' | 'isha';
 
+export type DayTimelineSlotId = 'fajr' | 'dhuhr' | 'asr' | 'maghrib' | 'isha' | 'night';
+
+export type DayTimelineSupplication = {
+  id: string;
+  slot: DayTimelineSlotId;
+  /** Pull Arabic/translation from Tasbeeh library when set. */
+  duaId?: string;
+  /** Key into dayTimelineText snippet map when set. */
+  arabicSnippet: string;
+  transliteration?: string;
+  hadithReference?: string;
+  hadithUrl?: string;
+  quranReference?: string;
+  quranUrl?: string;
+};
+
 export type DuaCategory =
   | 'prayer'
   | 'morning'

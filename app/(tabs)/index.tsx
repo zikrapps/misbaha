@@ -6,6 +6,7 @@ import { Card } from '@/src/components/Card';
 import { ProseText } from '@/src/components/ProseText';
 import { Screen, SectionTitle } from '@/src/components/Screen';
 import { BadgeSummaryCard } from '@/src/features/badges/BadgeSummaryCard';
+import { DayTimelineCard } from '@/src/features/today/DayTimelineCard';
 import { GoalGrid, GoalGridItem } from '@/src/features/goals/GoalGrid';
 import { duas, duasById } from '@/src/data/duas';
 import { duaPreview } from '@/src/i18n/duaText';
@@ -269,6 +270,8 @@ export default function TodayScreen() {
           </View>
         </View>
       </View>
+
+      <DayTimelineCard />
 
       <SectionTitle>{t.today.goalFocus}</SectionTitle>
       <GoalGrid>
